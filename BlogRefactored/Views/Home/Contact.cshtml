@@ -1,17 +1,16 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@using BlogRefactored.Models;
+@model TextsListViewModel
+@{
+    ViewBag.Title = "测试";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<ul>
+    @foreach(var item in Model.Texts)
+    {
+        @*<li>@Html.ActionLink((string)item.TextTitle,"Get",new { id = item.TextID })</li>*@
+        <li>@item.TextTitle</li>
+    }
+</ul>
+<p>显示当前第 @Model.Pages 页，共有 @Model.PageCount 页 （全站共计 @Model.TextsCount 篇文章）。</p>

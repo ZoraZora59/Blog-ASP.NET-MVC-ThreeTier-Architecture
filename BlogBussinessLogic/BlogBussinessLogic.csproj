@@ -44,5 +44,15 @@
     <Compile Include="BlogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlogModel\BlogModel.csproj">
+      <Project>{379C83A6-6A45-41D9-8492-BC5367B0E604}</Project>
+      <Name>BlogModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlogRepository\BlogRepository.csproj">
+      <Project>{8353AD21-A399-4ECF-9B8B-FAC62A5E817C}</Project>
+      <Name>BlogRepository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

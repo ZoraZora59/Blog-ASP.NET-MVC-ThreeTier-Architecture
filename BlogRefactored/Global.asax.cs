@@ -16,6 +16,16 @@ namespace BlogRefactored
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			//自动建立数据库，慎用
+			//using (var blogDbContext = new BlogRepository.MSSQL.BlogContext())
+			//{
+			//	blogDbContext.Database.CreateIfNotExists();
+			//}
+
+			ViewEngines.Engines.Clear();
+			ViewEngines.Engines.Add(new RazorViewEngine());
+			ViewEngines.Engines.Add(new WebFormViewEngine());
 		}
 	}
 }
