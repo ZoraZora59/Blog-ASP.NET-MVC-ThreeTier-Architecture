@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlogModel
 {
-    public class BlogText
+	public class BlogText
     {
 		[Key]
 		public int TextID { get; set; }//文章唯一标识
@@ -38,5 +35,7 @@ namespace BlogModel
 		[DisplayName("更新时间")]
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime TextChangeDate { get; set; }//更新时间
+
+		public virtual ICollection<BlogCommit> Commits { get; set; }
 	}
 }

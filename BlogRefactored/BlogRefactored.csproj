@@ -213,17 +213,17 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BlogBussinessLogic\BlogBussinessLogic.csproj">
+    <ProjectReference Include="..\BlogBussinessLogic\BlogBLL.csproj">
       <Project>{664868f3-39b5-4e36-b10f-080d116ada9c}</Project>
-      <Name>BlogBussinessLogic</Name>
+      <Name>BlogBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlogModel\BlogModel.csproj">
       <Project>{379c83a6-6a45-41d9-8492-bc5367b0e604}</Project>
       <Name>BlogModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BlogRepository\BlogRepository.csproj">
+    <ProjectReference Include="..\BlogRepository\BlogDAL.csproj">
       <Project>{8353ad21-a399-4ecf-9b8b-fac62a5e817c}</Project>
-      <Name>BlogRepository</Name>
+      <Name>BlogDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

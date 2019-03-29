@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BlogBussinessLogic;
+using BlogBLL;
 using BlogRefactored.Models;
 
 namespace BlogRefactored.Controllers
@@ -27,7 +27,7 @@ namespace BlogRefactored.Controllers
 			ViewBag.Message = "Your contact page.";
 			//TODO:设置每页显示的文章数量
 			int ViewCount = 3;
-			var manager = new BlogManager();
+			var manager = new BlogBLL.BlogBLL();
 			var Texts = manager.GetAllTexts().Select(Text => new TextDetailViewModel()
 			{
 				TextID = Text.TextID,

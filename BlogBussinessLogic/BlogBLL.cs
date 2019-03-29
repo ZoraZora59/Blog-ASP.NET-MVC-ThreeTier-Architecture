@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlogModel;
-using BlogRepository;
+using BlogDAL;
 
-namespace BlogBussinessLogic
+namespace BlogBLL
 {
-    public class BlogManager
+    public class BlogBLL
     {
-		private BlogRepository.BlogRepository repository = new BlogRepository.BlogRepository();
+		private BlogDAL.BlogDAL repository = new BlogDAL.BlogDAL();
 		public List<BlogText> GetAllTexts()
 		{
-			return repository.GetAll();
+			return repository.GetTextsAll();
 		}
 		public BlogText GetTextById(int id)
 		{
-			return repository.GetByID(id);
+			return repository.GetTextByID(id);
 		}
     }
 }

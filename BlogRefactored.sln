@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogRefactored", "BlogRefac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogModel", "BlogModel\BlogModel.csproj", "{379C83A6-6A45-41D9-8492-BC5367B0E604}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogBussinessLogic", "BlogBussinessLogic\BlogBussinessLogic.csproj", "{664868F3-39B5-4E36-B10F-080D116ADA9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogBLL", "BlogBussinessLogic\BlogBLL.csproj", "{664868F3-39B5-4E36-B10F-080D116ADA9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogRepository", "BlogRepository\BlogRepository.csproj", "{8353AD21-A399-4ECF-9B8B-FAC62A5E817C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogDAL", "BlogRepository\BlogDAL.csproj", "{8353AD21-A399-4ECF-9B8B-FAC62A5E817C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
