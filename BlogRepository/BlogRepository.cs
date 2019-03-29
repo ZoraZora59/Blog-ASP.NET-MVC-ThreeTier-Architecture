@@ -21,6 +21,7 @@ namespace BlogRepository
 				return this.textsLists;
 		}
     }
+	#region 数据库上下文组件
 	//[DbConfigurationType(typeof(System.Data.Entity.SqlServer.SqlProviderServices))]//添加与MSSQL类型相关的组件(默认)
 	public class BlogContext : DbContext
 	{
@@ -28,4 +29,6 @@ namespace BlogRepository
 		{ }
 		public DbSet<BlogText> BlogTexts { get; set; }
 	}
+
+	#endregion
 }
