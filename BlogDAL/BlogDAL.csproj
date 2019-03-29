@@ -7,8 +7,8 @@
     <ProjectGuid>{8353AD21-A399-4ECF-9B8B-FAC62A5E817C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlogRepository</RootNamespace>
-    <AssemblyName>BlogRepository</AssemblyName>
+    <RootNamespace>BlogDAL</RootNamespace>
+    <AssemblyName>BlogDAL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
