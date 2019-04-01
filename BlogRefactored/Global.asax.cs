@@ -18,14 +18,19 @@ namespace BlogRefactored
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 			//自动建立数据库，慎用
-			//using (var blogDbContext = new BlogRepository.MSSQL.BlogContext())
+			//using (var blogdbcontext = new BlogDAL.BlogContext())
 			//{
-			//	blogDbContext.Database.CreateIfNotExists();
+			//	blogdbcontext.Database.CreateIfNotExists();
 			//}
+
+			//AutoFac依赖注入
+			var container = IOC.BlogContainer.GetContainer();
+			DependencyResolver.SetResolver(new IOC.BlogDependencyResolver(container));
+			ControllerBuilder.Current.SetControllerFactory(new IOC.BlogControllerFactory(container));
 
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new RazorViewEngine());
-			ViewEngines.Engines.Add(new WebFormViewEngine());
+
 		}
 	}
 }
