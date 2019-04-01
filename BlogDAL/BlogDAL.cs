@@ -6,12 +6,12 @@ using BlogModel;
 
 namespace BlogDAL
 {
-    public class BlogDAL//数据访问层
+    public class BlogDAL:IDAL//数据访问层
     {
 		//操作模板    using (BlogContext db = new BlogContext())
 		public BlogDAL(){ }
 		#region 评论表相关
-		public void AddCommit(BlogCommit addThis)
+		public void AddCommit(BlogComment addThis)
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -31,28 +31,25 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				while(db.BlogCommits.FirstOrDefault(c=>c.TextID==tid)!=null)
-				{
-					db.BlogCommits.Remove(db.BlogCommits.First(c => c.TextID == tid));
-					db.SaveChanges();
-				}
+				db.BlogCommits.RemoveRange(db.BlogCommits.Where(c => c.TextID == tid));
+				db.SaveChanges();
 			}
 		}
-		public BlogCommit GetCommitNew()
+		public BlogComment GetCommitNew()
 		{
 			using (BlogContext db = new BlogContext())
 			{
 				return db.BlogCommits.Last();
 			}
 		}
-		public List<BlogCommit> GetCommitsByTextID(int tid)
+		public List<BlogComment> GetCommitsByTextID(int tid)
 		{
 			using (BlogContext db = new BlogContext())
 			{
 				return db.BlogCommits.Where(c => c.TextID == tid).ToList();
 			}
 		}
-		public List<BlogCommit> GetCommitsAll()
+		public List<BlogComment> GetCommentsAll()
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -65,12 +62,7 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				List<BlogCommit> commitsList = db.BlogUsers.Find(account).Commits.ToList();
-				while (commitsList != null)//删除相关评论
-				{
-					commitsList.ForEach(d => db.BlogCommits.Remove(d));//TODO:测试是否正常工作
-					db.SaveChanges();
-				}
+				db.BlogCommits.RemoveRange(db.BlogCommits.Where(c => c.Account == account));
 				db.BlogUsers.Remove(db.BlogUsers.Find(account));
 				db.SaveChanges();
 			}
@@ -80,7 +72,7 @@ namespace BlogDAL
 			using (BlogContext db = new BlogContext())
 			{
 				BlogUser item = db.BlogUsers.Find(account);
-				item = updateThis;//安全性保证在业务逻辑层处理
+				item = updateThis;//Warning:安全性保证在业务逻辑层处理
 				db.SaveChanges();
 			}
 		}
@@ -112,7 +104,7 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				List<BlogCommit>commitsList = db.BlogTexts.Find(textID).Commits.ToList();
+				List<BlogComment>commitsList = db.BlogTexts.Find(textID).Commits.ToList();
 				while(commitsList!=null)//删除相关评论
 				{
 					commitsList.ForEach(d => db.BlogCommits.Remove(d));//TODO:测试是否正常工作
@@ -154,7 +146,6 @@ namespace BlogDAL
 			}
 		}
 		#endregion
-
 	}
 	#region 数据库上下文组件
 	//[DbConfigurationType(typeof(System.Data.Entity.SqlServer.SqlProviderServices))]//添加与MSSQL类型相关的组件(默认)
@@ -164,7 +155,7 @@ namespace BlogDAL
 		{ }
 		public DbSet<BlogText> BlogTexts { get; set; }
 		public DbSet<BlogUser> BlogUsers { get; set; }
-		public DbSet<BlogCommit> BlogCommits { get; set; }
+		public DbSet<BlogComment> BlogCommits { get; set; }
 	}
 
 	#endregion

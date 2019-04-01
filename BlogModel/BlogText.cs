@@ -36,6 +36,6 @@ namespace BlogModel
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime TextChangeDate { get; set; }//更新时间
 
-		public virtual ICollection<BlogCommit> Commits { get; set; }
+		public virtual ICollection<BlogComment> Commits { get; set; }
 	}
 }

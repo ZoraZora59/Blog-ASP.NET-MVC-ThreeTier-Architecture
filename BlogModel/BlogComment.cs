@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogModel
 {
-	public class BlogCommit
+	public class BlogComment
 	{
 		[Key]
-		public int CommitID { get; set; }//评论唯一标识
+		public int CommmentID { get; set; }//评论唯一标识
 
 		[Required]
 		public int TextID { get; set; }//评论所在文章
@@ -19,10 +19,10 @@ namespace BlogModel
 
 		[Required]
 		[MaxLength(100)]
-		public string CommitText { get; set; }//内容
+		public string CommentText { get; set; }//内容
 
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-		public DateTime CommitChangeDate { get; set; }//更新日期
+		public DateTime CommentChangeDate { get; set; }//更新日期
 
 		public virtual BlogUser User { get; set; }
 		public virtual BlogText Text { get; set; }

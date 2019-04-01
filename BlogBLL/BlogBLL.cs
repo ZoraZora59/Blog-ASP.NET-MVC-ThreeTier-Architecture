@@ -8,7 +8,7 @@ using BlogDAL;
 
 namespace BlogBLL
 {
-    public class BlogBLL
+    public class BlogBLL:IBLL
     {
 		private BlogDAL.BlogDAL repository = new BlogDAL.BlogDAL();
 		public List<BlogText> GetAllTexts()

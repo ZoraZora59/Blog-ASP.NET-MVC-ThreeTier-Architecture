@@ -20,6 +20,6 @@ namespace BlogModel
 		[MaxLength(64)]
 		public string Name { get; set; }
 
-		public virtual ICollection<BlogCommit> Commits { get; set; }
+		public virtual ICollection<BlogComment> Commits { get; set; }
 	}
 }
