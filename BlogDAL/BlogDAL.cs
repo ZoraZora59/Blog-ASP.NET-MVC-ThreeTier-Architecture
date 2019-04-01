@@ -27,6 +27,14 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
+		public void DelCommitByAccount(string Account)
+		{
+			using (BlogContext db = new BlogContext())
+			{
+				db.BlogCommits.RemoveRange(db.BlogCommits.Where(c => c.Account == Account));
+				db.SaveChanges();
+			}
+		}
 		public void DelCommitByTextID(int tid)
 		{
 			using (BlogContext db = new BlogContext())
