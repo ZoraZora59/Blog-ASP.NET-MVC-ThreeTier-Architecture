@@ -19,11 +19,13 @@ namespace BlogBLL
             var res = repository.GetUserByAccount(addOne.Account);
             if (res == null)
             {
-                BlogModel.BlogUser NewBlog = new BlogModel.BlogUser();
-                NewBlog.Account = addOne.Account;
-                NewBlog.Password = md5tool.GetMD5(addOne.Password);
-                NewBlog.Name = addOne.Name;
-                repository.AddUser(NewBlog);
+				BlogUser NewBlog = new BlogUser
+				{
+					Account = addOne.Account,
+					Password = md5tool.GetMD5(addOne.Password),
+					Name = addOne.Name
+				};
+				repository.AddUser(NewBlog);
                 isRegist = true;
                 return isRegist;
             }
@@ -33,9 +35,9 @@ namespace BlogBLL
         public BlogModel.BlogUser Login (ViewModels.LoginUser LogOne)
         {
 
-            BlogModel.BlogUser LoginData = new BlogModel.BlogUser();
+            BlogUser LoginData = new BlogModel.BlogUser();
             LogOne.Password = md5tool.GetMD5(LogOne.Password);
-            BlogModel.BlogUser temp = repository.GetUserByAccount(LogOne.Account);
+			BlogUser temp = repository.GetUserByAccount(LogOne.Account);
             if (temp == null)
             {
                 return temp;

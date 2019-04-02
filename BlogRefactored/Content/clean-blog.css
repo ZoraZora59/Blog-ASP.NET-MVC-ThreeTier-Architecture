@@ -278,6 +278,12 @@ header.masthead .post-heading .meta a {
   margin-bottom: 10px;
 }
 
+.post-preview > a > .post-firstview {
+    width: 95%;
+    font-weight: 200;
+    margin: 0 0 10px
+}
+
 .post-preview > a > .post-subtitle {
     width:95%;
     font-weight: 300;

@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using BlogModel;
 using BlogDAL;
 #region 必读内容
-//
-//这里仅作为测试DEMO
-//
-//实际项目并不使用这部分内容
-//
-//TODO:测试完了删掉
-//
+
+/// <summary>
+///		这里仅作为测试DEMO
+///
+///		实际项目并不使用这部分内容
+///
+///		TODO:测试完了删掉
+/// </summary>
 
 namespace BlogBLL
 {

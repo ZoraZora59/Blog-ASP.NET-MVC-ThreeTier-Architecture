@@ -11,7 +11,6 @@
     //判断是否移动端访问
     browserRedirect();
     function browserRedirect() {
-        alert('In checkin');
         var sUserAgent = navigator.userAgent.toLowerCase();
         var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
         var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
@@ -22,6 +21,9 @@
         var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
         var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
         if ((bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+            window.location.href = "/home/mindex";
+        }
+        if (document.documentElement.clientWidth < 800) {
             window.location.href = "/home/mindex";
         }
     }

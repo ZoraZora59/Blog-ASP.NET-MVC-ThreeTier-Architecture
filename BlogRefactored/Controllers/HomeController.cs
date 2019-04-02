@@ -36,6 +36,10 @@ namespace BlogRefactored.Controllers
             
         }
 
+		public ActionResult MIndex(int? page)
+		{
+			return View(home.GetIndex(page));
+		}
 
         [HttpGet]
         public ActionResult Register()//注册的页面显示

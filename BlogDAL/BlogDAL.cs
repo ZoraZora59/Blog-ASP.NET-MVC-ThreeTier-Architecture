@@ -16,7 +16,7 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogComments.Add(addThis);
+				db.BlogComments.Add(new BlogComment { Account = addThis.Account, CommentText = addThis.CommentText, TextID = addThis.TextID });
 				db.SaveChanges();
 			}
 		}

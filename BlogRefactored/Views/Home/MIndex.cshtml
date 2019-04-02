@@ -9,6 +9,15 @@
     ViewBag.Title = config.Name;
     ViewBag.Sign = config.Sign;
 }
+<script type="text/javascript">
+    //判断是否移动端访问
+    browserRedirect();
+    function browserRedirect() {
+        if (document.documentElement.clientWidth > 801) {
+            window.location.href = "/home";
+        }
+    }
+</script>
 <div class="container" >
     <div class="row">
         <!--↓↓↓↓断字问题在这里处理↓↓↓↓-->
@@ -21,10 +30,10 @@
                         <h2 class="post-title">
                             @item.TextTitle
                         </h2>
-                        <h3 class="post-subtitle">
+                        <h5 class="post-subtitle">
                             @*TODO:处理断字问题*@
                             @item.FirstView
-                        </h3>
+                        </h5>
                     </a>
                     <p class="post-meta">
                         阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(@item.CategoryName.ToString())
@@ -50,12 +59,12 @@
                     if (Model.PageCount > Model.PageNumber)
                     {
                         ViewBag.Prev = Model.PageNumber + 1;
-                        <a class="btn btn-primary float-right" href="http://localhost:42184/home/mindex?page=@ViewBag.Prev">Next  &rarr;</a>
+                        <a class="btn btn-primary float-right" href="/home/mindex?page=@ViewBag.Prev">Next  &rarr;</a>
                     }
                     if (Model.PageNumber > 1)
                     {
                         ViewBag.Next = Model.PageNumber - 1;
-                        <a class="btn btn-primary float-left" href="http://localhost:42184/home/mindex?page=@ViewBag.Next">&larr;  Pre</a>
+                        <a class="btn btn-primary float-left" href="/home/mindex?page=@ViewBag.Next">&larr;  Pre</a>
                     }
                 }
             </div>
