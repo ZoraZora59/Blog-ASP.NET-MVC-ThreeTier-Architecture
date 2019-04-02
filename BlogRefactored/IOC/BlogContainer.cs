@@ -15,6 +15,7 @@ namespace BlogRefactored.IOC
 			//将组件加入容器
 			builder.RegisterType<BlogBLL.BlogBLL>();
 			builder.RegisterType<BlogBLL.BlogManager>();
+            builder.RegisterType<BlogBLL.BlogGuests>();
 
 			builder.RegisterType<Controllers.ManageController>();
 			builder.RegisterType<Controllers.HomeController>();
