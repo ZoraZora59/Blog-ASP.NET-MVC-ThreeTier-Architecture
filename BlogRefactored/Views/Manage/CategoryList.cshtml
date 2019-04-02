@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "CategoryList";
+    Layout = "~/Views/Shared/_LayoutPageManage.cshtml";
+}
+<link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
+<div data-options="region:'center'" id="tt">
+    <table id="dg" class="easyui-datagrid" style="width:100%;height:80%"
+           url="/manage/LoadCategoryList"
+           toolbar="#toolbar" pagination="true"
+           rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="CategoryName" width="50" >分类名称</th>
+                <th field="TextCount" width="50" align="center">文章数</th>
+                <th field="CategoryHot" width="50" align="center">总热度</th>
+                <th data-options="field:'_operate',width:90,align:'center',formatter:formatOper">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/javascript">
+    function formatOper(val, row, index) {
+        return '<button class="btn btn-outline-primary" plain="true" onclick=\'editCategory(\"' + row.CategoryName + '\")\'>修改分类名</button> <button class="btn btn-outline-primary" plain="true" onclick=\'showCategory(\"' + row.CategoryName + '\")\'>分类详情</button> <button class="btn btn-outline-danger" plain="true" onclick=\'deleteCategory(\"' + row.CategoryName + '\")\'>删除此分类</button>';
+    }
+
+    function editCategory(c) {
+        window.location.href = "/Manage/RenameCategory?CategoryName=" + c;
+    }
+    function showCategory(c) {
+        window.location.href = "/Manage/CategoryDetail?CategoryName=" + c;
+    }
+    function deleteCategory(c) {
+       
+        $.messager.confirm('删除确认', '确定要删除此分类吗?', function (r) {
+            
+            if (r) {
+                $.ajax({
+                    ajax: false,
+                    type: "POST",//FromMetho
+                    url: "/Manage/DeleteCategory",//"/Controller/Action"
+                    data: { CategoryName: c },//参数 "参数名："参数值""
+                    datatype: 'html',
+                    error: function (data) {
+                        alert('删除失败');
+                        window.location.href = "/Manage/CategoryList";
+                    },
+                    success: function () {
+                        alert('删除成功');
+                        window.location.href = "/Manage/CategoryList";
+                    }
+                });
+            }
+        });
+    }
+</script>

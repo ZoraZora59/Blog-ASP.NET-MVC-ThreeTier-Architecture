@@ -1,0 +1,172 @@
+﻿@model IEnumerable<NewBeeBlog.ViewModels.TextListsHot>
+@{
+    var configinfo = ViewBag.Config as NewBeeBlog.ViewModels.BlogConfig;
+    var timesort = ViewBag.timesort as IEnumerable<NewBeeBlog.ViewModels.TextListsHot>;
+    var categroyList = ViewBag.categroyList;
+    var newestCom = ViewBag.newestCom;
+}
+
+<div id="sideBar">
+    <div id="sideBarMain">
+
+        <!--done-->
+        <div class="newsItem">
+            <h3 class="catListTitle">公告</h3>
+            <div id="blog-news">
+                <div id="profile_block">
+                    @configinfo.Note
+                </div>
+            </div>
+        </div>
+        <script src="~/front/js/calendar.js"></script>
+        <div id='calen'></div>
+        <script>
+            //只需实例化calendar实例即可，传入的参数为html对象的id，举个例子如下
+            new calendar('calen');
+        </script>
+
+
+        <div id="leftcontentcontainer">
+            <div id="blog-sidecolumn">
+                <div id="sidebar_search" class="sidebar-block">
+                    <div id="sidebar_search" class="mySearch">
+                        <h3 class="catListTitle">搜索</h3>
+                        <div id="sidebar_search_box">
+                            @using (Html.BeginForm("SearchResult", "Home", FormMethod.Post))
+                            {
+                                <div id="widget_my_zzk" class="div_my_zzk">
+                                    @Html.TextBox("searchthing", "", new { @class = "input_my_zzk", @id = "q" })
+                                    <input type="submit" value="搜搜看" id="btnZzk" class="btn_my_zzk" />
+                                </div>
+                            }
+                            <div id="widget_my_google" class="div_my_zzk">
+                                <input type="text" name="google_q" id="baidu_q" class="input_my_zzk">
+                                <input onclick="baidu_go()" type="button" value="百度搜索" class="btn_my_zzk">
+                            </div>
+                            <script>
+                                function baidu_go() {
+                                    var keyword = document.getElementById("baidu_q").value;
+                                    window.location.href = "https://www.baidu.com/s?ie=UTF-8&wd=" + keyword;
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar_shortcut" class="sidebar-block">
+                    <div class="catListLink">
+                        <h3 class="catListTitle">常用链接</h3>
+                        <ul>
+                            <li><a href="https://www.cnblogs.com/jackchensir/p/" title="我的博客的随笔列表">我的随笔</a></li>
+                            <li><a href="https://www.cnblogs.com/jackchensir/MyComments.html" title="我发表过的评论列表">我的评论</a></li>
+                            <li><a href="https://www.cnblogs.com/jackchensir/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+                            <li><a href="https://www.cnblogs.com/jackchensir/RecentComments.html" title="我的博客的评论列表">最新评论</a></li>
+                            <li><a href="https://www.cnblogs.com/jackchensir/tag/" title="我的博客的标签列表">我的标签</a></li>
+                        </ul>
+                        <div id="itemListLin_con" style="display:none;">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div><div id="sidebar_toptags" class="sidebar-block"></div>
+                <div id="sidebar_categories">
+                    <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+                        <h3 class="catListTitle">分类查找</h3>
+
+                        <ul>
+
+                            @for (int i = 0; i < @categroyList.Count; i++)
+                            {
+                                <li><a id="CatList_LinkList_0_Link_0" href="/home/CategroyBlog?categroyname=@categroyList[i]">@categroyList[i]</a> </li>
+                            }
+
+
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div id="sidebar_recentcomments" class="sidebar-block">
+                    <div id="recent_comments_wrap">
+                        <div class="catListComment">
+                            <h3 class="catListTitle">最新评论</h3>
+
+                            <div id="RecentCommentsBlock">
+                                @if (@newestCom.Content == null)
+                                {
+                                <ul>
+                                    <li class="recent_comment_title">
+                                        暂无评论
+                                    </li>
+                                </ul>
+                                }
+                                else
+                                {
+                                    <ul>
+
+                                        <li class="recent_comment_title"><a href="/home/blog/@newestCom.TextId">Re:@newestCom.TextTitle</a></li>
+                                        <li class="recent_comment_body">@newestCom.Content</li>
+                                        <li class="recent_comment_author">---@newestCom.Name</li>
+
+                                    </ul>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar_topviewedposts" class="sidebar-block">
+                    <div id="topview_posts_wrap">
+                        <div class="catListView">
+                            <h3 class="catListTitle">阅读排行榜</h3>
+                            <div id="TopViewPostsBlock">
+                                <ul>
+                                    @foreach (var item in Model)
+                                    {
+                                        <li><a href="/home/blog/@item.TextID">@item.TextTitle (@item.Hot)</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar_topviewedposts" class="sidebar-block">
+                    <div id="topview_posts_wrap">
+                        <div class="catListView">
+                            <h3 class="catListTitle">最新博文</h3>
+                            <div id="TopViewPostsBlock">
+                                <ul>
+                                    @foreach (var item in timesort)
+                                    {
+                                        <li><a href="/home/blog/@item.TextID">@item.TextTitle (@item.Hot)</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar_topcommentedposts" class="sidebar-block">
+                    <div id="topfeedback_posts_wrap">
+                        <div class="catListFeedback">
+                            <h3 class="catListTitle">评论排行榜</h3>
+                            @if (ViewBag.TopComList != null)
+                            {
+                                foreach (var item in ViewBag.TopComList)
+                                {
+                                    <div id="TopFeedbackPostsBlock"><ul><li><a href="/home/blog/@item.TextID">@item.Num . @item.TextTitle (@item.CmtCount)</a></li></ul></div>
+                                }
+                            }
+                            else
+                            {
+                                <div id="TopFeedbackPostsBlock"><ul><li>小站新建，目前暂无文章，致歉</li></ul></div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <script async='async' src='https://www.baidutagservices.com/tag/js/gpt.js'></script>
+
+        </div>
+
+    </div><!--end: sideBarMain -->
+</div><!--end: sideBar 侧边栏容器 -->

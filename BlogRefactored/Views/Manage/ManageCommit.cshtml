@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BlogBLL.ViewModels.ShowCommit>
+@{
+    ViewBag.Title = "ManageCommit";
+    Layout = "~/Views/Shared/_LayoutPageManage.cshtml";
+}
+<link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
+<div data-options="region:'center'" id="tt">
+    <table id="dg" class="easyui-datagrid" style="width:100%;height:80%"
+           url="/manage/LoadCommit"
+           toolbar="#toolbar" pagination="true"
+           rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="TextId" width="15" align="center">文章索引</th>
+                <th field="Account" width="20">用户账号</th>
+                <th field="Name" width="20">用户昵称</th>
+                <th field="Content" width="200">评论内容</th>
+                <th field="Date" width="50" align="center">评论时间</th>
+                <th data-options="field:'_operate',width:40,align:'center',formatter:formatOper">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<script type="text/javascript">
+    function formatOper(val, row, index) {
+        return '<button class="btn btn-outline-danger" onclick=\'deleteCommit(' + row.Id + ')\' >删除此评论</button>';
+    }
+
+    function deleteCommit(cid) {//TODO:添加删除评论的实现方法
+        alert('成功进入');
+        $.ajax({
+            ajax: false,
+            type: "POST",//FromMethod
+            url: "/Home/DeleteCommit",//"/Controller/Action"
+            data: { CommitID: cid },//参数 "参数名："参数值""
+            datatype: 'html',
+            error: function () {
+                alert('删除成功');
+            }
+        });
+        window.location.href = "/Manage/ManageCommit";
+    }
+
+</script>

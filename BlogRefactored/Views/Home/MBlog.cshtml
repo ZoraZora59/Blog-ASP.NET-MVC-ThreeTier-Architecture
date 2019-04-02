@@ -1,0 +1,200 @@
+﻿@model NewBeeBlog.Models.TextList
+@{
+    ViewBag.Title = Model.TextTitle;
+    ViewBag.Sign = "Post on " + Model.TextChangeDate.ToString();
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+    var currentLoginInfo = ViewBag.currentLoginInfo == null ? null : ViewBag.currentLoginInfo;
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="~/front/EasyUi/jquery.min.js"></script>
+<script src="~/front/EasyUi/jquery.easyui.min.js"></script>
+<link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
+<!--先引用jquery.min再引用jquery-->
+<script type="text/javascript"></script>
+<!DOCTYPE html>
+<style>
+    .rtt {
+        padding-left: 60%;
+    }
+    .rtb {
+        padding-left: 85%;
+    }
+</style>
+<div id="main">
+    <div id="mainContent">
+        <div class="forFlow">
+            <div id="post_detail">
+                <!--done-->
+                <div id="topics">
+                    <div class="post">
+                        <div class="rtt">
+                            <img src="~/front/images/阅读量1.png" />阅读(<span id="post_view_count">@Model.Hot</span>)
+                            &nbsp;
+                            <img src="~/front/images/评论.png" />评论(<span id="post_comment_count">@ViewBag.CmtList.Count</span>)
+                        </div>
+                        <div class="clear"></div>
+                        <div lass="container">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-10 mx-auto" style="width:90%">
+                                    <HR width="90%" color=#83888d 9 SIZE=1>
+                                    <span>
+                                        @Html.Raw(Model.Text)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<script type="text/javascript">var allowComments = true, cb_blogId = 373006, cb_entryId = 7732035, cb_blogApp = currentBlogApp, cb_blogUserGuid = '3ff15543-f10c-4db9-6b2d-08d49c352df3', cb_entryCreatedDate = '2017/10/25 20:05:00'; loadViewCount(cb_entryId); var cb_postType = 1; var isMarkdown = false;</script>*@
+
+                </div><!--end: topics 文章、评论容器-->
+            </div>
+            <div class="container" style="width:90%">
+                <HR width="100%" color=#83888d 9>
+                <a name="!comments"></a>
+                <div id="blog-comments-placeholder">
+                    <div id="comments_pager_top"></div>
+                    <br>
+                    <div class="feedback_area_title">
+                        <img src="~/front/images/评论4.png" /><font size="5">评论列表</font>
+                    </div>
+                    <div class="feedbackNoItems"></div>
+                    @if (ViewBag.CmtList.Count == 0)
+                    {
+                        <div class="feedbackItem">
+                            <div class="feedbackListSubtitle">
+                                <div class="feedbackManage">
+                                    &nbsp;&nbsp;<span class="comment_actions"></span>
+                                </div>
+                                <div>此文章目前暂无评论</div>
+                                <p></p>
+                                <p></p>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in ViewBag.CmtList)
+                        {
+                            <div class="feedbackItem">
+                                <div class="feedbackListSubtitle">
+                                    <div class="rtb">
+                                        <span class="comment_actions">
+                                            @if (@currentLoginInfo != null)
+                                            {
+                                                if (@item.Account == @currentLoginInfo.Account)
+                                                {
+                                                    <span style="display:none">@item.Account</span>
+                                                    <button class="btn btn-secondary" onclick="deleteCommit('@Model.TextID','@item.Id')">删</button>
+                                                }
+                                            }
+                                        </span>
+                                    </div>
+                                    <div style="display:none">@item.Id</div>
+                                    <div>#@item.Num 楼</div>
+                                    <p></p>
+                                    <div>
+                                        <span class="comment_date">@item.Date.ToString()</span>
+                                        <img src="~/front/images/用户.png" />
+                                        <span target="_blank">@item.Name</span>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="feedbackCon">
+                                    <div id="comment_body_3822567" class="blog_comment_body">@item.Content</div>
+                                </div>
+                            </div>
+                            <HR width="100%" color=#169fe6 9>
+                        }
+                    }
+                    <div id="comments_pager_bottom"></div>
+                </div>
+            </div>
+            
+        <div class="container" style="width:90%">
+            <div id="comment_form" class="commentform">
+                <a name="commentform"></a>
+                <div id="divCommentShow"></div>
+                <div id="comment_nav"><a href="#top">返回顶部</a></div>
+                <div id="comment_form_container">
+                    @if (currentLoginInfo == null)
+                    {
+
+                        <div class="login_tips">
+                            注册用户登录后才能发表评论，请 <a rel="nofollow" href="~/manage/login" class="bold">登录</a>或 <a rel="nofollow" href="~/manage/register" class="bold">注册</a>，<a href="~/home" class="bold">访问</a>博客主页。
+                        </div>
+
+                    }
+                    else
+                    {
+                        <form>
+
+                            <div id="comment_form_container">
+                                <script type="text/javascript" src="%E5%8D%9A%E6%96%873_files/mention.js"></script>
+
+                                <div id="commentform_title"><img src="~/front/images/评论大.png" />发表评论</div>
+                                <span id="tip_comment" style="color:Red"></span>
+                                <input type="hidden" value="@currentLoginInfo.Account" name="Account" />
+                                <input type="hidden" value=@Model.TextID name="TextID" />
+                                <p>
+                                    昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="30" value="@currentLoginInfo.Name" style="width:200px;font-size:18px;">
+                                </p>
+                                <p></p>
+                                <div class="commentbox_main">
+                                    <div>评论内容：</div>
+                                    <textarea id="txt" style="width:80%;height:100px;resize:vertical"></textarea>
+                                </div>
+                                <p id="commentbox_opt">
+                                    <input type="button" name="button" class="btn btn-primary" onclick="submitCommit('@Model.TextID','@currentLoginInfo.Account')" value="提交评论">
+                                </p>
+                                <div id="tip_comment2" style="color:Red"></div>
+                                <p></p>
+                                <div style="display:none">
+                                    <span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+                                    <span id="span_parent_id"></span>
+                                    <span id="span_comment_replyto"></span>
+                                    <span id="span_comment_posted"></span>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </div>
+                <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+                <div id="opt_under_post"></div>
+            </div>
+        </div>
+        </div><!--end: forFlow -->
+    </div><!--end: mainContent 主体内容容器-->
+    <div class="clear"></div>
+</div><!--end: main -->
+<script>
+    function submitCommit(tid, act) {
+        var txt = document.getElementById('txt').value;
+        //alert(txt);
+        $.ajax({
+            ajax: false,
+            type: 'POST',
+            url: "/Home/AddCommit",
+            data: { TextID: tid, Account: act, Content: txt },
+            datatype: 'html',
+            success: function () {
+                alert('评论失败，可能是字数过长，试着分成几段评论吧');
+            }
+        });
+        window.location.href = "/home/MBlog/" + tid;
+    }
+    function deleteCommit(tid, cid) {//TODO:添加删除评论的实现方法
+        //alert('成功进入');
+        $.ajax({
+            ajax: false,
+            type: "POST",//FromMethod
+            url: "/Home/DeleteCommit",//"/Controller/Action"
+            data: { CommitID: cid },//参数 "参数名："参数值""
+            datatype: 'html',
+            error: function () {
+                alert('删除成功');
+            }
+        });
+        window.location.href = "/home/Mblog/" + tid;
+    }
+</script>

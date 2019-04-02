@@ -1,0 +1,48 @@
+﻿@model IEnumerable<NewBeeBlog.ViewModels.TextIndex>
+@{
+    ViewBag.Title = "搜索结果";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var searaching = ViewBag.searching;
+}
+<link href="~/front/搜索找不到_files/github-52cbcc40dcd4c1570226a72b3df60ecf.css" rel="stylesheet" />
+@if (Model.Count()==0)
+{
+    <div class="blankslate">
+        <svg height="32" class="octicon octicon-search blankslate-icon" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path></svg>
+        <h3>
+            Sorry,We couldn’t find any repositories matching '@searaching'
+        </h3>
+
+        You could try an <a href="https://www.baidu.com">advanced search</a>.
+    </div>
+}
+
+@foreach (var item in Model)
+{ 
+    <div class="day">
+        <div class="dayTitle">
+            <a id="homepage1_HomePageDays_DaysList_ctl00_ImageLink">@item.TextChangeDate.ToString()</a>
+        </div>
+        <div class="postTitle">
+            <a id="homepage1_HomePageDays_DaysList_ctl00_DayList_TitleUrl_0" class="postTitle2" href="/home/blog/@item.TextID">@Html.Raw(item.TextTitle)</a>
+        </div>
+        <div class="postCon">
+            <div class="c_b_p_desc">
+                @if (item.FirstView.Length < 100)
+                {
+                    @item.FirstView
+                }
+                else
+                {
+                    @item.FirstView
+                    <a href="/home/blog/@item.TextID">阅读全文</a>
+                }
+            </div>
+        </div>
+
+        <div class="postDesc">发布于 @item.TextChangeDate.ToString() NewbeeBlog 阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(@item.CategoryName.ToString())  </div>
+        <div class="clear"></div>
+    </div>
+}
+
+

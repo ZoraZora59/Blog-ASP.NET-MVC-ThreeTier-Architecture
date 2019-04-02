@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -60,6 +60,7 @@ namespace BlogBLL.ViewModels
 		public string Content { get; set; }//内容
 		public string Date { get; set; }//发布时间
 	}
+
 	public class BlogConfig//博客配置文件
 	{
 		[MaxLength(15)]

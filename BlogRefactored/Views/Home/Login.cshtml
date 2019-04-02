@@ -1,0 +1,111 @@
+﻿@model BlogBLL.ViewModels.LoginUser
+@{
+    ViewBag.Title = "用户登录";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="~/front/css/login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <title>登录</title>
+</head>
+
+<body>
+    @Html.Hidden("msg", Request.QueryString["msg"], new { @id = "msg" })
+    <h1><font color="#0081c1">个人博客后台登录</font></h1>
+
+    <div class="login" style="margin-top:30px;">
+
+        <div class="header">
+            <div class="switch" id="switch">
+                <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
+            </div>
+        </div>
+
+
+        <div class="web_qr_login" id="web_qr_login" style="display: block; height: 288px;">
+
+            <!--登录-->
+            <div class="web_login" id="web_login">
+
+
+                <div class="login-box">
+
+
+                    <div class="login_form">
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                        {
+                            <ul class="reg_form" id="reg-ul">
+
+                                <li>
+
+                                    <label for="user" class="input-tips2">用户名：</label>
+                                    <div class="inputOuter2">
+                                        @Html.TextBoxFor(m => m.Account, new { @class = "inputstyle2", placeholder = "请输入用户名或邮箱" })
+                                        @Html.ValidationMessageFor(m => m.Account)
+                                    </div>
+
+                                </li>
+
+                                <li>
+                                    <label for="passwd" class="input-tips2">密码：</label>
+                                    <div class="inputOuter2">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "inputstyle2", placeholder = "请输入密码" })
+                                        @Html.ValidationMessageFor(m => m.Password)
+                                    </div>
+
+                                </li>
+
+
+                                <li>
+                                    <label for="user" class="input-tips2">验证码：</label>
+                                    <div class="inputOuter3">
+
+                                        @Html.TextBoxFor(m => m.Code, new { @class = "inputstyle3" })
+                                        @Html.ValidationMessageFor(m => m.Code)
+                                    </div>
+                                    <img src="/home/ValidateCode/" style="position:relative;left:150px;">
+                                </li>
+
+                                <div style="padding-left:50px;margin-top:20px;"><input type="submit" value="登 录" style="width:200px;" class="button_blue" /></div>
+
+
+                            </ul>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+            <!--登录end-->
+            <div class="text-foot">
+                还没有注册账号? <a href="~/Home/Register">点击注册</a>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/grain/canvas-nest.js"></script>
+    <canvas id="c_n1"></canvas>
+    <script>
+        $(function () {
+            var val = $("#msg").val();
+            if (val != "") {
+                if (confirm(val)) {
+                    window.history.go(-1);
+                }
+
+            }
+        })
+    </script>
+
+</body>
+</html>
+
+

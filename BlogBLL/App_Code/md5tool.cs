@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 
-namespace NewBeeBlog.App_Code
+namespace BlogBLL.App_Code
 {
     public class md5tool
     {

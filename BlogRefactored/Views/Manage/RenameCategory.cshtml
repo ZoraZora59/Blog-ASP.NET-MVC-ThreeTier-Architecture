@@ -1,0 +1,48 @@
+﻿<script src="~/front/EasyUi/jquery.min.js"></script>
+<script src="~/front/EasyUi/jquery.easyui.min.js"></script>
+<!--先引用jquery.min再引用jquery-->
+<script src="~/front/EasyUi/locale/easyui-lang-zh_CN.js"></script>
+<link href="~/front/EasyUi/themes/gray/easyui.css" rel="stylesheet" />
+<link href="~/front/EasyUi/themes/icon.css" rel="stylesheet" />
+<script type="text/javascript"></script>
+
+<div>
+    <h2>
+        @ViewBag.title
+    </h2>
+</div>
+<hr />
+<div>
+    分类名：<span>@ViewBag.Name</span>
+</div>
+<div>
+    新命名：<input type="text" id="Nnew" />
+</div>
+<div>
+    <button class="button_blue" onclick="rename('@ViewBag.Name')">确认更名</button>
+    @Html.ActionLink("返回列表", "CategoryList")
+</div>
+<script>
+    function rename(old) {
+        var NameString = document.getElementById('Nnew').value;
+        NameString = old + ',' + NameString;
+        $.messager.confirm('更名确认', '更名操作无法回退，确定要更改分类名吗?', function (r) {
+            if (r) {
+                $.ajax({
+                    ajax: false,
+                    type: "POST",//FromMetho
+                    url: "/Manage/JSRenameCategory",//"/Controller/Action"
+                    data: { NameChanging: NameString },//参数 "参数名："参数值""
+                    datatype: 'html',
+                    success: function (data) {
+                        alert('更名成功');
+                        window.location.href = "/Manage/CategoryList";
+                    },
+                    error: function () {
+                        alert('更名失败');
+                    }
+                });
+            }
+        });
+    }
+</script>
