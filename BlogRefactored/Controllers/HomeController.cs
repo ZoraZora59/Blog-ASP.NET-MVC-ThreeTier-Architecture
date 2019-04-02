@@ -84,14 +84,15 @@ namespace BlogRefactored.Controllers
                 {
                     return RedirectToAction("Login", "Home", new { msg = "验证码错误！请重新输入" });
                 }
-                if (home.Login(model) == null)
+                BlogUser LoginModel = home.Login(model);
+                if (LoginModel == null)
                 {
                     return RedirectToAction("Login", "Home", new { msg = "账号或密码不正确，是否重新登陆？" });
 
                 }
                 else
                 {
-                    Session["loginuser"] = home.Login(model);
+                    Session["loginuser"] = LoginModel;
                     return Redirect("/");
                 }
             }
@@ -165,6 +166,9 @@ namespace BlogRefactored.Controllers
         [HttpGet]
         public ActionResult Blog(int id)
         {
+            var currentLoginUser = Session["loginuser"] == null ? null : (BlogUser)Session["loginuser"];
+            ViewBag.currentLoginInfo = currentLoginUser;
+
             var model = home.GetBlog(id);
             var cmt = home.GetBlogComment(id);
             ViewBag.CmtList = cmt;
