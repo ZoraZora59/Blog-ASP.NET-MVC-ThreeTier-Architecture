@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\SideController.cs" />
     <Compile Include="IOC\DependencyResolver.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -156,10 +157,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="config\blogconfig.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -1435,6 +1433,7 @@
     <Content Include="kindeditor\lib\firebug-lite\build\chrome-extension\manifest.json" />
     <Content Include="kindeditor\lib\firebug-lite\build\compress.bat" />
     <Content Include="kindeditor\package.json" />
+
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\grain\canvas-nest.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1489,6 +1488,15 @@
     <Content Include="Views\Manage\Show.cshtml" />
     <Content Include="Views\Manage\TextList.cshtml" />
     <Content Include="Views\Shared\_LayoutPageManage.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Home\CategroyBlog.cshtml" />
+    <Content Include="Views\Home\ChangeInfo.cshtml" />
+    <Content Include="Views\Home\MBlog.cshtml" />
+    <Content Include="Views\Home\MIndex.cshtml" />
+    <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Manage\Update.cshtml" />
+    <Content Include="Views\Shared\_MLayout.cshtml" />
     <Content Include="Views\Manage\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1521,6 +1529,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Side\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -18,11 +18,6 @@ namespace BlogRefactored.Controllers
         {
             this.home = blogGuests;
         }
-        public ActionResult Index()
-		{
-			return View();
-		}
-
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //任何home界面的share都要看到Config的信息、Session中的用户信息
@@ -30,8 +25,8 @@ namespace BlogRefactored.Controllers
             ViewBag.currentLoginInfo = currentLoginUser;
 
             base.OnActionExecuting(filterContext);
-            //var model = new SerializeTool().DeSerialize<BlogConfig>();
-            //ViewBag.Config = model;
+            var model = new SerializeTool().DeSerialize<BlogConfig>();
+            ViewBag.Config = model;
         }
         //page分页Num
         public ActionResult Index(int? page)

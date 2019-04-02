@@ -20,6 +20,8 @@ namespace BlogBLL.ViewModels
         public string Account { get; set; }//用户名
         public string Content { get; set; }//内容
         public string Date { get; set; }//发布时间
+
+        public int CmtCount { get; set; }//评论数量
     }
 
     public class TextListsHot

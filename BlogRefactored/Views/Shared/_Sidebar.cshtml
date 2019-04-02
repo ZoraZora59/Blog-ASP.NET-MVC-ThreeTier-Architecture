@@ -1,7 +1,7 @@
-﻿@model IEnumerable<NewBeeBlog.ViewModels.TextListsHot>
+﻿@model IEnumerable<BlogBLL.ViewModels.TextListsHot>
 @{
-    var configinfo = ViewBag.Config as NewBeeBlog.ViewModels.BlogConfig;
-    var timesort = ViewBag.timesort as IEnumerable<NewBeeBlog.ViewModels.TextListsHot>;
+    var configinfo = ViewBag.Config as BlogBLL.ViewModels.BlogConfig;
+    var timesort = ViewBag.timesort as IEnumerable<BlogBLL.ViewModels.TextListsHot>;
     var categroyList = ViewBag.categroyList;
     var newestCom = ViewBag.newestCom;
 }
@@ -52,20 +52,6 @@
                         </div>
                     </div>
                 </div>
-                <div id="sidebar_shortcut" class="sidebar-block">
-                    <div class="catListLink">
-                        <h3 class="catListTitle">常用链接</h3>
-                        <ul>
-                            <li><a href="https://www.cnblogs.com/jackchensir/p/" title="我的博客的随笔列表">我的随笔</a></li>
-                            <li><a href="https://www.cnblogs.com/jackchensir/MyComments.html" title="我发表过的评论列表">我的评论</a></li>
-                            <li><a href="https://www.cnblogs.com/jackchensir/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
-                            <li><a href="https://www.cnblogs.com/jackchensir/RecentComments.html" title="我的博客的评论列表">最新评论</a></li>
-                            <li><a href="https://www.cnblogs.com/jackchensir/tag/" title="我的博客的标签列表">我的标签</a></li>
-                        </ul>
-                        <div id="itemListLin_con" style="display:none;">
-                            <ul></ul>
-                        </div>
-                    </div>
                 </div><div id="sidebar_toptags" class="sidebar-block"></div>
                 <div id="sidebar_categories">
                     <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
