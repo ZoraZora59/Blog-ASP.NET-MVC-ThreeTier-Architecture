@@ -82,7 +82,9 @@ namespace BlogDAL
 			using (BlogContext db = new BlogContext())
 			{
 				BlogUser item = db.BlogUsers.Find(account);
-				item = updateThis;//Warning:安全性保证在业务逻辑层处理
+				//Warning:安全性保证在业务逻辑层处理
+				item.Name = updateThis.Name;
+				item.Password = updateThis.Password;
 				db.SaveChanges();
 			}
 		}
@@ -137,7 +139,10 @@ namespace BlogDAL
 			using (BlogContext db = new BlogContext())
 			{
 				BlogText item = db.BlogTexts.Find(textID);
-				item = updateThis;
+				item.CategoryName = updateThis.CategoryName;
+				item.Text = updateThis.Text;
+				item.TextTitle = updateThis.TextTitle;
+				item.FirstView = updateThis.FirstView;
 				db.SaveChanges();
 			}
 		}
