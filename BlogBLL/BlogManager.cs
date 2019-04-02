@@ -214,7 +214,7 @@ namespace BlogBLL
 			try
 			{
 				repository.DelText(tid);
-				repository.DelCommitByTextID(tid);
+				repository.DelCommentByTextID(tid);
 				isSuccess = true;
 			}
 			catch
@@ -227,7 +227,7 @@ namespace BlogBLL
 			bool isSuccess = false;
 			try
 			{
-				repository.DelCommitByAccount(account);
+				repository.DelCommentByAccount(account);
 				repository.DelUser(account);
 				isSuccess = true;
 			}
@@ -257,6 +257,19 @@ namespace BlogBLL
 					blog.TextID = blogText.Id;
 					repository.UpdateText(blog.TextID, blog);
 				}
+				isSuccess = true;
+			}
+			catch
+			{
+			}
+			return isSuccess;
+		}
+		public bool RemoveComment(int cid)//删除评论
+		{
+			bool isSuccess = false;
+			try
+			{
+				repository.DelCommentByID(cid);
 				isSuccess = true;
 			}
 			catch
