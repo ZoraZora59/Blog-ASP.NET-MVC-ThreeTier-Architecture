@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BlogBLL.ViewModels
 {
-    public class ShowCommit
+    public class ShowComment
     //评论显示的viewmodels
     {
         public int Id { get; set; }//评论的ID号
-        public int TextId { get; set; }//评论文章的ID
+        public int TextID { get; set; }//评论文章的ID
         public int TextTotalCommit { get; set; }//评论文章的评论数量
         public string TextTitle { get; set; }//评论文章的标题
         public int Num { get; set; }//第几楼

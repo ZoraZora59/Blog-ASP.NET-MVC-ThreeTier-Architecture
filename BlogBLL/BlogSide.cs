@@ -48,18 +48,18 @@ namespace BlogBLL
             return time_lists;
         }
 
-        public ShowCommit GetNewCommit()
+        public ShowComment GetNewCommit()
         {
             var blog = repository.GetTextsAll();
             var commit = repository.GetCommentsAll();
             var Ctime_list = commit.OrderByDescending(m => m.CommentChangeDate).Take(3).ToList();
-            var tempC = new ShowCommit();
+            var tempC = new ShowComment();
             var users = repository.GetUsersAll();
             foreach (var item in Ctime_list)
             {
                 var textT = blog.Where(m => m.TextID == item.TextID).ToList();
                 var NameC = users.Where(m => m.Account == item.Account).ToList();
-                tempC.TextId = item.TextID;
+                tempC.TextID = item.TextID;
                 tempC.Content = item.CommentText;
                 tempC.TextTitle = textT[0].TextTitle;
                 tempC.Name = NameC[0].Name;
@@ -89,16 +89,16 @@ namespace BlogBLL
         }
 
 
-        public List<ShowCommit> GetTopCmtLst(int n)//获取评论排行榜
+        public List<ShowComment> GetTopCmtLst(int n)//获取评论排行榜
         {
             var blog = repository.GetTextsAll();
             
             if (blog.Count == 0)
                 return null;
-            List<ShowCommit> TCL = new List<ShowCommit>();
+            List<ShowComment> TCL = new List<ShowComment>();
             foreach (var item in blog)
             {
-                TCL.Add(new ShowCommit { TextId = item.TextID, TextTitle = item.TextTitle, CmtCount = repository.GetCommitsByTextID(item.TextID).Count() });
+                TCL.Add(new ShowComment { TextID = item.TextID, TextTitle = item.TextTitle, CmtCount = repository.GetCommitsByTextID(item.TextID).Count() });
             }
             if (TCL.Count == 0)
                 return null;

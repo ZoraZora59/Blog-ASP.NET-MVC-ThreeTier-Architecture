@@ -36,7 +36,7 @@ namespace BlogBLL
             BlogModel.BlogUser LoginData = new BlogModel.BlogUser();
             LogOne.Password = md5tool.GetMD5(LogOne.Password);
             BlogModel.BlogUser temp = repository.GetUserByAccount(LogOne.Account);
-            if (temp.Password == LogOne.Password)
+            if (temp.Password == LogOne.Password)//TODO:找不到用户的反馈
             {
                 LoginData= temp;
             }

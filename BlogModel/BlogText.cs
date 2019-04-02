@@ -22,7 +22,7 @@ namespace BlogModel
 
 		[Required]
 		[DisplayName("文章预览")]
-		[MaxLength(101)]
+		[MaxLength(300)]
 		public string FirstView { get; set; }
 
 		[DisplayName("点击量")]

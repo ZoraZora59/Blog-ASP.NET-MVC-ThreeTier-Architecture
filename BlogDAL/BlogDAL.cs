@@ -130,7 +130,7 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogTexts.Add(addThis);
+				db.BlogTexts.Add(new BlogText { TextTitle = addThis.TextTitle, CategoryName = addThis.CategoryName, Text = addThis.Text, FirstView = addThis.FirstView });
 				db.SaveChanges();
 			}
 		}

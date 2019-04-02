@@ -18,10 +18,10 @@ namespace BlogRefactored
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 			//自动建立数据库，慎用
-			//using (var blogdbcontext = new BlogDAL.BlogContext())
-			//{
-			//	blogdbcontext.Database.CreateIfNotExists();
-			//}
+			using (var blogdbcontext = new BlogDAL.BlogContext())
+			{
+				blogdbcontext.Database.CreateIfNotExists();
+			}
 
 			//AutoFac依赖注入
 			var container = IOC.BlogContainer.GetContainer();

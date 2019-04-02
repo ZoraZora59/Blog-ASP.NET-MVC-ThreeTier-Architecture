@@ -143,6 +143,7 @@ namespace BlogBLL
 		public DetailCategory GetCategoryDetail(string categoryName)//获取分类详情
 		{
 			DetailCategory category = new DetailCategory();
+			category.Texts = new List<TextsBelone>();
 			category.Category = GetManageCategories().Find(c => c.CategoryName == categoryName);
 			var texts = repository.GetTextsAll().Where(c=>c.CategoryName==categoryName);
 			foreach(var item in texts)
@@ -154,6 +155,7 @@ namespace BlogBLL
 					Hot = item.Hot,
 					ChangeTime = item.TextChangeDate.ToString()
 				};
+				category.Texts.Add(textsBelong);
 			}
 			return category;
 		}
@@ -189,6 +191,8 @@ namespace BlogBLL
 		public bool RenameCategory(string oldName,string  newName)//分类重命名
 		{
 			bool isSuccess = false;
+			//if (oldName == string.Empty)
+			//	oldName = null;
 			try
 			{
 				var txtList = repository.GetTextsAll().Where(c => c.CategoryName == oldName).ToList();
@@ -206,7 +210,7 @@ namespace BlogBLL
 		}
 		public bool RemoveCategory(string name)//删除分类
 		{
-			return RenameCategory("", name);
+			return RenameCategory(null, name);
 		}
 		public bool RemoveText(int tid)//删除博文
 		{
