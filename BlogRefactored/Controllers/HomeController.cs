@@ -107,31 +107,109 @@ namespace BlogRefactored.Controllers
             return File(bytes, @"image/jpeg");//返回一个图片jpg
         }
 
-        public ActionResult Contact()
-		{
-			ViewBag.Message = "Your contact page.";
-			//TODO:设置每页显示的文章数量
-			int ViewCount = 3;
-			var manager = new BlogBLL.BlogBLL();
-			var Texts = manager.GetAllTexts().Select(Text => new TextDetailViewModel()
-			{
-				TextID = Text.TextID,
-				TextTitle = Text.TextTitle,
-				TextChangeDate=Text.TextChangeDate,
-				CategoryName=Text.CategoryName,
-				Hot=Text.Hot,
-				Text=Text.Text
-			}
-			).ToList();
-			var TextsList = new TextsListViewModel()
-			{
-				TextsCount = Texts.Count,
-				//TODO:添加显示方案
-				PageCount = 1,
-				Pages = 1,
-				Texts = Texts
-			};
-			return View(TextsList);
-		}
+        public ActionResult SearchResult(string searchthing)
+        {
+
+            //搜索
+            //var search_list = new List<TextIndex>();
+            var search_list = home.SearchBlog(searchthing);
+            ViewBag.searchRes = search_list;
+            return View(search_list);
+        }
+
+        [HttpGet]
+        public ActionResult ChangeInfo()
+        {
+            if (Session["loginuser"] == null)
+                return Redirect("/home");
+            try
+            {
+                var currentLoginUser = (BlogUser)Session["loginuser"];
+                ViewBag.currentLoginInfo = currentLoginUser;
+                return View();
+            }
+            catch (Exception)
+            {
+                return Redirect("/home");
+            }
+
+        }
+        [HttpPost]
+        public ActionResult ChangeInfo(ChangeUserInfo model)
+        {
+            if (ModelState.IsValid)
+            //判断是否验证通过
+            {
+                string sessionValidCode = Session["validatecode"] == null ? string.Empty : Session["validatecode"].ToString();
+                var currentLoginUser = Session["loginuser"] == null ? null : (BlogUser)Session["loginuser"];
+                if (!model.Code.Equals(sessionValidCode))
+                {
+                    return RedirectToAction("ChangeInfo", "Home", new { msg = "验证码错误！请重新输入" });
+                }
+                home.ChangeInfo(model);
+            //TODO：注册完毕后记录登录信息
+            }
+            return Redirect("/");
+        }
+
+        public ActionResult CategroyBlog(string categroyname)
+        {
+
+            //搜索
+            //var search_list = new List<TextIndex>();
+            var search_list = home.SearchBlogBycate(categroyname);
+            ViewBag.searchRes = search_list;
+            return View(search_list);
+        }
+
+        [HttpGet]
+        public ActionResult Blog(int id)
+        {
+            var model = home.GetBlog(id);
+            var cmt = home.GetBlogComment(id);
+            ViewBag.CmtList = cmt;
+            return View(model);
+        }
+
+
+        // 退出登陆
+        public ActionResult ExitLogin()
+        {
+            Session["loginuser"] = null;
+
+            return Redirect("/");
+        }
+
+        protected override void HandleUnknownAction(string actionName)//自定义404ERROR
+        {
+            Response.Redirect("/home");
+        }
+
+  //      public ActionResult Contact()
+		//{
+		//	ViewBag.Message = "Your contact page.";
+		//	TODO:设置每页显示的文章数量
+		//	int ViewCount = 3;
+		//	var manager = new BlogBLL.BlogBLL();
+		//	var Texts = manager.GetAllTexts().Select(Text => new TextDetailViewModel()
+		//	{
+		//		TextID = Text.TextID,
+		//		TextTitle = Text.TextTitle,
+		//		TextChangeDate=Text.TextChangeDate,
+		//		CategoryName=Text.CategoryName,
+		//		Hot=Text.Hot,
+		//		Text=Text.Text
+		//	}
+		//	).ToList();
+		//	var TextsList = new TextsListViewModel()
+		//	{
+		//		TextsCount = Texts.Count,
+		//		TODO:添加显示方案
+		//		PageCount = 1,
+		//		Pages = 1,
+		//		Texts = Texts
+		//	};
+		//	return View(TextsList);
+		//}
 	}
 }
