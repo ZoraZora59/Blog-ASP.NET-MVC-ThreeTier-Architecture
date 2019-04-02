@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BlogBLL.ViewModels
@@ -59,21 +61,42 @@ namespace BlogBLL.ViewModels
 		public string Date { get; set; }//发布时间
 	}
 
-    public class UpdateText
-    {
-        [Key]
-        public int Id { get; set; }
+	public class BlogConfig//博客配置文件
+	{
+		[MaxLength(15)]
+		public string Name { set; get; }
 
-        [Display(Name = "文章标题")]
-        [Required]
-        public string Title { get; set; }
+		[MaxLength(200)]
+		public string Sign { set; get; }
 
-        [Required]
-        [Display(Name = "文章内容")]
-        public string Text { get; set; }
+		[MaxLength(500)]
+		public string Note { set; get; }
+	}
+	public class UpdateText//更新博文\编辑博文时获取数据
+	{
+		[DisplayName("文章索引号")]
+		public int Id { get; set; }
 
-        [Display(Name = "分类")]
-        public string Category { get; set; }
+		[DisplayName("文章标题")]
+		public string Title { get; set; }
+		
+		[DisplayName("文章内容")]
+		public string Text { get; set; }
 
-    }
+		[DisplayName("分类")]
+		public string Category { get; set; }
+
+	}
+	public class DetailCategory//分类详情
+	{
+		public ManageCategory Category { get; set; }//分类属性
+		public List<TextsBelone> Texts { get; set; }//从属文章
+	}
+	public class TextsBelone//分类从属下的文章列表
+	{
+		public int TextID { get; set; }//文章ID
+		public string TextTitle { get; set; }//文章标题
+		public int Hot { get; set; }//文章热度
+		public string ChangeTime { get; set; }//修改时间
+	}
 }
