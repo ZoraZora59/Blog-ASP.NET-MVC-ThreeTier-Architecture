@@ -1,7 +1,7 @@
-﻿@model NewBeeBlog.ViewModels.ChangeUserInfo
+﻿@model BlogBLL.ViewModels.ChangeUserInfo
 @{
     ViewBag.Title = "用户注册";
-    var currentUser = ViewBag.currentLoginInfo as NewBeeBlog.Models.User;
+    var currentUser = ViewBag.currentLoginInfo as BlogModel.BlogUser;
     var name = currentUser == null ? string.Empty : currentUser.Account;
     ViewBag.Name = @name;
     Layout = null;

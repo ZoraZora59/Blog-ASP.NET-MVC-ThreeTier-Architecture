@@ -1,4 +1,4 @@
-﻿@model BlogBLL.ViewModels.CategoryList
+﻿@model BlogBLL.ViewModels.DetailCategory
 
 <script src="~/front/EasyUi/jquery.min.js"></script>
 <script src="~/front/EasyUi/jquery.easyui.min.js"></script>
@@ -10,24 +10,24 @@
 
 <div>
     <h4>
-        @Html.DisplayFor(model => model.CategoryName)
+        @Html.DisplayFor(model => model.Category.CategoryName)
     </h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TextCount)
+            @Html.DisplayNameFor(model => model.Category.TextCount)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TextCount)
+            @Html.DisplayFor(model => model.Category.TextCount)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryHot)
+            @Html.DisplayNameFor(model => model.Category.CategoryHot)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryHot)
+            @Html.DisplayFor(model => model.Category.CategoryHot)
         </dd>
     </dl>
 </div>
@@ -46,7 +46,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in ViewBag.CategoryTextList)
+        @foreach (var item in Model.Texts)
         {
             <tr>
                 <td>
@@ -63,6 +63,6 @@
         </tbody>
 </table>
 <p>
-    @Html.ActionLink("分类重命名", "RenameCategory", new { CategoryName = Model.CategoryName }) |
+    @Html.ActionLink("分类重命名", "RenameCategory", new { CategoryName = Model.Category.CategoryName }) |
     @Html.ActionLink("返回列表", "CategoryList")
 </p>

@@ -36,7 +36,7 @@ namespace BlogBLL
             BlogModel.BlogUser LoginData = new BlogModel.BlogUser();
             LogOne.Password = md5tool.GetMD5(LogOne.Password);
             BlogModel.BlogUser temp = repository.GetUserByAccount(LogOne.Account);
-            if (temp.Password == LogOne.Password)
+            if (temp.Password == LogOne.Password)//TODO:找不到用户的反馈
             {
                 LoginData= temp;
             }
@@ -70,15 +70,15 @@ namespace BlogBLL
             return (models.ToPagedList(pageNumber, pageSize));
         }
 
-        public List<ShowCommit> GetBlogComment(int id)
+        public List<ShowComment> GetBlogComment(int id)
         {
             //评论模块
             var temp = repository.GetCommitsByTextID(id);
-            var cmt = new List<ShowCommit>();
+            var cmt = new List<ShowComment>();
             int i = 1;
             foreach (var item in temp)
             {
-                var tmp = new ShowCommit();
+                var tmp = new ShowComment();
                 tmp.Name = repository.GetUserByAccount(item.Account).Name;
                 tmp.Date = item.CommentChangeDate.ToString("yyyy-MM-dd") + "  " + item.CommentChangeDate.ToShortTimeString();
                 tmp.Account = item.Account;

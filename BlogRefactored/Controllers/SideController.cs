@@ -42,7 +42,7 @@ namespace BlogRefactored.Controllers
 
 
             //最新评论
-            //var tempC = new ShowCommit();
+            //var tempC = new ShowComment();
             var NewCommit = side.GetNewCommit();
             ViewBag.newestCom= NewCommit;
 

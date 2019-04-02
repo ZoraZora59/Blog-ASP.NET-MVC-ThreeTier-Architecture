@@ -1,12 +1,12 @@
-﻿@model IEnumerable<BlogBLL.ViewModels.ShowCommit>
+﻿@model IEnumerable<BlogBLL.ViewModels.ShowComment>
 @{
-    ViewBag.Title = "ManageCommit";
+    ViewBag.Title = "ManageComment";
     Layout = "~/Views/Shared/_LayoutPageManage.cshtml";
 }
 <link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <div data-options="region:'center'" id="tt">
     <table id="dg" class="easyui-datagrid" style="width:100%;height:80%"
-           url="/manage/LoadCommit"
+           url="/manage/LoadComment"
            toolbar="#toolbar" pagination="true"
            rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
@@ -23,22 +23,22 @@
 </div>
 <script type="text/javascript">
     function formatOper(val, row, index) {
-        return '<button class="btn btn-outline-danger" onclick=\'deleteCommit(' + row.Id + ')\' >删除此评论</button>';
+        return '<button class="btn btn-outline-danger" onclick=\'deleteComment(' + row.Id + ')\' >删除此评论</button>';
     }
 
-    function deleteCommit(cid) {//TODO:添加删除评论的实现方法
+    function deleteComment(cid) {//TODO:添加删除评论的实现方法
         alert('成功进入');
         $.ajax({
             ajax: false,
             type: "POST",//FromMethod
-            url: "/Home/DeleteCommit",//"/Controller/Action"
+            url: "/Home/DeleteComment",//"/Controller/Action"
             data: { CommitID: cid },//参数 "参数名："参数值""
             datatype: 'html',
             error: function () {
                 alert('删除成功');
             }
         });
-        window.location.href = "/Manage/ManageCommit";
+        window.location.href = "/Manage/ManageComment";
     }
 
 </script>

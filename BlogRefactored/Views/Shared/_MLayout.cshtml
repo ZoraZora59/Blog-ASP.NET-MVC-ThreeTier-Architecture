@@ -36,9 +36,9 @@
     </html>*@
 
 @{
-    var currentUser = ViewBag.currentLoginInfo as NewBeeBlog.Models.User;
+    var currentUser = ViewBag.currentLoginInfo as BlogModel.BlogUser;
     var name = currentUser == null ? string.Empty : currentUser.Account;
-    var confuginfo = ViewBag.Config as NewBeeBlog.ViewModels.BlogConfig;
+    var confuginfo = ViewBag.Config as BlogBLL.ViewModels.BlogConfig;
 }
 <!DOCTYPE html>
 <html>

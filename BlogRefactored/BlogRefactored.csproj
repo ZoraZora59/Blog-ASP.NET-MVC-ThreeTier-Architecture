@@ -157,6 +157,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\NewBeeBlog.mdf" />
+    <Content Include="App_Data\NewBeeBlog_log.ldf">
+      <DependentUpon>NewBeeBlog.mdf</DependentUpon>
+    </Content>
     <Content Include="config\blogconfig.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -1433,7 +1437,6 @@
     <Content Include="kindeditor\lib\firebug-lite\build\chrome-extension\manifest.json" />
     <Content Include="kindeditor\lib\firebug-lite\build\compress.bat" />
     <Content Include="kindeditor\package.json" />
-
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\grain\canvas-nest.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1481,7 +1484,7 @@
     <Content Include="Views\Manage\CategoryList.cshtml" />
     <Content Include="Views\Manage\Config.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Manage\ManageCommit.cshtml" />
+    <Content Include="Views\Manage\ManageComment.cshtml" />
     <Content Include="Views\Manage\ManageUser.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Manage\RenameCategory.cshtml" />
@@ -1505,7 +1508,7 @@
       <Name>BlogBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlogDAL\BlogDAL.csproj">
-      <Project>{8353ad21-a399-4ecf-9b8b-fac62a5e817c}</Project>
+      <Project>{8353AD21-A399-4ECF-9B8B-FAC62A5E817C}</Project>
       <Name>BlogDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\BlogModel\BlogModel.csproj">
@@ -1528,7 +1531,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Side\" />
   </ItemGroup>
   <PropertyGroup>

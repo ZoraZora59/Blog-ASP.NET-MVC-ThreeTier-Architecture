@@ -218,6 +218,8 @@ namespace BlogRefactored.Controllers
 			//TODO:修改返回值
 			var NameString = Request["NameChanging"].ToString();
 			string[] name = NameString.Split(new char[] { ',' });
+			if (name[0] == "未分类")
+				name[0] = null;
 			manager.RenameCategory(name[0],name[1]);
 			return Json(0);
 		}
@@ -230,11 +232,11 @@ namespace BlogRefactored.Controllers
 
 		#region 评论管理
 		[HttpGet]
-		public ActionResult ManageCommit()//空的评论管理页面
+		public ActionResult ManageComment()//空的评论管理页面
 		{
 			return View();
 		}
-		public JsonResult LoadCommit()//加载评论管理界面的数据
+		public JsonResult LoadComment()//加载评论管理界面的数据
 		{
 			return Json(manager.GetManageComments());
 		}
