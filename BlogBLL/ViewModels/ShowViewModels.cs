@@ -8,22 +8,6 @@ using System.Threading.Tasks;
 
 namespace BlogBLL.ViewModels
 {
-   
-    public class BlogConfig
-    //博文配置的Viewmodel
-    {
-        [Required]
-        [StringLength(maximumLength: 50)]
-        public string Name { set; get; }
-
-        [Required]
-        [StringLength(maximumLength: 200)]
-        public string Sign { set; get; }
-
-        [Required]
-        [StringLength(maximumLength: 500)]
-        public string Note { set; get; }
-    }
     public class ShowCommit
     //评论显示的viewmodels
     {

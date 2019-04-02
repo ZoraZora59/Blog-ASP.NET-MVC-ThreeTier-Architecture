@@ -63,13 +63,16 @@ namespace BlogBLL.ViewModels
 
 	public class BlogConfig//博客配置文件
 	{
-		[MaxLength(15)]
+		[Required]
+		[StringLength(maximumLength: 50)]
 		public string Name { set; get; }
 
-		[MaxLength(200)]
+		[Required]
+		[StringLength(maximumLength: 200)]
 		public string Sign { set; get; }
 
-		[MaxLength(500)]
+		[Required]
+		[StringLength(maximumLength: 500)]
 		public string Note { set; get; }
 	}
 	public class UpdateText//更新博文\编辑博文时获取数据

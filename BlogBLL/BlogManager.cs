@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using BlogBLL.ViewModels;
-using NewBeeBlog.App_Code;
+using BlogBLL.App_Code;
 
 namespace BlogBLL
 {

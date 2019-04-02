@@ -8,12 +8,15 @@ namespace BlogRefactored.Controllers
 {
     public class ManageController : Controller
     {
+		#region AutoFac依赖注入
 		private BlogBLL.BlogManager manager;
 		public ManageController(BlogBLL.BlogManager blogManager)
 		{
-			this.manager=blogManager;
+			this.manager = blogManager;
 		}
-        public ActionResult Index()
+		#endregion
+
+		public ActionResult Index()//控制中心主界面
         {
             return View(manager.GetManageIndex());
         }
