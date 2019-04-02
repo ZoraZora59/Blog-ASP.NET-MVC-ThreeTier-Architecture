@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlogBLL
 {
-    public class BlogSide
+    public class BlogSide:IBLL
     {
         private BlogDAL.BlogDAL repository = new BlogDAL.BlogDAL();
 
