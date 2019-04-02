@@ -25,11 +25,29 @@ namespace BlogRefactored.Controllers
 		}
 		#endregion
 
+		#region 博客配置
+		[HttpGet]
+		public ActionResult Config()//读取博客配置XML文件
+		{
+			return View(manager.GetBlogConfig());
+		}
+
+		[HttpPost]
+		public ActionResult Config(BlogConfig model)//设定博客配置文件
+		{
+			var  isSuccess=manager.SetBlogConfig(model);
+			if (isSuccess)
+				return View();//设定成功
+			else
+				return View();
+		}
+		#endregion
+
 		#region 文章管理
 		[HttpGet]
 		public ActionResult TextList()//文章管理列表的显示
 		{
-			return View(manager.GetManageTexts());
+			return View();
 		}
 
 		public JsonResult LoadTextList()//文章管理列表的JS实现
@@ -119,8 +137,7 @@ namespace BlogRefactored.Controllers
 		{
 			return View();
 		}
-
-		[HttpGet]
+		
 		public JsonResult LoadUsers()//加载用户列表
 		{
 			return Json(manager.GetManageUsers());
@@ -203,6 +220,11 @@ namespace BlogRefactored.Controllers
 			string[] name = NameString.Split(new char[] { ',' });
 			manager.RenameCategory(name[0],name[1]);
 			return Json(0);
+		}
+		[HttpGet]
+		public ActionResult CategoryList()//空的分类列表
+		{
+			return View();
 		}
 		#endregion
 
