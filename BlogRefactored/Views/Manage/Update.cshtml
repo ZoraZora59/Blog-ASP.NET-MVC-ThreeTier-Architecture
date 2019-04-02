@@ -29,16 +29,14 @@
             </div>
         }
         <hr />
-        <table class="insert-tab" width="50%">
+        <table class="insert-tab">
             <tbody>
                 <tr>
                     <th><i class="require-red">*</i>标题：</th>
                     <td>
                         @*@Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" })*@
-
                         @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" } })
                         @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-
                     </td>
                 </tr>
                 <tr>
@@ -66,15 +64,28 @@
                 <tr>
                     <th></th>
                     <td>
-                        <input type="submit" class="btn btn-primary btn6 mr10" plain="true" value="提交更新" />
+                        <input type="button" class="btn btn-primary btn6 mr10" plain="true" onclick="commitUpdate()" value="提交更新" />
                         <button type="button" class="btn btn6" plain="true" onclick="backToList()">返回列表</button>
                     </td>
                 </tr>
-
         </table>
     </div>
 }
 <script>
+    function commitUpdate() {
+        $.ajax({
+            ajax: false,
+            type: "POST",//FromMetho
+            url: "/Manage/Update",//"/Controller/Action"
+            success: function (data) {
+                alert('更新成功');
+                window.location.href = "/Manage/Update";
+            },
+            error: function () {
+                alert('更新失败，肯定有Bug');
+            }
+        });
+    }
     function backToList() {
         window.location.href = "/Manage/TextList";
     }

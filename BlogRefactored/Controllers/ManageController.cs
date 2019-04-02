@@ -108,9 +108,30 @@ namespace BlogRefactored.Controllers
 			return View(new UpdateText());
 		}
 
+		//[HttpPost]
+		//[ValidateInput(false)]
+		//public ActionResult Update([Bind(Include = "Id,Title,Category,Text")] UpdateText BlogText)//文章更新提交
+		//{
+		//	if (ModelState.IsValid)
+		//	{
+		//		try
+		//		{
+		//			var IsUpdate = manager.UpdateText(BlogText);
+		//			if (IsUpdate == true)//TODO:更新成功处理
+		//			{
+		//				return Redirect("/manage/textlist");
+		//			}
+		//		}
+		//		catch
+		//		{
+		//			throw;
+		//		}
+		//	}
+		//	return Redirect("/manage/textlist");//TODO:更新失败处理
+		//}
 		[HttpPost]
 		[ValidateInput(false)]
-		public ActionResult Update([Bind(Include = "Id,Title,Category,Text")] UpdateText BlogText)//文章更新提交
+		public JsonResult Update([Bind(Include = "Id,Title,Category,Text")] UpdateText BlogText)
 		{
 			if (ModelState.IsValid)
 			{
@@ -119,7 +140,7 @@ namespace BlogRefactored.Controllers
 					var IsUpdate = manager.UpdateText(BlogText);
 					if (IsUpdate == true)//TODO:更新成功处理
 					{
-						return Redirect("/manage/textlist");
+						return Json(0);
 					}
 				}
 				catch
@@ -127,7 +148,7 @@ namespace BlogRefactored.Controllers
 					throw;
 				}
 			}
-			return Redirect("/manage/textlist");//TODO:更新失败处理
+			return null;
 		}
 		#endregion
 
