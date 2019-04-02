@@ -265,6 +265,14 @@
     <Content Include="Views\Manage\TextList.cshtml" />
     <Content Include="Views\Shared\_LayoutPageManage.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
+    <Content Include="Views\Home\CategroyBlog.cshtml" />
+    <Content Include="Views\Home\ChangeInfo.cshtml" />
+    <Content Include="Views\Home\MBlog.cshtml" />
+    <Content Include="Views\Home\MIndex.cshtml" />
+    <Content Include="Views\Home\SearchResult.cshtml" />
+    <Content Include="Views\Manage\Update.cshtml" />
+    <Content Include="Views\Shared\_MLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlogBLL\BlogBLL.csproj">
