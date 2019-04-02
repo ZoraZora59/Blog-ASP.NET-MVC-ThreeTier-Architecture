@@ -25,8 +25,8 @@ namespace BlogRefactored
 
 			//AutoFac依赖注入
 			var container = IOC.BlogContainer.GetContainer();
-			DependencyResolver.SetResolver(new IOC.BlogDependencyResolver(container));
 			ControllerBuilder.Current.SetControllerFactory(new IOC.BlogControllerFactory(container));
+			DependencyResolver.SetResolver(new IOC.BlogDependencyResolver(container));
 
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new RazorViewEngine());

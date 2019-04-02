@@ -12,35 +12,35 @@ namespace BlogDAL
 		//操作模板    using (BlogContext db = new BlogContext())
 		public BlogDAL(){ }
 		#region 评论表相关
-		public void AddCommit(BlogComment addThis)
+		public void AddComment(BlogComment addThis)
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogCommits.Add(addThis);
+				db.BlogComments.Add(addThis);
 				db.SaveChanges();
 			}
 		}
-		public void DelCommitByID(int id)
+		public void DelCommentByID(int id)
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogCommits.Remove(db.BlogCommits.Find(id));
+				db.BlogComments.Remove(db.BlogComments.Find(id));
 				db.SaveChanges();
 			}
 		}
-		public void DelCommitByAccount(string Account)
+		public void DelCommentByAccount(string Account)
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogCommits.RemoveRange(db.BlogCommits.Where(c => c.Account == Account));
+				db.BlogComments.RemoveRange(db.BlogComments.Where(c => c.Account == Account));
 				db.SaveChanges();
 			}
 		}
-		public void DelCommitByTextID(int tid)
+		public void DelCommentByTextID(int tid)
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogCommits.RemoveRange(db.BlogCommits.Where(c => c.TextID == tid));
+				db.BlogComments.RemoveRange(db.BlogComments.Where(c => c.TextID == tid));
 				db.SaveChanges();
 			}
 		}
@@ -57,14 +57,14 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				return db.BlogCommits.Where(c => c.TextID == tid).ToList();
+				return db.BlogComments.Where(c => c.TextID == tid).ToList();
 			}
 		}
 		public List<BlogComment> GetCommentsAll()
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				return db.BlogCommits.ToList();
+				return db.BlogComments.ToList();
 			}
 		}
 		#endregion
@@ -73,7 +73,7 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogCommits.RemoveRange(db.BlogCommits.Where(c => c.Account == account));
+				db.BlogComments.RemoveRange(db.BlogComments.Where(c => c.Account == account));
 				db.BlogUsers.Remove(db.BlogUsers.Find(account));
 				db.SaveChanges();
 			}
@@ -83,7 +83,9 @@ namespace BlogDAL
 			using (BlogContext db = new BlogContext())
 			{
 				BlogUser item = db.BlogUsers.Find(account);
-				item = updateThis;//Warning:安全性保证在业务逻辑层处理
+				//Warning:安全性保证在业务逻辑层处理
+				item.Name = updateThis.Name;
+				item.Password = updateThis.Password;
 				db.SaveChanges();
 			}
 		}
@@ -137,7 +139,7 @@ namespace BlogDAL
 				List<BlogComment>commitsList = db.BlogTexts.Find(textID).Commits.ToList();
 				while(commitsList!=null)//删除相关评论
 				{
-					commitsList.ForEach(d => db.BlogCommits.Remove(d));//TODO:测试是否正常工作
+					commitsList.ForEach(d => db.BlogComments.Remove(d));//TODO:测试是否正常工作
 					db.SaveChanges();
 				}
 				db.BlogTexts.Remove(db.BlogTexts.Find(textID));
@@ -157,7 +159,10 @@ namespace BlogDAL
 			using (BlogContext db = new BlogContext())
 			{
 				BlogText item = db.BlogTexts.Find(textID);
-				item = updateThis;
+				item.CategoryName = updateThis.CategoryName;
+				item.Text = updateThis.Text;
+				item.TextTitle = updateThis.TextTitle;
+				item.FirstView = updateThis.FirstView;
 				db.SaveChanges();
 			}
 		}
@@ -185,7 +190,7 @@ namespace BlogDAL
 		{ }
 		public DbSet<BlogText> BlogTexts { get; set; }
 		public DbSet<BlogUser> BlogUsers { get; set; }
-		public DbSet<BlogComment> BlogCommits { get; set; }
+		public DbSet<BlogComment> BlogComments { get; set; }
 	}
 
 	#endregion
