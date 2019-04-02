@@ -91,11 +91,11 @@ namespace BlogDAL
 				return db.BlogUsers.ToList();
 			}
 		}
-		public BlogUser GetUserByID(int id)
+		public BlogUser GetUserByAccount(string Account)
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				return db.BlogUsers.Find(id);
+                return db.BlogUsers.FirstOrDefault(c => c.Account==Account);
 			}
 		}
 		#endregion

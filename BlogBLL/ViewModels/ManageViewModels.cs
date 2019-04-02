@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlogBLL.ViewModels
 {
@@ -57,4 +58,22 @@ namespace BlogBLL.ViewModels
 		public string Content { get; set; }//内容
 		public string Date { get; set; }//发布时间
 	}
+
+    public class UpdateText
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Display(Name = "文章标题")]
+        [Required]
+        public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "文章内容")]
+        public string Text { get; set; }
+
+        [Display(Name = "分类")]
+        public string Category { get; set; }
+
+    }
 }

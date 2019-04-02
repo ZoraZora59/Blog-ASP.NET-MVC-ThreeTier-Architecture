@@ -1,0 +1,68 @@
+﻿@model BlogBLL.ViewModels.CategoryList
+
+<script src="~/front/EasyUi/jquery.min.js"></script>
+<script src="~/front/EasyUi/jquery.easyui.min.js"></script>
+<!--先引用jquery.min再引用jquery-->
+<script src="~/front/EasyUi/locale/easyui-lang-zh_CN.js"></script>
+<link href="~/front/EasyUi/themes/gray/easyui.css" rel="stylesheet" />
+<link href="~/front/EasyUi/themes/icon.css" rel="stylesheet" />
+<script type="text/javascript"></script>
+
+<div>
+    <h4>
+        @Html.DisplayFor(model => model.CategoryName)
+    </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TextCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TextCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryHot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryHot)
+        </dd>
+    </dl>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>
+                文章标题
+            </th>
+            <th>
+                文章热度
+            </th>
+            <th>
+                修改时间
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.CategoryTextList)
+        {
+            <tr>
+                <td>
+                    @item.TextTitle
+                </td>
+                <td>
+                    @item.Hot
+                </td>
+                <td>
+                    @item.ChangeTime
+                </td>
+            </tr>
+        }
+        </tbody>
+</table>
+<p>
+    @Html.ActionLink("分类重命名", "RenameCategory", new { CategoryName = Model.CategoryName }) |
+    @Html.ActionLink("返回列表", "CategoryList")
+</p>

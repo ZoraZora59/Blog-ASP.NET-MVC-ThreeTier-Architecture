@@ -1,0 +1,64 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<NewBeeBlog.ViewModels.TextIndex>
+
+@{
+    ViewBag.Title = "博客主页";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+    var config = ViewBag.Config as NewBeeBlog.ViewModels.BlogConfig;
+    ViewBag.Title = config.Name;
+    ViewBag.Sign = config.Sign;
+}
+<div class="container" >
+    <div class="row">
+        <!--↓↓↓↓断字问题在这里处理↓↓↓↓-->
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+            @foreach (var item in Model)
+            {
+                <div class="post-preview">
+                    <a href="/home/mblog/@item.TextID">
+                        <h2 class="post-title">
+                            @item.TextTitle
+                        </h2>
+                        <h3 class="post-subtitle">
+                            @*TODO:处理断字问题*@
+                            @item.FirstView
+                        </h3>
+                    </a>
+                    <p class="post-meta">
+                        阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(@item.CategoryName.ToString())
+                        <span class="postDesc">
+                            发布于 @item.TextChangeDate.ToString()
+                        </span>
+                    </p>
+                </div>
+                <hr>
+            }
+
+            <span class="post-subtitle">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</span>
+            <hr>
+
+            <!-- Pager -->
+            <div class="clearfix">
+                @if (Model.PageCount < 2)
+                {
+
+                }
+                else
+                {
+                    if (Model.PageCount > Model.PageNumber)
+                    {
+                        ViewBag.Prev = Model.PageNumber + 1;
+                        <a class="btn btn-primary float-right" href="http://localhost:42184/home/mindex?page=@ViewBag.Prev">Next  &rarr;</a>
+                    }
+                    if (Model.PageNumber > 1)
+                    {
+                        ViewBag.Next = Model.PageNumber - 1;
+                        <a class="btn btn-primary float-left" href="http://localhost:42184/home/mindex?page=@ViewBag.Next">&larr;  Pre</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

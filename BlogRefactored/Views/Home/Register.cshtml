@@ -1,0 +1,123 @@
+﻿@model BlogBLL.ViewModels.RegisterUser
+@{
+    ViewBag.Title = "用户注册";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link href="~/front/css/login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <title>注册</title>
+</head>
+
+<body>
+    @Html.Hidden("msg", Request.QueryString["msg"], new { @id = "msg" })
+    <h1><font color="#0081c1">个人博客注册</font></h1>
+
+    <div class="login" style="margin-top:50px;">
+
+        <div class="header">
+            <div class="switch" id="switch">
+
+                <a class="switch_btn" id="switch_login" tabindex="8">快速注册</a><div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
+            </div>
+        </div>
+
+        <!--注册-->
+
+
+        <div class="web_login">
+
+            @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+            {
+                <ul class="reg_form" id="reg-ul">
+                    <div id="userCue" class="cue">注册请注意格式</div>
+
+                    <li>
+
+                        <label for="user" class="input-tips2">用户名：</label>
+                        <div class="inputOuter2">
+                            @Html.TextBoxFor(m => m.Account, new { @class = "inputstyle2", placeholder = "请输入用户名或邮箱" })
+                            @Html.ValidationMessageFor(m => m.Account)
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <label for="user" class="input-tips2">昵称：</label>
+                        <div class="inputOuter2">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "inputstyle2", placeholder = "请输入你可爱的昵称" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <label for="passwd" class="input-tips2">密码：</label>
+                        <div class="inputOuter2">
+                            @Html.PasswordFor(m => m.Password, new { @class = "inputstyle2", placeholder = "请输入密码" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+
+                    </li>
+                    <li>
+                        <label for="passwd2" class="input-tips2">确认密码：</label>
+                        <div class="inputOuter2">
+                            @Html.PasswordFor(m => m.Cpassword, new { @class = "inputstyle2", placeholder = "请确认密码" })
+                            @Html.ValidationMessageFor(m => m.Cpassword)
+                        </div>
+
+                    </li>
+                    <li>
+                        <label for="user" class="input-tips2">验证码：</label>
+                        <div class="inputOuter3">
+
+                            @Html.TextBoxFor(m => m.Code, new { @class = "inputstyle3" })
+                            @Html.ValidationMessageFor(m => m.Code)
+                        </div>
+                        <img src="/home/ValidateCode/" style="position:relative;left:150px;">
+                    </li>
+
+
+                    <li>
+                        <div style="padding-left:85px;margin-top:20px;">
+                            <input type="submit" value="注    册" style="width:200px;" class="button_blue" />
+                        </div>
+                    </li>
+
+                    <div class="text-foot">
+                        已经有账号? <a href="~/Home/Login">快速登录</a>
+                    </div>
+
+                </ul>
+            }
+        </div>
+        <!--注册end-->
+
+    </div>
+    <script src="~/Scripts/grain/canvas-nest.js"></script>
+    <canvas id="c_n1"></canvas>
+    <script>
+        $(function () {
+            var val = $("#msg").val();
+            if (val != "") {
+                if (confirm(val)) {
+                    window.history.go(-1);
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
+
