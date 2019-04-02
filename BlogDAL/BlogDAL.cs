@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -108,9 +109,28 @@ namespace BlogDAL
                 return db.BlogUsers.FirstOrDefault(c => c.Account==Account);
 			}
 		}
-		#endregion
-		#region 文章表相关
-		public void DelText(int textID)
+
+
+
+
+        #endregion
+        #region 文章表相关
+
+        public void ReadText(int id)//显示文章，热度要加1
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                var model = db.BlogTexts.FirstOrDefault(m => m.TextID == id);
+                model.Hot += 1;
+                DbEntityEntry entry = db.Entry(model);
+                entry.State = EntityState.Modified;
+                db.SaveChanges();
+            }
+           
+        }
+
+
+        public void DelText(int textID)
 		{
 			using (BlogContext db = new BlogContext())
 			{
