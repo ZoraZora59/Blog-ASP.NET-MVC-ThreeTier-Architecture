@@ -30,8 +30,8 @@ namespace BlogRefactored.Controllers
             ViewBag.currentLoginInfo = currentLoginUser;
 
             base.OnActionExecuting(filterContext);
-            var model = new SerializeTool().DeSerialize<BlogConfig>();
-            ViewBag.Config = model;
+            //var model = new SerializeTool().DeSerialize<BlogConfig>();
+            //ViewBag.Config = model;
         }
         //page分页Num
         public ActionResult Index(int? page)

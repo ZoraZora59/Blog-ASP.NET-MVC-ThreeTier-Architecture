@@ -4,6 +4,12 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Web;
+/*
+ * using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+ */
+
 namespace BlogBLL.App_Code
 {
     public class ValidateCode
@@ -91,7 +97,7 @@ namespace BlogBLL.App_Code
         /// <param name="validateNum">验证码</param>
         public byte[] CreateValidateGraphic(string validateCode)
         {
-            Bitmap image = new Bitmap((int)Math.Ceiling(validateCode.Length * 12.0), 22);
+			Bitmap image = new Bitmap((int)Math.Ceiling(validateCode.Length * 12.0), 22);
             Graphics g = Graphics.FromImage(image);
             try
             {

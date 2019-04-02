@@ -45,6 +45,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +53,7 @@
   <ItemGroup>
     <Compile Include="App_Code\md5tool.cs" />
     <Compile Include="App_Code\SerializeTool.cs" />
+    <Compile Include="App_Code\ValidateCode.cs" />
     <Compile Include="BlogBLL.cs" />
     <Compile Include="BlogGuests.cs" />
     <Compile Include="BlogManager.cs" />
