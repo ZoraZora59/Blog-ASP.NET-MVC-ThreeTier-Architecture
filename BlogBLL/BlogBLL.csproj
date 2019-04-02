@@ -57,6 +57,7 @@
     <Compile Include="BlogBLL.cs" />
     <Compile Include="BlogGuests.cs" />
     <Compile Include="BlogManager.cs" />
+    <Compile Include="BlogSide.cs" />
     <Compile Include="IBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />

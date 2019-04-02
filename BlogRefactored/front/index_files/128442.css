@@ -1,0 +1,45 @@
+.postBody h3 {
+    background: #2b6695 none repeat scroll 0 0;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #5f5a4b, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: #ffffff;
+    font-family: "微软雅黑","宋体","黑体",Arial;
+    font-size: 18px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    margin: 18px 0 !important;
+    padding: 8px 0 5px 5px;
+    text-shadow: 2px 2px 3px #222222;
+}
+
+.postBody h4 {
+    background: #2b6600 none repeat scroll 0 0;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #5f5a4b, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: #ffffff;
+    font-family: "微软雅黑","宋体","黑体",Arial;
+    font-size: 15px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 23px;
+    margin: 12px 0 !important;
+    padding: 5px 0 5px 10px;
+    text-shadow: 2px 2px 3px #222222;
+}
+
+.postBody h5 {
+    background: red none repeat scroll 0 0;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px #5f5a4b, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+    color: #ffffff;
+    font-family: "微软雅黑","宋体","黑体",Arial;
+    font-size: 15px;
+    font-weight: bold;
+    height: 24px;
+    line-height: 23px;
+    margin: 12px 0 !important;
+    padding: 5px 0 5px 10px;
+    text-shadow: 2px 2px 3px #222222;
+}
+.postBody img {border:1px solid #d8d8d8;}

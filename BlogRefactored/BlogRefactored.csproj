@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\SideController.cs" />
     <Compile Include="IOC\DependencyResolver.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -152,10 +153,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="config\blogconfig.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -174,6 +172,24 @@
     <Content Include="front\images\评论大.png" />
     <Content Include="front\images\阅读量.png" />
     <Content Include="front\images\阅读量1.png" />
+    <Content Include="front\index_files\128442.css" />
+    <Content Include="front\index_files\373006.css" />
+    <Content Include="front\index_files\6365955586164012501335591.jpeg" />
+    <Content Include="front\index_files\analytics.js" />
+    <Content Include="front\index_files\blog-common.css" />
+    <Content Include="front\index_files\blog-common.js" />
+    <Content Include="front\index_files\bundle-BlackLowKey-mobile.css" />
+    <Content Include="front\index_files\bundle-BlackLowKey.css" />
+    <Content Include="front\index_files\bundle-CodingLife-mobile.css" />
+    <Content Include="front\index_files\bundle-CodingLife.css" />
+    <Content Include="front\index_files\images\body_bg.png" />
+    <Content Include="front\index_files\images\title-yellow.png" />
+    <Content Include="front\index_files\jquery-2.js" />
+    <Content Include="front\index_files\j_0011.gif" />
+    <Content Include="front\index_files\j_0057.gif" />
+    <Content Include="front\index_files\j_0059.gif" />
+    <Content Include="front\index_files\logo.gif" />
+    <Content Include="front\index_files\multiPlayer.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -194,10 +210,6 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\grain\canvas-nest.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -252,6 +264,7 @@
     <Content Include="Views\Manage\Show.cshtml" />
     <Content Include="Views\Manage\TextList.cshtml" />
     <Content Include="Views\Shared\_LayoutPageManage.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlogBLL\BlogBLL.csproj">
@@ -283,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Side\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

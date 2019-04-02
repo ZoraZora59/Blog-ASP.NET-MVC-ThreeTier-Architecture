@@ -43,13 +43,15 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public BlogComment GetCommitNew()
-		{
-			using (BlogContext db = new BlogContext())
-			{
-				return db.BlogCommits.Last();
-			}
-		}
+		//public BlogComment GetCommitNew()
+		//{
+		//	using (BlogContext db = new BlogContext())
+		//	{
+                
+  //              return db.BlogCommits.Last();
+                
+		//	}
+		//}
 		public List<BlogComment> GetCommitsByTextID(int tid)
 		{
 			using (BlogContext db = new BlogContext())

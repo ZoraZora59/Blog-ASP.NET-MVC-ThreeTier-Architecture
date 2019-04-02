@@ -16,7 +16,9 @@ namespace BlogRefactored.IOC
 			builder.RegisterType<BlogBLL.BlogBLL>();
 			builder.RegisterType<BlogBLL.BlogManager>();
             builder.RegisterType<BlogBLL.BlogGuests>();
+            builder.RegisterType<BlogBLL.BlogSide>();
 
+            builder.RegisterType<Controllers.SideController>();
 			builder.RegisterType<Controllers.ManageController>();
 			builder.RegisterType<Controllers.HomeController>();
 			Console.WriteLine("成功运行依赖注入AutoFac");
