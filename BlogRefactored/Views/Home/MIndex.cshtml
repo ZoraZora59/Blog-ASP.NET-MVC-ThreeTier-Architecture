@@ -1,11 +1,11 @@
 ﻿
 @using PagedList.Mvc;
-@model PagedList.IPagedList<NewBeeBlog.ViewModels.TextIndex>
+@model PagedList.IPagedList<BlogBLL.ViewModels.TextIndex>
 
 @{
     ViewBag.Title = "博客主页";
     Layout = "~/Views/Shared/_MLayout.cshtml";
-    var config = ViewBag.Config as NewBeeBlog.ViewModels.BlogConfig;
+    var config = ViewBag.Config as BlogBLL.ViewModels.BlogConfig;
     ViewBag.Title = config.Name;
     ViewBag.Sign = config.Sign;
 }
