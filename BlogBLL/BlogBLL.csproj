@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="App_Code\md5tool.cs" />
     <Compile Include="App_Code\SerializeTool.cs" />
-    <Compile Include="App_Code\ValidateCode.cs" />
     <Compile Include="BlogBLL.cs" />
     <Compile Include="BlogGuests.cs" />
     <Compile Include="BlogManager.cs" />

@@ -18,7 +18,7 @@ namespace BlogRefactored.IOC
 
 			builder.RegisterType<Controllers.ManageController>();
 			builder.RegisterType<Controllers.HomeController>();
-
+			Console.WriteLine("成功运行依赖注入AutoFac");
 			var containner = builder.Build();
 			return containner;
 		}

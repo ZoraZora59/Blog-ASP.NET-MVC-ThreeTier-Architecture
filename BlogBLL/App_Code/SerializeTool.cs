@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Xml.Serialization;
 
-namespace NewBeeBlog.App_Code
+namespace BlogBLL.App_Code
 {
     public class SerializeTool
     {
