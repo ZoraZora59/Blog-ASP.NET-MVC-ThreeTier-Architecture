@@ -225,8 +225,9 @@ namespace BlogRefactored.Controllers
 			}
 			catch (Exception)
 			{
+				return Json(null);
 			}
-			return Json(null);
+			return Json(0);
 		}//新增评论   TODO:添加评论内容超长判断
 
         public JsonResult DeleteComment()
@@ -235,11 +236,13 @@ namespace BlogRefactored.Controllers
 			{
 				int cmtId = int.Parse(Request["CommitID"]);
 				home.DelComment(cmtId);
+				return Json(0);
 			}
 			catch (Exception)
 			{
+				return Json(null);
 			}
-            return Json(0);
+            
         }
 
 

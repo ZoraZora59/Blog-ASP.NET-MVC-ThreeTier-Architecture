@@ -137,7 +137,7 @@
                                     <textarea id="txt" style="width:80%;height:100px;resize:vertical" placeholder="您有什么想法要说的吗？"class="form-control"></textarea>
                                 </div>
                                 <p id="commentbox_opt">
-                                    <input type="button" name="button" class="btn btn-primary" onclick="submitCommit('@Model.TextID','@currentLoginInfo.Account')" value="提交评论">
+                                    <input type="button" name="button" class="btn btn-primary" onclick="submitComment('@Model.TextID','@currentLoginInfo.Account')" value="提交评论">
                                 </p>
                                 <div id="tip_comment2" style="color:Red"></div>
                                 <p></p>
@@ -159,9 +159,9 @@
     <div class="clear"></div>
 </div><!--end: main -->
 <script>
-    function submitCommit(tid, act) {
+    function submitCommentt(tid, act) {
         var txt = document.getElementById('txt').value;
-        alert(txt);
+        //alert(txt);
         $.ajax({
             ajax: false,
             type: 'POST',
@@ -186,7 +186,7 @@
             url: "/Home/DeleteComment",//"/Controller/Action"
             data: { CommitID: cid },//参数 "参数名："参数值""
             datatype: 'html',
-            error: function () {
+            success: function () {
                 alert('删除成功');
             }
         });

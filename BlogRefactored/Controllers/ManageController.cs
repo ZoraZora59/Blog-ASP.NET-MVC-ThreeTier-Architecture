@@ -63,6 +63,7 @@ namespace BlogRefactored.Controllers
 			}
 			catch
 			{
+				return Json(null);
 			}
 			return Json(0);
 		}
@@ -141,13 +142,17 @@ namespace BlogRefactored.Controllers
 					{
 						return Json(0);
 					}
+					else
+					{
+						return Json(null);
+					}
 				}
 				catch
 				{
-					throw;
+					return Json(null);
 				}
 			}
-			return null;
+			return Json(null);
 		}
 		#endregion
 
@@ -215,9 +220,9 @@ namespace BlogRefactored.Controllers
 			}
 			catch (Exception)
 			{
-				throw;
+				return Json(null);
 			}
-			return Json(null);
+			return Json(0);
 		}
 		[HttpGet]
 		public ActionResult RenameCategory()//分类更名
@@ -240,8 +245,9 @@ namespace BlogRefactored.Controllers
 			string[] name = NameString.Split(new char[] { ',' });
 			if (name[0] == "未分类")
 				name[0] = null;
-			manager.RenameCategory(name[0],name[1]);
-			return Json(0);
+			if (manager.RenameCategory(name[0], name[1]))
+				return Json(0);
+			return Json(null);
 		}
 		[HttpGet]
 		public ActionResult CategoryList()//空的分类列表
@@ -269,9 +275,9 @@ namespace BlogRefactored.Controllers
 			}
 			catch (Exception)
 			{
-				throw;
+				return Json(null);
 			}
-			return Json(null);
+			return Json(0);
 		}
 		#endregion
 	}
