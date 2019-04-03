@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <BlogConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>NewBee Blog</Name>
-  <Sign>我是牛逼的签名</Sign>
-  <Note>欢迎光临!我是牛逼的公告！sfsh jfjs 按市场是爱手擦拭</Note>
+  <Name>名称测试</Name>
+  <Sign>签名测试</Sign>
+  <Note>公告板测试</Note>
 </BlogConfig>
