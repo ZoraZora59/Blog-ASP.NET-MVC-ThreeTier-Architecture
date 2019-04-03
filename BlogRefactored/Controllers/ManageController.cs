@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BlogBLL.ViewModels;
+using BlogModel;
 
 namespace BlogRefactored.Controllers
 {
@@ -122,13 +126,18 @@ namespace BlogRefactored.Controllers
 		//}
 		[HttpPost]
 		[ValidateInput(false)]
-		public JsonResult Update([Bind(Include = "Id,Title,Category,Text")] UpdateText BlogText)
+		public JsonResult UpdateText()
 		{
 			if (ModelState.IsValid)
 			{
 				try
 				{
-					var IsUpdate = manager.UpdateText(BlogText);
+                    string BlogTitle = Request["Title"].ToString();
+                    string BlogCategtoy = Request["Categroy"].ToString();
+                    string BlogContent = Request["Content"].ToString();
+                    //string FirstView = manager.getFirstView(BlogContent);
+                    var model = new UpdateText { Category = BlogCategtoy, Title = BlogTitle, Text = BlogContent};
+					var IsUpdate = manager.UpdateText(model);
 					if (IsUpdate == true)
 					{
 						return Json(0);

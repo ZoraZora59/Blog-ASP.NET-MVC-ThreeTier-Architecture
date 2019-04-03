@@ -48,7 +48,7 @@
 
                     <td>
                         @*@Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" })*@
-                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" } })
+                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "common-text required", @id = "categroy", @name = "title", @size = "50", @type = "text" } })
                         @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                     </td>
 
@@ -61,14 +61,14 @@
                     <th>内容：</th>
                     <td>
                         @*@Html.LabelFor(model => model.Text, htmlAttributes: new { @name = "content", @class = "common-textarea" })*@
-                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%" }, id = "content" })
+                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%", @id = "content" }, @id = "content" })
 
                     </td>
                 </tr>
                 <tr>
                     <th></th>
                     <td>
-                        <input type="button" class="btn btn-primary btn6 mr10" plain="true" onclick="commitUpdate()" value="提交更新" />
+                        <input type="button" class="btn btn-primary btn6 mr10" plain="true" onclick="BlogUpdate()" value="提交更新" />
                         <button type="button" class="btn btn6" plain="true" onclick="backToList()">返回列表</button>
                     </td>
                 </tr>
@@ -77,23 +77,6 @@
     }
 </div>
 <script>
-    function commitUpdate() {
-        $.ajax({
-            ajax: false,
-            type: "POST",//FromMetho
-            url: "/Manage/Update",//"/Controller/Action"
-            success: function (data) {
-                alert('更新成功');
-                window.location.href = "/Manage/Update";
-            },
-            error: function () {
-                alert('更新失败，肯定有Bug');
-            }
-        });
-    }
-    function backToList() {
-        window.location.href = "/Manage/TextList";
-    }
     var editor;
     KindEditor.ready(function (K) {
         editor = K.create('textarea[id="content"]', {
@@ -101,7 +84,7 @@
             minHeight: '300px',
             resizeType: 1,
             allowFileManager: true,
-            uploadJson: '/manage/upload'
+            uploadJson: '/manage/Upload'
         });
         K('input[name=getHtml]').click(function (e) {
             alert(editor.html());
@@ -131,4 +114,27 @@
             editor.html('');
         });
     });
+    function BlogUpdate() {
+        var title = document.getElementById('title').value;
+        var categroy = document.getElementById('categroy').value;
+        editor.sync();// 同步数据后可以直接取得textarea的value
+        var content = $('#content').val();  // KindEditor Node API
+        $.ajax({
+            ajax: false,
+            type: "POST",//FromMetho
+            url: "/Manage/UpdateText",//"/Controller/Action"
+            data: { Title: title, Categroy: categroy, Content: content},
+            success: function (data) {
+                alert('更新成功');
+                //window.location.href = "/Manage/Update";
+            },
+            error: function () {
+                alert('更新失败，肯定有Bug');
+            }
+        });
+    }
+    function backToList() {
+        window.location.href = "/Manage/TextList";
+    }
+   
 </script>
