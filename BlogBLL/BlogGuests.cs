@@ -42,7 +42,7 @@ namespace BlogBLL
             {
                 return temp;
             }
-            if (temp.Password == LogOne.Password)//TODO:找不到用户的反馈
+            if (temp.Password == LogOne.Password)
             {
                 LoginData= temp;
             }
