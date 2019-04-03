@@ -15,6 +15,10 @@
   text-rendering: auto;
   line-height: 1; }
 
+.fa-logoofblog {
+    background-image: url('../../../img/Logo.png');
+}
+
 .fa-lg {
   font-size: 1.33333em;
   line-height: 0.75em;

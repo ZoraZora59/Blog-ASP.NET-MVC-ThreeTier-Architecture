@@ -49,9 +49,6 @@ namespace BlogRefactored
 			builder.RegisterType<BlogBLL.BlogGuests>();
 			builder.RegisterType<BlogBLL.BlogSide>();
 			builder.RegisterControllers(Assembly.GetExecutingAssembly());
-			//builder.RegisterType<Controllers.SideController>();
-			//builder.RegisterType<Controllers.ManageController>();
-			//builder.RegisterType<Controllers.HomeController>();
 			Console.WriteLine("成功运行依赖注入AutoFac");
 			var containner = builder.Build();
 			return containner;
@@ -75,7 +72,7 @@ namespace BlogRefactored
 			return base.GetControllerInstance(requestContext, controllerType);
 		}
 	}
-	/*public class BlogDependencyResolver : IDependencyResolver
+	/*public class BlogDependencyResolver : IDependencyResolver//弃用的DependencyResolver
 	{
 		private readonly ILifetimeScope _container;
 

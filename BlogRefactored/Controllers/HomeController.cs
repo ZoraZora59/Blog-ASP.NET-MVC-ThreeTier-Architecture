@@ -40,7 +40,29 @@ namespace BlogRefactored.Controllers
 		{
 			return View(home.GetIndex(page));
 		}
-
+		public ActionResult MBlog(int? id)
+		{
+			var currentLoginUser = Session["loginuser"] == null ? null : (BlogUser)Session["loginuser"];
+			ViewBag.currentLoginInfo = currentLoginUser;
+			int textID;
+			if (id == null)
+				return Redirect("/home/mindex");
+			else
+			{
+				textID = (int)id;
+			}
+			try
+			{
+				var model = home.GetBlog(textID);
+				var cmt = home.GetBlogComment(textID);
+				ViewBag.CmtList = cmt;
+				return View(model);
+			}
+			catch (Exception)
+			{
+				return Redirect("/home/mindex");
+			}
+		}
         [HttpGet]
         public ActionResult Register()//注册的页面显示
         {

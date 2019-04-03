@@ -25,23 +25,25 @@
 
             @foreach (var item in Model)
             {
-                <div class="post-preview">
-                    <a href="/home/mblog/@item.TextID">
-                        <h2 class="post-title">
-                            @item.TextTitle
-                        </h2>
-                        <h5 class="post-subtitle">
-                            @*TODO:处理断字问题*@
-                            @item.FirstView
-                        </h5>
-                    </a>
-                    <p class="post-meta">
+            <div class="post-preview">
+                <a href="/home/mblog/@item.TextID">
+                    <h2 class="post-title">
+                        @item.TextTitle
+                    </h2>
+                    <h5 class="post-subtitle">
+                        @*TODO:处理断字问题*@
+                        @item.FirstView
+                    </h5>
+                </a>
+                <p class="post-meta">
+                    <p>
                         阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(@item.CategoryName.ToString())
-                        <span class="postDesc">
-                            发布于 @item.TextChangeDate.ToString()
-                        </span>
                     </p>
-                </div>
+                    <span class="postDesc">
+                        发布于 @item.TextChangeDate.ToString()
+                    </span>
+                </p>
+            </div>
                 <hr>
             }
 
