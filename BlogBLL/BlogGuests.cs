@@ -164,5 +164,19 @@ namespace BlogBLL
             }
             return search_list;
         }
+
+        #region 评论相关
+        public void AddComment(int id,string Account,string Content)
+        {
+            var NewComment = new BlogComment { TextID = id, Account = Account, CommentText = Content };
+            repository.AddComment(NewComment);
+        }
+
+        public void DelComment(int cmtId)
+        {
+            repository.DelCommentByID(cmtId);
+        }
+
+        #endregion
     }
 }

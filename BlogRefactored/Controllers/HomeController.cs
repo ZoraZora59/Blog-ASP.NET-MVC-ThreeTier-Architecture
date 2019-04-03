@@ -36,7 +36,7 @@ namespace BlogRefactored.Controllers
             
         }
 
-
+        #region 用户相关
         [HttpGet]
         public ActionResult Register()//注册的页面显示
         {
@@ -99,25 +99,6 @@ namespace BlogRefactored.Controllers
             return View();
         }
 
-        public FileResult ValidateCode()
-        {
-            ValidateCode vc = new ValidateCode();
-            string code = vc.CreateValidateCode(4);
-            Session["validatecode"] = code;//把数字保存在session中
-            byte[] bytes = vc.CreateValidateGraphic(code);//根据数字转成二进制图片
-            return File(bytes, @"image/jpeg");//返回一个图片jpg
-        }
-
-        public ActionResult SearchResult(string searchthing)
-        {
-
-            //搜索
-            //var search_list = new List<TextIndex>();
-            var search_list = home.SearchBlog(searchthing);
-            ViewBag.searchRes = search_list;
-            return View(search_list);
-        }
-
         [HttpGet]
         public ActionResult ChangeInfo()
         {
@@ -148,11 +129,36 @@ namespace BlogRefactored.Controllers
                     return RedirectToAction("ChangeInfo", "Home", new { msg = "验证码错误！请重新输入" });
                 }
                 home.ChangeInfo(model);
-            //TODO：注册完毕后记录登录信息
+                //TODO：注册完毕后记录登录信息
             }
             return Redirect("/");
         }
 
+
+        #endregion
+
+
+        public FileResult ValidateCode()
+        {
+            ValidateCode vc = new ValidateCode();
+            string code = vc.CreateValidateCode(4);
+            Session["validatecode"] = code;//把数字保存在session中
+            byte[] bytes = vc.CreateValidateGraphic(code);//根据数字转成二进制图片
+            return File(bytes, @"image/jpeg");//返回一个图片jpg
+        }
+
+
+        public ActionResult SearchResult(string searchthing)
+        {
+
+            //搜索
+            //var search_list = new List<TextIndex>();
+            var search_list = home.SearchBlog(searchthing);
+            ViewBag.searchRes = search_list;
+            return View(search_list);
+        }
+
+       
         public ActionResult CategroyBlog(string categroyname)
         {
 
@@ -174,6 +180,27 @@ namespace BlogRefactored.Controllers
             ViewBag.CmtList = cmt;
             return View(model);
         }
+
+
+
+        [HttpPost]
+        public JsonResult AddComment()
+        {
+            int sTextID = int.Parse(Request["TextID"]);
+            string sAccount = Request["Account"].ToString();
+            string sContent = Request["Content"].ToString();
+            home.AddComment(sTextID, sAccount, sContent);
+            return Json(null);
+            
+        }//新增评论   TODO:添加评论内容超长判断
+
+        public JsonResult DeleteComment()
+        {
+            int cmtId = int.Parse(Request["CommitID"]);
+            home.DelComment(cmtId);
+            return Json(0);
+        }
+
 
 
         // 退出登陆
