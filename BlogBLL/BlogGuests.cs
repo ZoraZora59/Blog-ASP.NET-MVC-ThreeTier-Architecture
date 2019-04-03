@@ -99,7 +99,7 @@ namespace BlogBLL
 
         public  BlogText GetBlog(int id)
         {
-            repository.ReadText(id);
+            repository.AddTextHot(id);
             var model = repository.GetTextByID(id);
             return model;
         }
