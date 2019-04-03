@@ -71,7 +71,7 @@ namespace BlogBLL
                 models.Add(temp);
             }
             models.Reverse();
-            int pageSize = 4;//每页显示的文章数
+            int pageSize = 10;//每页显示的文章数
             int pageNumber = (page ?? 1);
             return (models.ToPagedList(pageNumber, pageSize));
         }
