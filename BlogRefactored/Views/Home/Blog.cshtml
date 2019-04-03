@@ -188,6 +188,9 @@
             datatype: 'html',
             success: function () {
                 alert('删除成功');
+            },
+            error: function () {
+                alert('删除失败，过会儿再试试吧');
             }
         });
         window.location.href = "/home/blog/" + tid;
