@@ -286,12 +286,12 @@ namespace BlogRefactored.Controllers
 		{
 			return View();
 		}
-        protected override void HandleUnknownAction(string actionName)//自定义404ERROR
-        {
-        //TODO:二选一
-            Response.Redirect("/home/notfind");
-            Response.Redirect("/home/Http404");
-        }
+        //protected override void HandleUnknownAction(string actionName)//自定义404ERROR
+        //{
+        ////TODO:二选一
+        //    Response.Redirect("/home/notfind");
+        //    Response.Redirect("/home/Http404");
+        //}
 
   //      public ActionResult Contact()
 		//{
