@@ -31,7 +31,7 @@ namespace BlogRefactored.Controllers
         //page分页Num
         public ActionResult Index(int? page)
         {
-
+            
             return View(home.GetIndex(page));
             
         }
@@ -189,6 +189,7 @@ namespace BlogRefactored.Controllers
             int sTextID = int.Parse(Request["TextID"]);
             string sAccount = Request["Account"].ToString();
             string sContent = Request["Content"].ToString();
+            string[] badwords = {"你妈逼", "操你妈","傻逼","臭傻逼","滚你妈的","扯犊子"};
             home.AddComment(sTextID, sAccount, sContent);
             return Json(null);
             

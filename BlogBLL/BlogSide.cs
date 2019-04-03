@@ -48,15 +48,16 @@ namespace BlogBLL
             return time_lists;
         }
 
-        public ShowComment GetNewCommit()
+        public List<ShowComment> GetNewCommit()
         {
             var blog = repository.GetTextsAll();
             var commit = repository.GetCommentsAll();
             var Ctime_list = commit.OrderByDescending(m => m.CommentChangeDate).Take(3).ToList();
-            var tempC = new ShowComment();
+            var CommentList = new List<ShowComment>();
             var users = repository.GetUsersAll();
             foreach (var item in Ctime_list)
             {
+                var tempC = new ShowComment();
                 var textT = blog.Where(m => m.TextID == item.TextID).ToList();
                 var NameC = users.Where(m => m.Account == item.Account).ToList();
                 tempC.TextID = item.TextID;
@@ -64,8 +65,9 @@ namespace BlogBLL
                 tempC.TextTitle = textT[0].TextTitle;
                 tempC.Name = NameC[0].Name;
                 tempC.Date = item.CommentChangeDate.ToString();
+                CommentList.Add(tempC);
             }
-            return tempC;
+            return CommentList;
         }
 
         public List<string> GetCateString()

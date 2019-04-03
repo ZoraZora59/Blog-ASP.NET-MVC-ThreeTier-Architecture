@@ -76,26 +76,33 @@
                             <h3 class="catListTitle">最新评论</h3>
 
                             <div id="RecentCommentsBlock">
-                                @if (@newestCom.Content == null)
-                                {
                                 <ul>
-                                    <li class="recent_comment_title">
-                                        暂无评论
-                                    </li>
+                                    @if (newestCom == null)
+                                    {
+                                        <ul>
+                                            <li class="recent_comment_title">
+                                                暂无评论
+                                            </li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < newestCom.Count; i++)
+                                        {
+                                            {
+
+                                                <li class="recent_comment_title"><a href="/home/blog/@newestCom[i].TextID">@(i + 1).Re:@newestCom[i].TextTitle</a></li>
+                                                <li class="recent_comment_body">@newestCom[i].Content</li>
+                                                <li class="recent_comment_author">---@newestCom[i].Name</li>
+
+                                            }
+                                        }
+                                    }
                                 </ul>
-                                }
-                                else
-                                {
-                                    <ul>
 
-                                        <li class="recent_comment_title"><a href="/home/blog/@newestCom.TextID">Re:@newestCom.TextTitle</a></li>
-                                        <li class="recent_comment_body">@newestCom.Content</li>
-                                        <li class="recent_comment_author">---@newestCom.Name</li>
 
-                                    </ul>
-                                }
 
-                            </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -135,14 +142,18 @@
                             <h3 class="catListTitle">评论排行榜</h3>
                             @if (ViewBag.TopComList != null)
                             {
-                                foreach (var item in ViewBag.TopComList)
-                                {
-                                    <div id="TopFeedbackPostsBlock"><ul><li><a href="/home/blog/@item.TextID">@item.Num . @item.TextTitle (@item.CmtCount)</a></li></ul></div>
-                                }
+                                <div id="TopFeedbackPostsBlock">
+                                    <ul>
+                                        @foreach (var item in ViewBag.TopComList)
+                                        {
+                                        <li><a href="/home/blog/@item.TextID">@item.Num . @item.TextTitle (@item.CmtCount)</a></li>
+                                        }
+                                    </ul>
+                                </div>
                             }
                             else
                             {
-                                <div id="TopFeedbackPostsBlock"><ul><li>小站新建，目前暂无文章，致歉</li></ul></div>
+                            <div id="TopFeedbackPostsBlock"><ul><li>小站新建，目前暂无文章，致歉</li></ul></div>
                             }
                         </div>
                     </div>

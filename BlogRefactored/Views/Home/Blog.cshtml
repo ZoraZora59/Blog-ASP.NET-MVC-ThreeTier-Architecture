@@ -134,7 +134,7 @@
                                 <p></p>
                                 <div class="commentbox_main">
                                     <div>评论内容：</div>
-                                    <textarea id="txt" style="width:80%;height:100px;resize:vertical"></textarea>
+                                    <textarea id="txt" style="width:80%;height:100px;resize:vertical" placeholder="您有什么想法要说的吗？"class="form-control"></textarea>
                                 </div>
                                 <p id="commentbox_opt">
                                     <input type="button" name="button" class="btn btn-primary" onclick="submitCommit('@Model.TextID','@currentLoginInfo.Account')" value="提交评论">
@@ -161,7 +161,7 @@
 <script>
     function submitCommit(tid, act) {
         var txt = document.getElementById('txt').value;
-        //alert(txt);
+        alert(txt);
         $.ajax({
             ajax: false,
             type: 'POST',
