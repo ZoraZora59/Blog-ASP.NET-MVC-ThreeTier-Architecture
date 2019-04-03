@@ -77,13 +77,24 @@
                                         }
                                     </span>
                                 </div>
-                                <div style="display:none">@item.Id</div>
-                                <div>#@item.Num 楼</div> 
-                                <div>
-                                <span class="comment_date">@item.Date.ToString()</span>
+                                @if (@item.Account == "admin123")
+                                {
+                                    <div>#@item.Num 楼 [楼主]<img src="~/front/images/楼主.png" /></div>
+                                    <div>
+                                        <span class="comment_date">@item.Date.ToString()</span>
 
-                                <img src="~/front/images/用户.png" /> <span target="_blank">@item.Name</span>
-                                </div>
+                                        <img src="~/front/images/用户.png" />  <span target="_blank">@item.Name</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>#@item.Num 楼</div>
+                                    <div>
+                                        <span class="comment_date">@item.Date.ToString()</span>
+
+                                        <img src="~/front/images/用户.png" /> <span target="_blank">@item.Name</span>
+                                    </div>
+                                }
                             </div>
                             <div class="feedbackCon">
                                 <div id="comment_body_3822567" class="blog_comment_body">@item.Content</div>
@@ -154,7 +165,7 @@
         $.ajax({
             ajax: false,
             type: 'POST',
-            url: "/Home/AddCommit",
+            url: "/Home/AddComment",
             data: { TextID: tid, Account: act, Content: txt },
             datatype: 'html',
             success: function () {
@@ -168,7 +179,7 @@
         $.ajax({
             ajax: false,
             type: "POST",//FromMethod
-            url: "/Home/DeleteCommit",//"/Controller/Action"
+            url: "/Home/DeleteComment",//"/Controller/Action"
             data: { CommitID: cid },//参数 "参数名："参数值""
             datatype: 'html',
             error: function () {
