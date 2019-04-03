@@ -56,7 +56,7 @@ namespace BlogBLL
                 var temp = new TextIndex
                 {
                     TextID = item.TextID,
-                    CommitCount = TextList.Where(c => c.TextID == item.TextID).Count(),
+                    CommitCount = repository.GetCommitsByTextID(item.TextID).Count(),
                     Text = item.Text,
                     FirstView = item.FirstView
                 };
@@ -99,8 +99,6 @@ namespace BlogBLL
         {
             repository.ReadText(id);
             var model = repository.GetTextByID(id);
-            
-
             return model;
         }
 
