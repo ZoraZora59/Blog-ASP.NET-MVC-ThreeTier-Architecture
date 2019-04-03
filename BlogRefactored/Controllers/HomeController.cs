@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using BlogBLL;
@@ -236,10 +237,14 @@ namespace BlogRefactored.Controllers
 				#region 屏蔽词
 				string[] badwords = { "你妈逼", "操你妈", "傻逼", "臭傻逼", "滚你妈的", "扯犊子" };
 				#endregion
-				if (sContent.Length > 100)
+                for(int i = 0; i < badwords.Length; i++)
+                {
+                    sContent = sContent.Replace(badwords[i], "喵喵喵");
+                }
+                if (sContent.Length > 100)
 					return Json(null);
-				home.AddComment(sTextID, sAccount, sContent);
-			}
+                home.AddComment(sTextID, sAccount, sContent);
+            }
 			catch (Exception)
 			{
 				return Json(null);
