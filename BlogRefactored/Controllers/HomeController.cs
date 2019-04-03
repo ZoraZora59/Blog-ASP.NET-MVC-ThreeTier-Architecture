@@ -276,10 +276,6 @@ namespace BlogRefactored.Controllers
 
             return Redirect("/");
         }
-        public ActionResult notfind()
-        {
-            return View();
-        }
 
 		public ActionResult Http404()
 		{
