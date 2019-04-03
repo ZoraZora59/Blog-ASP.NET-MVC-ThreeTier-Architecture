@@ -31,7 +31,7 @@
                         <th width="120"><i class="require-red">*</i>博客签名：</th>
 
                         <td>
-                            @Html.TextBoxFor(m => m.Sign, new { @class = "common-text required", @id = "title", @name = "title", @size = "70", @type = "text" })
+                            @Html.TextBoxFor(m => m.Sign, new { @class = "common-text required", @id = "sign", @name = "title", @size = "70", @type = "text" })
                             @Html.ValidationMessageFor(m => m.Sign)
                         </td>
 
@@ -40,7 +40,7 @@
                         <th width="120"><i class="require-red">*</i>博客公告：</th>
 
                         <td>
-                            @Html.TextAreaFor(model => model.Note, new { @class = "common-textarea", @style = "width:590px ;height:270px;" })
+                            @Html.TextAreaFor(model => model.Note, new { @class = "common-textarea", style = "width:590px ;height:270px;" ,id="note"})
 
                             @Html.ValidationMessageFor(m => m.Note)
                         </td>
@@ -49,7 +49,8 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input type="submit" class="btn btn-primary btn6 mr10" plain="true" value="确定" />
+                            <input type="button" class="btn btn-primary btn6 mr10" plain="true" value="确定" onclick="ConfigUpdate()"/>
+                            <input type="submit" class="btn btn-primary btn6 mr10" plain="true" value="确定1"/>
                         </td>
                     </tr>
                 <tbody>
@@ -58,3 +59,23 @@
         </div>
     </div>
 }
+<script>
+    function ConfigUpdate() {
+        var title = document.getElementById('title').value;
+        var note = document.getElementById('note').value;
+        var sign = document.getElementById('sign').value;
+        $.ajax({
+            ajax: false,
+            type: "POST",//FromMethod
+            url: "/home/Config",//"/Controller/Action"
+            data: { Title: title, Note: note, Sign: sign},
+            success: function (data) {
+                alert('更新成功');
+                //window.location.href = "/Manage/Congfig";
+            },
+            error: function () {
+                alert('更新失败，肯定有Bug');
+            }
+        });
+    }
+</script>

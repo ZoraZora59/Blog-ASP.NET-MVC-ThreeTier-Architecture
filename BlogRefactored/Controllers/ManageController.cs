@@ -32,15 +32,7 @@ namespace BlogRefactored.Controllers
 			return View(manager.GetBlogConfig());
 		}
 
-		[HttpPost]
-		public ActionResult Config(BlogConfig model)//设定博客配置文件
-		{
-			var  isSuccess=manager.SetBlogConfig(model);
-			if (isSuccess)
-				return View();//设定成功
-			else
-				return View();
-		}
+		
 		#endregion
 
 		#region 文章管理

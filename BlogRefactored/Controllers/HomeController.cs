@@ -268,6 +268,21 @@ namespace BlogRefactored.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult Config()//设定博客配置文件
+        {
+            string configTitle = Request["Title"].ToString();
+            string configSign = Request["Sign"].ToString();
+            string configNote = Request["Note"].ToString();
+            var model = new BlogConfig { Name = configTitle, Note = configNote, Sign = configSign };
+            bool isSuccess = home.SetBlogConfig(model);
+            if (isSuccess)
+                return View();//设定成功
+            else
+                return View();
+        }
+
+
 
         // 退出登陆
         public ActionResult ExitLogin()
