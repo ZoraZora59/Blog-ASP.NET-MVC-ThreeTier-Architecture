@@ -63,9 +63,8 @@ namespace BlogRefactored.Controllers
 			}
 			catch
 			{
-				throw;
 			}
-			return Json(null);
+			return Json(0);
 		}
 		[HttpGet]
 		public ActionResult Show()//文章详情

@@ -213,19 +213,32 @@ namespace BlogRefactored.Controllers
         [HttpPost]
         public JsonResult AddComment()
         {
-            int sTextID = int.Parse(Request["TextID"]);
-            string sAccount = Request["Account"].ToString();
-            string sContent = Request["Content"].ToString();
-            string[] badwords = {"你妈逼", "操你妈","傻逼","臭傻逼","滚你妈的","扯犊子"};
-            home.AddComment(sTextID, sAccount, sContent);
-            return Json(null);
-            
-        }//新增评论   TODO:添加评论内容超长判断
+			try
+			{
+				int sTextID = int.Parse(Request["TextID"]);
+				string sAccount = Request["Account"].ToString();
+				string sContent = Request["Content"].ToString();
+				#region 屏蔽词
+				string[] badwords = { "你妈逼", "操你妈", "傻逼", "臭傻逼", "滚你妈的", "扯犊子" };
+				#endregion
+				home.AddComment(sTextID, sAccount, sContent);
+			}
+			catch (Exception)
+			{
+			}
+			return Json(null);
+		}//新增评论   TODO:添加评论内容超长判断
 
         public JsonResult DeleteComment()
         {
-            int cmtId = int.Parse(Request["CommitID"]);
-            home.DelComment(cmtId);
+			try
+			{
+				int cmtId = int.Parse(Request["CommitID"]);
+				home.DelComment(cmtId);
+			}
+			catch (Exception)
+			{
+			}
             return Json(0);
         }
 

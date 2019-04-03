@@ -137,7 +137,7 @@ namespace BlogDAL
 			using (BlogContext db = new BlogContext())
 			{
 				List<BlogComment>commitsList = db.BlogTexts.Find(textID).Commits.ToList();
-				while(commitsList!=null)//删除相关评论
+				if(commitsList!=null)//删除相关评论
 				{
 					commitsList.ForEach(d => db.BlogComments.Remove(d));//TODO:测试是否正常工作
 					db.SaveChanges();

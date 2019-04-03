@@ -3095,6 +3095,7 @@
     <Content Include="kindeditor\lib\firebug-lite\build\chrome-extension\manifest.json" />
     <Content Include="kindeditor\lib\firebug-lite\build\compress.bat" />
     <Content Include="kindeditor\package.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\grain\canvas-nest.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

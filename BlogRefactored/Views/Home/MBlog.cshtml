@@ -121,7 +121,7 @@
                     {
 
                         <div class="login_tips">
-                            注册用户登录后才能发表评论，请 <a rel="nofollow" href="~/manage/login" class="bold">登录</a>或 <a rel="nofollow" href="~/manage/register" class="bold">注册</a>，<a href="~/home" class="bold">访问</a>博客主页。
+                            注册用户登录后才能发表评论，请 <a rel="nofollow" href="/home/login" class="bold">登录</a>或 <a rel="nofollow" href="/home/register" class="bold">注册</a>，<a href="~/home" class="bold">访问</a>博客主页。
                         </div>
 
                     }
@@ -174,7 +174,7 @@
         $.ajax({
             ajax: false,
             type: 'POST',
-            url: "/Home/AddCommit",
+            url: "/Home/AddComment",
             data: { TextID: tid, Account: act, Content: txt },
             datatype: 'html',
             success: function () {
@@ -188,7 +188,7 @@
         $.ajax({
             ajax: false,
             type: "POST",//FromMethod
-            url: "/Home/DeleteCommit",//"/Controller/Action"
+            url: "/Home/DeleteComment",//"/Controller/Action"
             data: { CommitID: cid },//参数 "参数名："参数值""
             datatype: 'html',
             error: function () {
