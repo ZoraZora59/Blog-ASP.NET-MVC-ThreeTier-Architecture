@@ -179,7 +179,6 @@
             error: function () {
                 alert('评论失败，可能是字数过长，试着分成几段评论吧')
             }
-
         });
         window.location.href = "/home/Blog/" + tid;
     }
@@ -193,6 +192,9 @@
             datatype: 'html',
             success: function () {
                 alert('删除成功');
+            },
+            error: function () {
+                alert('删除失败，过会儿再试试吧');
             }
         });
         window.location.href = "/home/blog/" + tid;
