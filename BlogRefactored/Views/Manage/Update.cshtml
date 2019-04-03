@@ -12,12 +12,16 @@
 <link rel="stylesheet" href="~/front/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link href="~/front/css/common.css" rel="stylesheet" />
 <link href="~/front/css/main.css" rel="stylesheet" />
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>增改文章</h4>
-        @if (Model.Id != 0)
+<span class="h5">
+    增改文章
+</span>
+<div class="form-horizontal">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        if (Model.Id != 0)
         {
 
             <div class="form-group" style="display:none">
@@ -69,8 +73,9 @@
                     </td>
                 </tr>
         </table>
-    </div>
-}
+
+    }
+</div>
 <script>
     function commitUpdate() {
         $.ajax({

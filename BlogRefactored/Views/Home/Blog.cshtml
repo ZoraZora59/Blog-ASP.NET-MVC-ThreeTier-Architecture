@@ -30,10 +30,15 @@
                             <img src="~/front/images/评论.png" />评论(<span id="post_comment_count">@ViewBag.CmtList.Count</span>)
                         </div>
                         <HR width="100%" color=#169fe6 9 SIZE=1>
-                        
+
                         <div class="clear"></div>
+
                         @Html.Raw(Model.Text)
+                        <br />
                         <div class="postDesc">
+                            分类：
+                            <a href="/home/CategroyBlog?categroyname=@Model.CategoryName">@Model.CategoryName</a>
+                            <br />
                             posted @@ <span id="post-date">@Model.TextChangeDate</span> <a href="/home">NewBeeBlog</a>
                         </div>
                     </div>
