@@ -3160,6 +3160,7 @@
     <Content Include="Views\Home\SearchResult.cshtml" />
     <Content Include="Views\Shared\_MLayout.cshtml" />
     <Content Include="Views\Manage\Update.cshtml" />
+    <Content Include="Views\Home\notfind.cshtml" />
     <Content Include="Views\Home\Http404.cshtml" />
   </ItemGroup>
   <ItemGroup>

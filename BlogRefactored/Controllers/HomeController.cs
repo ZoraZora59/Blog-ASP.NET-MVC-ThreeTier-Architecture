@@ -182,6 +182,7 @@ namespace BlogRefactored.Controllers
             //搜索
             //var search_list = new List<TextIndex>();
             var search_list = home.SearchBlog(searchthing);
+            ViewBag.searching = searchthing;
             ViewBag.searchRes = search_list;
             return View(search_list);
         }
@@ -235,7 +236,7 @@ namespace BlogRefactored.Controllers
 				string sAccount = Request["Account"].ToString();
 				string sContent = Request["Content"].ToString();
 				#region 屏蔽词
-				string[] badwords = { "你妈逼", "操你妈", "傻逼", "臭傻逼", "滚你妈的", "扯犊子" };
+				string[] badwords = { "你妈逼", "操你妈", "傻逼", "臭傻逼", "滚你妈的", "扯犊子","你他妈","FUCK","FUCKYOU" };
 				#endregion
                 for(int i = 0; i < badwords.Length; i++)
                 {
@@ -276,6 +277,10 @@ namespace BlogRefactored.Controllers
 
             return Redirect("/");
         }
+        public ActionResult notfind()
+        {
+            return View();
+        }
 
 		public ActionResult Http404()
 		{
@@ -283,6 +288,8 @@ namespace BlogRefactored.Controllers
 		}
         protected override void HandleUnknownAction(string actionName)//自定义404ERROR
         {
+        //TODO:二选一
+            Response.Redirect("/home/notfind");
             Response.Redirect("/home/Http404");
         }
 
