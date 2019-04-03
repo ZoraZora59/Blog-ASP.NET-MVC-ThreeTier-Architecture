@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using BlogBLL;
@@ -188,8 +189,12 @@ namespace BlogRefactored.Controllers
         {
             int sTextID = int.Parse(Request["TextID"]);
             string sAccount = Request["Account"].ToString();
-            string sContent = Request["Content"].ToString();
-            string[] badwords = {"你妈逼", "操你妈","傻逼","臭傻逼","滚你妈的","扯犊子"};
+            string sContent = Request["Content"].ToString().Replace("傻逼","喵喵喵");
+            string[] badwords = { "傻逼", "草泥马", "FUCK", "我日你妈", "操你妈","你他妈"};
+            for(int i = 0; i < badwords.Length; i++)
+            {
+                sContent = sContent.Replace(badwords[i], "喵喵喵");
+            }
             home.AddComment(sTextID, sAccount, sContent);
             return Json(null);
             
