@@ -157,7 +157,6 @@ namespace BlogRefactored.Controllers
                     return RedirectToAction("ChangeInfo", "Home", new { msg = "验证码错误！请重新输入" });
                 }
                 home.ChangeInfo(model);
-                //TODO：注册完毕后记录登录信息
             }
             return Redirect("/");
         }
@@ -286,38 +285,5 @@ namespace BlogRefactored.Controllers
 		{
 			return View();
 		}
-        //protected override void HandleUnknownAction(string actionName)//自定义404ERROR
-        //{
-        ////TODO:二选一
-        //    Response.Redirect("/home/notfind");
-        //    Response.Redirect("/home/Http404");
-        //}
-
-  //      public ActionResult Contact()
-		//{
-		//	ViewBag.Message = "Your contact page.";
-		//	TODO:设置每页显示的文章数量
-		//	int ViewCount = 3;
-		//	var manager = new BlogBLL.BlogBLL();
-		//	var Texts = manager.GetAllTexts().Select(Text => new TextDetailViewModel()
-		//	{
-		//		TextID = Text.TextID,
-		//		TextTitle = Text.TextTitle,
-		//		TextChangeDate=Text.TextChangeDate,
-		//		CategoryName=Text.CategoryName,
-		//		Hot=Text.Hot,
-		//		Text=Text.Text
-		//	}
-		//	).ToList();
-		//	var TextsList = new TextsListViewModel()
-		//	{
-		//		TextsCount = Texts.Count,
-		//		TODO:添加显示方案
-		//		PageCount = 1,
-		//		Pages = 1,
-		//		Texts = Texts
-		//	};
-		//	return View(TextsList);
-		//}
 	}
 }

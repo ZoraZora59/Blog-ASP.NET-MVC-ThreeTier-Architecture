@@ -87,6 +87,7 @@ namespace BlogRefactored.Controllers
 		[HttpGet]
 		public ActionResult Update()//文章更新
 		{
+			ViewBag.Title = "创建文章";
 			try
 			{
 				string jstID = Request["TextID"].ToString();
@@ -100,11 +101,9 @@ namespace BlogRefactored.Controllers
 			catch (NullReferenceException)
 			{
 			}
-			catch (Exception)//TODO:异常处理
+			catch (Exception)
 			{
-				throw;
 			}
-			ViewBag.Title = "创建文章";
 			return View(new UpdateText());
 		}
 
@@ -138,7 +137,7 @@ namespace BlogRefactored.Controllers
 				try
 				{
 					var IsUpdate = manager.UpdateText(BlogText);
-					if (IsUpdate == true)//TODO:更新成功处理
+					if (IsUpdate == true)
 					{
 						return Json(0);
 					}
@@ -174,14 +173,14 @@ namespace BlogRefactored.Controllers
 				var IsDel = manager.RemoveUser(Account);
 				if (IsDel == false)
 				{
-					return Json(null);//TODO:删除失败的反馈
+					return Json(null);
 				}
+				else return Json(0);
 			}
 			catch (Exception)
 			{
-				throw;
+				return Json(null);
 			}
-			return Json(null);//页面更新
 		}
 		#endregion
 
@@ -196,7 +195,7 @@ namespace BlogRefactored.Controllers
 		{
 			try
 			{
-				return View(manager.GetCategoryDetail(Request["CategoryName"].ToString()));//TODO:修改分类详情View对应Model
+				return View(manager.GetCategoryDetail(Request["CategoryName"].ToString()));
 			}
 			catch (NullReferenceException)//路由地址异常
 			{
@@ -240,7 +239,6 @@ namespace BlogRefactored.Controllers
 		}
 		public JsonResult JSRenameCategory()//分类更名的JS实现
 		{
-			//TODO:修改返回值
 			var NameString = Request["NameChanging"].ToString();
 			string[] name = NameString.Split(new char[] { ',' });
 			if (name[0] == "未分类")
