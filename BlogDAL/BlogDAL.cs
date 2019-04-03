@@ -12,7 +12,7 @@ namespace BlogDAL
 		//操作模板    using (BlogContext db = new BlogContext())
 		public BlogDAL(){ }
 		#region 评论表相关
-		public void AddComment(BlogComment addThis)
+		public void AddComment(BlogComment addThis)//添加评论，参数为BlogComment实体
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -20,7 +20,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public void DelCommentByID(int id)
+		
+		public void DelCommentByID(int id)//删除评论，参数为评论的ID号
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -28,7 +29,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public void DelCommentByAccount(string Account)
+
+		public void DelCommentByAccount(string Account)//删除某用户的所有评论，参数为用户账号
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -36,7 +38,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public void DelCommentByTextID(int tid)
+
+		public void DelCommentByTextID(int tid)//删除某文章下的所有评论，参数为文章ID号
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -44,7 +47,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		//public BlogComment GetCommitNew()
+
+		//public BlogComment GetCommitNew()//获取最新评论
 		//{
 		//	using (BlogContext db = new BlogContext())
 		//	{
@@ -53,14 +57,16 @@ namespace BlogDAL
                 
 		//	}
 		//}
-		public List<BlogComment> GetCommitsByTextID(int tid)
+
+		public List<BlogComment> GetCommitsByTextID(int tid)//获取某文章下的所有评论，参数为文章ID号，返回一个BlogComment格式的列表
 		{
 			using (BlogContext db = new BlogContext())
 			{
 				return db.BlogComments.Where(c => c.TextID == tid).ToList();
 			}
 		}
-		public List<BlogComment> GetCommentsAll()
+
+		public List<BlogComment> GetCommentsAll()//获取全站所有评论，返回一个BlogComment格式的列表
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -69,7 +75,7 @@ namespace BlogDAL
 		}
 		#endregion
 		#region 用户表相关
-		public void DelUser(string account)
+		public void DelUser(string account)//删除某用户，参数为用户账号
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -78,7 +84,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public void UpdateUser(string account,BlogUser updateThis)
+
+		public void UpdateUser(string account,BlogUser updateThis)//修改用户信息，参数为（用户账号，用于更新的BlogUser实体）
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -89,7 +96,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public void AddUser(BlogUser addThis)
+
+		public void AddUser(BlogUser addThis)//添加用户（用户注册），参数为新用户的BlogUser实体
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -97,56 +105,46 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public List<BlogUser> GetUsersAll()
+
+		public List<BlogUser> GetUsersAll()//获取全站所有用户信息，返回一个BlogUser类型的列表
 		{
 			using (BlogContext db = new BlogContext())
 			{
 				return db.BlogUsers.ToList();
 			}
 		}
-		public BlogUser GetUserByAccount(string Account)
+
+		public BlogUser GetUserByAccount(string Account)//获取某用户信息，参数为用户账号，返回一个带有数据的BlogUser实体，如有异常应在上层处理
 		{
 			using (BlogContext db = new BlogContext())
 			{
                 return db.BlogUsers.FirstOrDefault(c => c.Account==Account);
 			}
 		}
-
-
-
-
         #endregion
         #region 文章表相关
 
-        public void ReadText(int id)//显示文章，热度要加1
+        public void AddTextHot(int id)//增加文章点击量，参数为文章ID号
         {
             using (BlogContext db = new BlogContext())
             {
-                var model = db.BlogTexts.FirstOrDefault(m => m.TextID == id);
-                model.Hot += 1;
-                DbEntityEntry entry = db.Entry(model);
-                entry.State = EntityState.Modified;
-                db.SaveChanges();
+				BlogText item = db.BlogTexts.Find(id);
+				item.Hot++;
+				db.SaveChanges();
             }
-           
         }
 
-
-        public void DelText(int textID)
+        public void DelText(int textID)//删除某文章，参数为文章ID号
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				List<BlogComment>commitsList = db.BlogTexts.Find(textID).Commits.ToList();
-				if(commitsList!=null)//删除相关评论
-				{
-					commitsList.ForEach(d => db.BlogComments.Remove(d));//TODO:测试是否正常工作
-					db.SaveChanges();
-				}
+				db.BlogComments.RemoveRange(db.BlogComments.Where(c => c.TextID == textID));
 				db.BlogTexts.Remove(db.BlogTexts.Find(textID));
 				db.SaveChanges();
 			}
 		}
-		public void AddText(BlogText addThis)
+
+		public void AddText(BlogText addThis)//新增文章，参数为BlogText的实体
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -154,7 +152,8 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public void UpdateText(int textID,BlogText updateThis)
+
+		public void UpdateText(int textID,BlogText updateThis)//更新文章，参数为（文章ID号，更新后的文章BlogText）
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -166,14 +165,16 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-		public BlogText GetTextByID(int id)
+
+		public BlogText GetTextByID(int id)//获取某文章信息，参数为文章的ID号，返回一个BlogText实体
 		{
 			using (BlogContext db = new BlogContext())
 			{
 				return db.BlogTexts.Find(id);
 			}
 		}
-		public List<BlogText> GetTextsAll()
+
+		public List<BlogText> GetTextsAll()//获取全站所有文章信息，返回一个BlogText类型的列表
 		{
 			using (BlogContext db = new BlogContext())
 			{

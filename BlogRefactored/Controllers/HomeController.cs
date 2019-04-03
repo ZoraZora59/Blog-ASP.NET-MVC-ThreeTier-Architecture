@@ -199,21 +199,36 @@ namespace BlogRefactored.Controllers
         }
 
         [HttpGet]
-        public ActionResult Blog(int id)
+        public ActionResult Blog(int? id)
         {
             var currentLoginUser = Session["loginuser"] == null ? null : (BlogUser)Session["loginuser"];
             ViewBag.currentLoginInfo = currentLoginUser;
-
-            var model = home.GetBlog(id);
-            var cmt = home.GetBlogComment(id);
-            ViewBag.CmtList = cmt;
-            return View(model);
+			int tid;
+			if (id == null)
+			{
+				return Redirect("/home");
+			}
+			else
+			{
+				tid = (int)id;
+			}
+			try
+			{
+				var model = home.GetBlog(tid);
+				var cmt = home.GetBlogComment(tid);
+				ViewBag.CmtList = cmt;
+				return View(model);
+			}
+			catch (Exception)
+			{
+				return Redirect("/home");
+			}
         }
 
 
 
         [HttpPost]
-        public JsonResult AddComment()
+        public JsonResult AddComment()//新增评论
         {
 			try
 			{
@@ -227,6 +242,8 @@ namespace BlogRefactored.Controllers
                 {
                     sContent = sContent.Replace(badwords[i], "喵喵喵");
                 }
+                if (sContent.Length > 100)
+					return Json(null);
                 home.AddComment(sTextID, sAccount, sContent);
             }
 			catch (Exception)
@@ -234,7 +251,7 @@ namespace BlogRefactored.Controllers
 				return Json(null);
 			}
 			return Json(0);
-		}//新增评论   TODO:添加评论内容超长判断
+		}//新增评论
 
         public JsonResult DeleteComment()
         {
@@ -265,9 +282,15 @@ namespace BlogRefactored.Controllers
             return View();
         }
 
+		public ActionResult Http404()
+		{
+			return View();
+		}
         protected override void HandleUnknownAction(string actionName)//自定义404ERROR
         {
+        //TODO:二选一
             Response.Redirect("/home/notfind");
+            Response.Redirect("/home/Http404");
         }
 
   //      public ActionResult Contact()

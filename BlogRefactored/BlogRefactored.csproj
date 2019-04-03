@@ -177,6 +177,7 @@
     <Content Include="Content\img\about-bg.jpg" />
     <Content Include="Content\img\contact-bg.jpg" />
     <Content Include="Content\img\home-bg.jpg" />
+    <Content Include="Content\img\http404.jpg" />
     <Content Include="Content\img\Logo.png" />
     <Content Include="Content\img\post-bg.jpg" />
     <Content Include="Content\img\post-sample-image.jpg" />
@@ -3160,6 +3161,7 @@
     <Content Include="Views\Shared\_MLayout.cshtml" />
     <Content Include="Views\Manage\Update.cshtml" />
     <Content Include="Views\Home\notfind.cshtml" />
+    <Content Include="Views\Home\Http404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlogBLL\BlogBLL.csproj">
