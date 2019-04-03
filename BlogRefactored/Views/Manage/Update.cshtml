@@ -17,10 +17,6 @@
 </span>
 <div class="form-horizontal">
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
         if (Model.Id != 0)
         {
 
@@ -38,18 +34,13 @@
                 <tr>
                     <th><i class="require-red">*</i>标题：</th>
                     <td>
-                        @*@Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" })*@
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        <input class = "common-text required" id = "title" name = "title" size = "50" type = "text"/>
                     </td>
                 </tr>
                 <tr>
                     <th width="120"><i class="require-red">*</i>分类：</th>
-
                     <td>
-                        @*@Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" })*@
-                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" } })
-                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                        <input class = "common-text required" id = "title" name = "title" size = "50" type = "text"/>
                     </td>
 
                 </tr>
@@ -60,9 +51,7 @@
                 <tr>
                     <th>内容：</th>
                     <td>
-                        @*@Html.LabelFor(model => model.Text, htmlAttributes: new { @name = "content", @class = "common-textarea" })*@
-                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%" }, id = "content" })
-
+                        <textarea id="content" class="common-textarea" style="width:100%"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -73,8 +62,6 @@
                     </td>
                 </tr>
         </table>
-
-    }
 </div>
 <script>
     function commitUpdate() {
