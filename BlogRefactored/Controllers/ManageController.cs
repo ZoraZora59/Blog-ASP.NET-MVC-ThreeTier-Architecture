@@ -45,8 +45,20 @@ namespace BlogRefactored.Controllers
 		{
 			return View(manager.GetBlogConfig());
 		}
+		[HttpPost]
+		public ActionResult SetConfig()//设定博客配置文件
+		{
+			string configTitle = Request["Title"].ToString();
+			string configSign = Request["Sign"].ToString();
+			string configNote = Request["Note"].ToString();
+			var model = new BlogConfig { Name = configTitle, Note = configNote, Sign = configSign };
+			bool isSuccess = manager.SetBlogConfig(model);
+			if (isSuccess)
+				return View();//设定成功
+			else
+				return View();
+		}
 
-		
 		#endregion
 
 		#region 文章管理
