@@ -148,18 +148,20 @@ namespace BlogBLL
                 var c_blogs = blog.Where(m => m.CategoryName.Equals(categroyname)).ToList();
                 foreach (var item in c_blogs)
                 {
-                    var temp = new TextIndex();
-                    temp.TextID = item.TextID;
-                    temp.CommitCount = repository.GetCommitsByTextID(item.TextID).Count();
-                    temp.Text = item.Text;
-                    temp.TextTitle = item.TextTitle;
-                    if (item.CategoryName == null)
-                        item.CategoryName = "未分类";
-                    temp.CategoryName = item.CategoryName;
-                    temp.TextChangeDate = item.TextChangeDate;
-                    temp.FirstView = item.FirstView;
-                    temp.Hot = item.Hot;
-                    search_list.Add(temp);
+					if (item.CategoryName == null)
+						item.CategoryName = "未分类";
+					var temp = new TextIndex
+					{
+						TextID = item.TextID,
+						CommitCount = repository.GetCommitsByTextID(item.TextID).Count(),
+						Text = item.Text,
+						TextTitle = item.TextTitle,
+						CategoryName = item.CategoryName,
+						TextChangeDate = item.TextChangeDate,
+						FirstView = item.FirstView,
+						Hot = item.Hot
+					};
+					search_list.Add(temp);
                 }
             }
             return search_list;
