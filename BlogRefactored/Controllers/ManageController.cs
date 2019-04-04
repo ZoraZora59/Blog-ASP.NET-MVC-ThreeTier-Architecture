@@ -133,10 +133,10 @@ namespace BlogRefactored.Controllers
 				try
 				{
                     string BlogTitle = Request["Title"].ToString();
-                    string BlogCategtoy = Request["Categroy"].ToString();
-                    string BlogContent = Request["Content"].ToString();
+                    string BlogCategroy = Request["Categroy"].ToString();
+                    var BlogContent = Request["Content"].ToString();
                     //string FirstView = manager.getFirstView(BlogContent);
-                    var model = new UpdateText { Category = BlogCategtoy, Title = BlogTitle, Text = BlogContent};
+                    var model = new UpdateText { Category = BlogCategroy, Title = BlogTitle, Text = BlogContent};
 					var IsUpdate = manager.UpdateText(model);
 					if (IsUpdate == true)
 					{

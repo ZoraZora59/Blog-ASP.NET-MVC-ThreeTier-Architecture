@@ -61,7 +61,8 @@
                     <th>内容：</th>
                     <td>
                         @*@Html.LabelFor(model => model.Text, htmlAttributes: new { @name = "content", @class = "common-textarea" })*@
-                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%", @id = "content" }, @id = "content" })
+                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%",@id = "content" }, @id = "content" })
+                        <textarea rows="30" cols="20" name="schtmlnr" id="schtmlnr" style="display:none;"></textarea>
 
                     </td>
                 </tr>
@@ -84,7 +85,8 @@
             minHeight: '300px',
             resizeType: 1,
             allowFileManager: true,
-            uploadJson: '/manage/Upload'
+            uploadJson: '/manage/Upload',
+            afterBlur: function () { this.sync; }
         });
         K('input[name=getHtml]').click(function (e) {
             alert(editor.html());
@@ -115,10 +117,13 @@
         });
     });
     function BlogUpdate() {
+
+        //alert("yingyingying");
         var title = document.getElementById('title').value;
         var categroy = document.getElementById('categroy').value;
         editor.sync();// 同步数据后可以直接取得textarea的value
-        var content = $('#content').val();  // KindEditor Node API
+        var content = document.getElementById('content').value;
+        console.log(content);
         $.ajax({
             ajax: false,
             type: "POST",//FromMetho
