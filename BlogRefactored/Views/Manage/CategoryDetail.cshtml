@@ -6,63 +6,61 @@
 <script src="~/front/EasyUi/locale/easyui-lang-zh_CN.js"></script>
 <link href="~/front/EasyUi/themes/gray/easyui.css" rel="stylesheet" />
 <link href="~/front/EasyUi/themes/icon.css" rel="stylesheet" />
+<link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript"></script>
 
 <div>
     <h4>
-        @Html.DisplayFor(model => model.Category.CategoryName)
+        分类名： @Html.DisplayFor(model => model.Category.CategoryName)
     </h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Category.TextCount)
+            :
+            @Html.DisplayFor(model => model.Category.TextCount)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.TextCount)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Category.CategoryHot)
-        </dt>
-
-        <dd>
+            :
             @Html.DisplayFor(model => model.Category.CategoryHot)
-        </dd>
+        </dt>
+        <dt>
+            详情列表：
+        </dt>
     </dl>
 </div>
-<table>
+
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>
-                文章标题
-            </th>
-            <th>
-                文章热度
-            </th>
-            <th>
-                修改时间
-            </th>
+            <th scope="col">#</th>
+            <th scope="col">文章标题</th>
+            <th scope="col">文章热度</th>
+            <th scope="col">修改时间</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Texts)
+        @for (int i = 0; i < Model.Texts.Count(); i++)
         {
             <tr>
+                <th scope="row">@(i + 1)</th>
                 <td>
-                    @item.TextTitle
+                    @Model.Texts[i].TextTitle
                 </td>
                 <td>
-                    @item.Hot
+                    @Model.Texts[i].Hot
                 </td>
                 <td>
-                    @item.ChangeTime
+                    @Model.Texts[i].ChangeTime
                 </td>
             </tr>
         }
-        </tbody>
+    </tbody>
 </table>
 <p>
     @Html.ActionLink("分类重命名", "RenameCategory", new { CategoryName = Model.Category.CategoryName }) |
-    @Html.ActionLink("返回列表", "CategoryList")
+    @Html.ActionLink("返回列表", "CategoryList",new { @class= "btn btn-primary stretched-link" })
 </p>
