@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text.RegularExpressions;
 using System.Web;
 using BlogBLL.ViewModels;
@@ -57,10 +58,6 @@ namespace BlogBLL
 			List<BlogModel.BlogText> blogTexts = repository.GetTextsAll();
 			foreach(var item in blogTexts)
 			{
-				if(item.CategoryName==string.Empty)
-				{
-					item.CategoryName = "未分类";
-				}
 				ManageCategory addOne = new ManageCategory
 				{
 					CategoryName = item.CategoryName,
@@ -210,7 +207,7 @@ namespace BlogBLL
 		}
 		public bool RemoveCategory(string name)//删除分类
 		{
-			return RenameCategory(name, string.Empty);
+			return RenameCategory(name, "未分类");
 		}
 		public bool RemoveText(int tid)//删除博文
 		{
@@ -252,6 +249,10 @@ namespace BlogBLL
 					TextTitle = blogText.Title,
 					CategoryName = blogText.Category
 				};
+				if(string.IsNullOrEmpty(blog.CategoryName))
+				{
+					blog.CategoryName = "未分类";
+				}
 				if (blogText.Id==0)//新增文章
 				{
 					repository.AddText(blog);
