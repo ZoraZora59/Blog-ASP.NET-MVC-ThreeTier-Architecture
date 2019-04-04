@@ -144,9 +144,9 @@ namespace BlogRefactored.Controllers
 				{
 					int BlogID=int.Parse(Request["ID"].ToString());
                     string BlogTitle = Request["Title"].ToString();
-                    string BlogCategroy = Request["Categroy"].ToString();
+                    string BlogCategory = Request["Categroy"].ToString();
                     string BlogContent = Request.Unvalidated["Content"].ToString();
-                    var model = new UpdateText { Id=BlogID, Category = BlogCategroy, Title = BlogTitle, Text = BlogContent };
+                    var model = new UpdateText { Id=BlogID, Category = BlogCategory, Title = BlogTitle, Text = BlogContent };
 					var IsUpdate = manager.UpdateText(model);
 					if (IsUpdate == true)
 					{

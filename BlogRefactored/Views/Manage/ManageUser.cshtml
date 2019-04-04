@@ -34,11 +34,11 @@
                     data: { Account: u },//参数 "参数名："参数值""
                     datatype: 'html',
                     success: function (data) {
-                        alert('删除失败');
+                        alert('删除成功');
                         window.location.href = "/Manage/ManageUser";
                     },
                     error: function () {
-                        alert('删除成功');
+                        alert('删除失败，请稍后再试');
                         window.location.href = "/Manage/ManageUser";
                     }
                 });
