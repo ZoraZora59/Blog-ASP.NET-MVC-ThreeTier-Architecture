@@ -17,30 +17,32 @@
 </span>
 <div class="form-horizontal">
 
-        if (Model.Id != 0)
-        {
-
-            <div class="form-group" style="display:none">
-                @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Id, new { htmlAttributes = Model.Id })
-
-                </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" id="TextID">
+                @Html.EditorFor(model => model.Id, new { htmlAttributes = Model.Id })
             </div>
-        }
+        </div>
         <hr />
         <table class="insert-tab">
             <tbody>
                 <tr>
                     <th><i class="require-red">*</i>标题：</th>
                     <td>
-                        <input class = "common-text required" id = "title" name = "title" size = "50" type = "text"/>
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "common-text required", @id = "title", @name = "title", @size = "50", @type = "text" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                     </td>
                 </tr>
                 <tr>
                     <th width="120"><i class="require-red">*</i>分类：</th>
+
                     <td>
-                        <input class = "common-text required" id = "title" name = "title" size = "50" type = "text"/>
+                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "common-text required", @id = "categroy", @name = "title", @size = "50", @type = "text" } })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                     </td>
 
                 </tr>
@@ -51,7 +53,9 @@
                 <tr>
                     <th>内容：</th>
                     <td>
-                        <textarea id="content" class="common-textarea" style="width:100%"></textarea>
+                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%",@id = "content" }, @id = "content" })
+                        <textarea rows="30" cols="20" name="schtmlnr" id="schtmlnr" style="display:none;"></textarea>
+
                     </td>
                 </tr>
                 <tr>
@@ -62,6 +66,8 @@
                     </td>
                 </tr>
         </table>
+
+    }
 </div>
 <script>
     var editor;
@@ -71,7 +77,8 @@
             minHeight: '300px',
             resizeType: 1,
             allowFileManager: true,
-            uploadJson: '/manage/Upload'
+            uploadJson: '/manage/Upload',
+            afterBlur: function () { this.sync; }
         });
         K('input[name=getHtml]').click(function (e) {
             alert(editor.html());
@@ -102,15 +109,20 @@
         });
     });
     function BlogUpdate() {
+
+        alert("yingyingying");
+        var id = document.getElementById('TextID').firstElementChild.value;
+        alert(id);
         var title = document.getElementById('title').value;
         var categroy = document.getElementById('categroy').value;
         editor.sync();// 同步数据后可以直接取得textarea的value
-        var content = $('#content').val();  // KindEditor Node API
+        var content = document.getElementById('content').value;
+        console.log(content);
         $.ajax({
             ajax: false,
             type: "POST",//FromMetho
             url: "/Manage/UpdateText",//"/Controller/Action"
-            data: { Title: title, Categroy: categroy, Content: content},
+            data: { ID:id, Title: title, Categroy: categroy, Content: content },
             success: function (data) {
                 alert('更新成功');
                 //window.location.href = "/Manage/Update";
