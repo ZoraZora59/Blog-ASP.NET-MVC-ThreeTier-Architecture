@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BlogBLL.ViewModels;
 using BlogModel;
+using System.Web.Helpers;
 
 namespace BlogRefactored.Controllers
 {
@@ -132,11 +133,11 @@ namespace BlogRefactored.Controllers
 			{
 				try
 				{
-                    string BlogTitle = Request["Title"].ToString();
-                    string BlogCategroy = Request["Categroy"].ToString();
-                    var BlogContent = Request["Content"].ToString();
-                    //string FirstView = manager.getFirstView(BlogContent);
-                    var model = new UpdateText { Category = BlogCategroy, Title = BlogTitle, Text = BlogContent};
+					int BlogID=int.Parse(Request["ID"].ToString());
+					string BlogTitle = Request["Title"].ToString();
+					string BlogCategroy = Request["Categroy"].ToString();
+					string BlogContent = Request.Unvalidated["Content"].ToString();
+					var model = new UpdateText { Category = BlogCategroy, Title = BlogTitle, Text = BlogContent };
 					var IsUpdate = manager.UpdateText(model);
 					if (IsUpdate == true)
 					{
