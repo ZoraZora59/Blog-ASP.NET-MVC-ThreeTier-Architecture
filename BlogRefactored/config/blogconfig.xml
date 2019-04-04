@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <BlogConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name />
-  <Sign />
-  <Note>1</Note>
+  <Name>NewbeeBlog</Name>
+  <Sign>这是我的签名</Sign>
+  <Note>WARING！</Note>
 </BlogConfig>

@@ -3,22 +3,23 @@
 <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
 <link href="~/Content/clean-blog.min.css" rel="stylesheet" />
 <script type="text/javascript"></script>
+<link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <div class="getting-started-container section-container section-container-gray-bg">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto" style="width:90%">
-                <span>
-                    @Html.DisplayNameFor(model => model.TextTitle)
-                </span>
-                <span>
-                    @Html.DisplayFor(model => model.TextTitle)
-                </span>
+                <div class="text-nowrap bd-highlight" style="width: 8rem;">
+                    <font size="5">
+                        文章标题 :
+                    </font>
+                        @Html.DisplayFor(model => model.TextTitle)
+</div>
             </div>
         </div>
 
-
+        <hr />
         <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayNameFor(model => model.Text)
+            <font size="5">文章正文：</font>
         </div>
 
         <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
@@ -26,27 +27,24 @@
         </div>
 
         <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayNameFor(model => model.Hot)
+            <font size="5">
+                点击量 ：
+            </font>
+                @Html.DisplayFor(model => model.Hot)
+</div>
+
+        <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
+            <font size="5">
+                分类：
+            </font>
+                @Html.DisplayFor(model => model.CategoryName)
         </div>
 
         <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayFor(model => model.Hot)
-        </div>
-
-        <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </div>
-
-        <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayFor(model => model.CategoryName)
-        </div>
-
-        <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayNameFor(model => model.TextChangeDate)
-        </div>
-
-        <div class="col-sm-12 always-beautiful section-description wow fadeIn animated">
-            @Html.DisplayFor(model => model.TextChangeDate)
+            <font size="5">
+                更新时间：
+            </font>
+                @Html.DisplayFor(model => model.TextChangeDate)
         </div>
         <p>
             <div>
