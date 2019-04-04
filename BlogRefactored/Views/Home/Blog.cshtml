@@ -37,7 +37,15 @@
                         <br />
                         <div class="postDesc">
                             分类：
-                            <a href="/home/CategroyBlog?categroyname=@Model.CategoryName">@Model.CategoryName</a>
+                            @if (Model.CategoryName == "")
+                            {
+                                <a href="/home/CategroyBlog?categroyname=未分类">未分类</a>
+                            }
+                            else
+                            {
+                                <a href="/home/CategroyBlog?categroyname=@Model.CategoryName">@Model.CategoryName</a>
+                            }
+
                             <br />
                             posted @@ <span id="post-date">@Model.TextChangeDate</span> <a href="/home">NewBeeBlog</a>
                         </div>
@@ -183,7 +191,7 @@
         window.location.href = "/home/Blog/" + tid;
     }
     function deleteCommit(tid, cid) {
-        alert("成功进入");
+        //alert("成功进入");
         $.ajax({
             ajax: false,
             type: "POST",//FromMethod

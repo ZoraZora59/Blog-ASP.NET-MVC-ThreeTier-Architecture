@@ -35,7 +35,7 @@ namespace BlogBLL
         public BlogModel.BlogUser Login (ViewModels.LoginUser LogOne)
         {
 
-            BlogUser LoginData = new BlogModel.BlogUser();
+            
             LogOne.Password = md5tool.GetMD5(LogOne.Password);
 			BlogUser temp = repository.GetUserByAccount(LogOne.Account);
             if (temp == null)
@@ -44,9 +44,9 @@ namespace BlogBLL
             }
             if (temp.Password == LogOne.Password)
             {
-                LoginData= temp;
+                return temp;
             }
-            return LoginData;
+            return null;
         }
 
         public object GetIndex(int? page)

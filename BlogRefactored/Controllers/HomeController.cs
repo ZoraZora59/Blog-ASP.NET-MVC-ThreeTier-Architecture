@@ -30,6 +30,7 @@ namespace BlogRefactored.Controllers
             ViewBag.Config = model;
         }
         //page分页Num
+        #region 主界面
         public ActionResult Index(int? page)
         {
             
@@ -64,6 +65,8 @@ namespace BlogRefactored.Controllers
 				return Redirect("/home/mindex");
 			}
 		}
+        #endregion
+
         #region 用户相关
         [HttpGet]
         public ActionResult Register()//注册的页面显示
@@ -165,17 +168,7 @@ namespace BlogRefactored.Controllers
 
         #endregion
 
-
-        public FileResult ValidateCode()
-        {
-            ValidateCode vc = new ValidateCode();
-            string code = vc.CreateValidateCode(4);
-            Session["validatecode"] = code;//把数字保存在session中
-            byte[] bytes = vc.CreateValidateGraphic(code);//根据数字转成二进制图片
-            return File(bytes, @"image/jpeg");//返回一个图片jpg
-        }
-
-
+        #region 搜索相关
         public ActionResult SearchResult(string searchthing)
         {
 
@@ -186,8 +179,6 @@ namespace BlogRefactored.Controllers
             ViewBag.searchRes = search_list;
             return View(search_list);
         }
-
-       
         public ActionResult CategroyBlog(string categroyname)
         {
 
@@ -197,6 +188,10 @@ namespace BlogRefactored.Controllers
             ViewBag.searchRes = search_list;
             return View(search_list);
         }
+        #endregion
+        
+        #region 博文相关
+
 
         [HttpGet]
         public ActionResult Blog(int? id)
@@ -264,11 +259,21 @@ namespace BlogRefactored.Controllers
 			}
             
         }
-
+        #endregion
 
         
 
 
+
+
+        public FileResult ValidateCode()
+        {
+            ValidateCode vc = new ValidateCode();
+            string code = vc.CreateValidateCode(4);
+            Session["validatecode"] = code;//把数字保存在session中
+            byte[] bytes = vc.CreateValidateGraphic(code);//根据数字转成二进制图片
+            return File(bytes, @"image/jpeg");//返回一个图片jpg
+        }
 
         // 退出登陆
         public ActionResult ExitLogin()
