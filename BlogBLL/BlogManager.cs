@@ -87,6 +87,8 @@ namespace BlogBLL
 			var trans = repository.GetTextsAll();
 			foreach (var item in trans)
 			{
+				if (item.CategoryName == string.Empty)
+					item.CategoryName = "未分类";
 				ManageText temp = new ManageText
 				{
 					TextID = item.TextID,
