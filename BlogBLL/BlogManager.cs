@@ -57,7 +57,7 @@ namespace BlogBLL
 			List<BlogModel.BlogText> blogTexts = repository.GetTextsAll();
 			foreach(var item in blogTexts)
 			{
-				if(item.CategoryName==null)
+				if(item.CategoryName==string.Empty)
 				{
 					item.CategoryName = "未分类";
 				}
@@ -191,8 +191,6 @@ namespace BlogBLL
 		public bool RenameCategory(string oldName,string  newName)//分类重命名
 		{
 			bool isSuccess = false;
-			//if (oldName == string.Empty)
-			//	oldName = null;
 			try
 			{
 				var txtList = repository.GetTextsAll().Where(c => c.CategoryName == oldName).ToList();
@@ -210,7 +208,7 @@ namespace BlogBLL
 		}
 		public bool RemoveCategory(string name)//删除分类
 		{
-			return RenameCategory(null, name);
+			return RenameCategory(name, string.Empty);
 		}
 		public bool RemoveText(int tid)//删除博文
 		{
