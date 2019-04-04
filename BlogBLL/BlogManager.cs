@@ -288,9 +288,14 @@ namespace BlogBLL
 			content = Regex.Replace(content, "<[^>]+>", "");
 			content = Regex.Replace(content, "&[^;]+;", "");
 			if (content.Length < 201)
+			{
 				return content;
+			}
 			else
+			{
 				content = content.Substring(0, 200);
+			}
+
 			return content;
 		}
 
