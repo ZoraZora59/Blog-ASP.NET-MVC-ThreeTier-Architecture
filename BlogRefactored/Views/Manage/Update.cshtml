@@ -38,7 +38,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th width="120"><i class="require-red">*</i>分类：</th>
+                    <th width="120">分类：</th>
 
                     <td>
                         @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "common-text required", @id = "categroy", @name = "title", @size = "50", @type = "text" } })
@@ -51,7 +51,7 @@
                     <td><input class="common-text" name="author" size="10" value="Newbee" type="text" readonly="readonly"></td>
                 </tr>
                 <tr>
-                    <th>内容：</th>
+                    <th><i class="require-red">*</i>内容：</th>
                     <td>
                         @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%",@id = "content" }, @id = "content" })
                         <textarea rows="30" cols="20" name="schtmlnr" id="schtmlnr" style="display:none;"></textarea>
