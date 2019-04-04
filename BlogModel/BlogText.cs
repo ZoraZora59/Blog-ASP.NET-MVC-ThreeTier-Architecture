@@ -13,7 +13,6 @@ namespace BlogModel
 
 		[Required]
 		[DisplayName("文章标题")]
-
 		[MaxLength(40)]
 		public string TextTitle { get; set; }//标题
 		[Required]

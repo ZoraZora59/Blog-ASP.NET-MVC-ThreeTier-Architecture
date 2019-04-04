@@ -43,9 +43,11 @@
             {
                 <ul class="reg_form" id="reg-ul">
                     <li>
-                        <label for="user" class="input-tips2">用户名:</label>
+                        <label for="account" class="input-tips2">用户名:</label>
                         <div class="inputOuter2">
-                            <input type="text" class="inputstyle2" disabled="disabled" style="height:38px" value="@currentUser.Account">
+                            <!--下面这行实际上只用来显示，真正的账号获取是获取登录状态中的信息-->
+                            @*<input type="text" class="inputstyle2" disabled="disabled" style="height:38px" value="@currentUser.Account">*@
+                            @Html.TextBoxFor(m => m.Account, new { @class = "inputstyle2", disabled = "disabled" , placeholder = currentUser.Account })
                         </div>
                     <li>
 

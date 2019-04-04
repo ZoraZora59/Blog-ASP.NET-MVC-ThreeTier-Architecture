@@ -156,7 +156,8 @@ namespace BlogRefactored.Controllers
                 {
                     return RedirectToAction("ChangeInfo", "Home", new { msg = "验证码错误！请重新输入" });
                 }
-                home.ChangeInfo(model);
+				model.Account = currentLoginUser.Account;
+				home.ChangeInfo(model);
             }
             return Redirect("/");
         }
@@ -241,8 +242,6 @@ namespace BlogRefactored.Controllers
                 {
                     sContent = sContent.Replace(badwords[i], "喵喵喵");
                 }
-                if (sContent.Length > 100)
-					return Json(null);
                 home.AddComment(sTextID, sAccount, sContent);
             }
 			catch (Exception)
