@@ -176,29 +176,46 @@
             datatype: 'html',
             success: function () {
                 alert("评论成功");
-                window.location.href = "/home/Blog/" + tid;
             },
             error: function () {
                 alert('评论失败，可能是字数过长，试着分成几段评论吧')
             }
         });
-      
+        window.location.href = "/home/Blog/" + tid;
     }
-    function deleteCommit(tid, cid) {//TODO:添加删除评论的实现方法
-        //alert("成功进入");
-        $.ajax({
-            ajax: false,
-            type: "POST",//FromMethod
-            url: "/Home/DeleteComment",//"/Controller/Action"
-            data: { CommitID: cid },//参数 "参数名："参数值""
-            datatype: 'html',
-            success: function () {
-                alert('删除成功');
-            },
-            error: function () {
-                alert('删除失败，过会儿再试试吧');
+    function deleteCommit(tid, cid) {
+        $.messager.confirm('删除确认', '确定要删除这篇博文吗?', function (r) {
+            if (r) {
+                $.ajax({
+                    ajax: false,
+                    type: "POST",//FromMethod
+                    url: "/Home/DeleteComment",//"/Controller/Action"
+                    data: { CommitID: cid },//参数 "参数名："参数值""
+                    datatype: 'html',
+                    success: function () {
+                        alert('删除成功');
+                    },
+                    error: function () {
+                        alert('删除失败');
+                    }
+                });
+                window.location.href = "/home/blog/" + tid;
             }
         });
-        window.location.href = "/home/blog/" + tid;
+        //alert("成功进入");
+        //$.ajax({
+        //    ajax: false,
+        //    type: "POST",//FromMethod
+        //    url: "/Home/DeleteComment",//"/Controller/Action"
+        //    data: { CommitID: cid },//参数 "参数名："参数值""
+        //    datatype: 'html',
+        //    success: function () {
+        //        alert('删除成功');
+        //    },
+        //    error: function () {
+        //        alert('删除失败，过会儿再试试吧');
+        //    }
+        //});
+        //window.location.href = "/home/blog/" + tid;
     }
 </script>
