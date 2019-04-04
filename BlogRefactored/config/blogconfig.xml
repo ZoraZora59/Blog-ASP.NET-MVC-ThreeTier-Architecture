@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <BlogConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name />
-  <Sign />
-  <Note>1</Note>
+  <Name>NewBee</Name>
+  <Sign>新手小站初建成</Sign>
+  <Note>分享交流一席地，学习实践还复来。</Note>
 </BlogConfig>

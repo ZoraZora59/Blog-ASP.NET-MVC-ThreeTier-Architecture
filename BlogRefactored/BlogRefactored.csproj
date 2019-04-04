@@ -1997,16 +1997,13 @@
     <Content Include="front\images\阅读量1.png" />
     <Content Include="front\index_files\128442.css" />
     <Content Include="front\index_files\373006.css" />
-    <Content Include="front\index_files\analytics.js" />
     <Content Include="front\index_files\blog-common.css" />
-    <Content Include="front\index_files\blog-common.js" />
     <Content Include="front\index_files\bundle-BlackLowKey-mobile.css" />
     <Content Include="front\index_files\bundle-BlackLowKey.css" />
     <Content Include="front\index_files\bundle-CodingLife-mobile.css" />
     <Content Include="front\index_files\bundle-CodingLife.css" />
     <Content Include="front\index_files\images\body_bg.png" />
     <Content Include="front\index_files\images\title-yellow.png" />
-    <Content Include="front\index_files\jquery-2.js" />
     <Content Include="front\js\calendar.js" />
     <Content Include="front\js\canvas-nest.js" />
     <Content Include="front\js\jquery-1.9.0.min.js" />
