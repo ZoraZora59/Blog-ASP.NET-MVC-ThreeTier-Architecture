@@ -179,20 +179,6 @@ namespace BlogBLL
             repository.DelCommentByID(cmtId);
         }
 
-        public bool SetBlogConfig(BlogConfig model)
-        {
-            bool isSuccess = false;
-            try
-            {
-                new SerializeTool().Serialize<BlogConfig>(model);
-                isSuccess = true;
-            }
-            catch
-            {
-            }
-            return isSuccess;
-        }
-
         #endregion
     }
 }

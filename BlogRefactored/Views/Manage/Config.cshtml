@@ -66,7 +66,7 @@
         $.ajax({
             ajax: false,
             type: "POST",//FromMethod
-            url: "/home/Config",//"/Controller/Action"
+            url: "/manage/SetConfig",//"/Controller/Action"
             data: { Title: title, Note: note, Sign: sign},
             success: function (data) {
                 alert('更新成功');

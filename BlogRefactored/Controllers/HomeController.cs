@@ -219,9 +219,8 @@ namespace BlogRefactored.Controllers
 				return Redirect("/home");
 			}
         }
-        #endregion
+		
 
-        #region 评论相关
         [HttpPost]
         public JsonResult AddComment()//新增评论
         {
@@ -244,7 +243,7 @@ namespace BlogRefactored.Controllers
 				return Json(null);
 			}
 			return Json(0);
-		}//新增评论
+		}
 
         public JsonResult DeleteComment()
         {
@@ -262,19 +261,7 @@ namespace BlogRefactored.Controllers
         }
         #endregion
 
-        [HttpPost]
-        public ActionResult Config()//设定博客配置文件
-        {
-            string configTitle = Request["Title"].ToString();
-            string configSign = Request["Sign"].ToString();
-            string configNote = Request["Note"].ToString();
-            var model = new BlogConfig { Name = configTitle, Note = configNote, Sign = configSign };
-            bool isSuccess = home.SetBlogConfig(model);
-            if (isSuccess)
-                return View();//设定成功
-            else
-                return View();
-        }
+        
 
 
 
