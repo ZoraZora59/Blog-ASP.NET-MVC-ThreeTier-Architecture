@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <style>
     .rtt {
-        padding-left: 82%;
+        padding-left: 80%;
     }
 </style>
 <div id="main">
@@ -142,7 +142,7 @@
                                     <textarea id="txt" style="width:80%;height:100px;resize:vertical" placeholder="您有什么想法要说的吗？"class="form-control"></textarea>
                                 </div>
                                 <p id="commentbox_opt">
-                                    <input type="button" name="button" class="btn btn-primary" onclick="submitComment('@Model.TextID','@currentLoginInfo.Account')" value="提交评论">
+                                    <button name="button" class="btn btn-primary" onclick="submitComment('@Model.TextID','@currentLoginInfo.Account')">提交评论</button>>
                                 </p>
                                 <div id="tip_comment2" style="color:Red"></div>
                                 <p></p>
@@ -164,9 +164,9 @@
     <div class="clear"></div>
 </div><!--end: main -->
 <script>
-    function submitComment(tid, act) {//TODO:评论的反馈信息
+    function submitComment(tid, act) {
         var txt = document.getElementById('txt').value;
-        alert(txt);
+        //alert(txt);
         $.ajax({
             ajax: false,
             type: 'POST',
@@ -174,16 +174,17 @@
             data: { TextID: tid, Account: act, Content: txt },
             datatype: 'html',
             success: function () {
-                alert('评论成功');
+                alert("评论成功");
+                window.location.href = "/home/Blog/" + tid;
             },
             error: function () {
                 alert('评论失败')
             }
         });
-        window.location.href = "/home/Blog/" + tid;
+      
     }
     function deleteCommit(tid, cid) {//TODO:添加删除评论的实现方法
-        //alert('成功进入');
+        //alert("成功进入");
         $.ajax({
             ajax: false,
             type: "POST",//FromMethod
