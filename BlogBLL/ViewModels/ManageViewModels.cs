@@ -23,7 +23,8 @@ namespace BlogBLL.ViewModels
 		[DisplayName("文章标题")]
 		public string TextTitle { get; set; }
 		[DisplayName("分类")]
-		public string CategoryName { get; set; }
+        
+        public string CategoryName { get; set; }
 		[DisplayName("热度")]
 		public int Hot { get; set; }
 		[DisplayName("修改时间")]
@@ -81,13 +82,15 @@ namespace BlogBLL.ViewModels
 		public int Id { get; set; }
 
 		[DisplayName("文章标题")]
+        [Required]
 		public string Title { get; set; }
 		
 		[DisplayName("文章内容")]
 		public string Text { get; set; }
 
 		[DisplayName("分类")]
-		public string Category { get; set; }
+        [RegularExpression("^[\u4E00-\u9FA5A-Za-z0-9_]+$", ErrorMessage = "分类名必须是由中文、字母、数字、下划线的组合")]
+        public string Category { get; set; }
 
 	}
 	public class DetailCategory//分类详情

@@ -112,9 +112,15 @@
         var id = document.getElementById('TextID').firstElementChild.value;
         var title = document.getElementById('title').value;
         var categroy = document.getElementById('categroy').value;
+        var pattern = /[`~!@@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
+        if (pattern.test(categroy)) {
+            alert("分类不能包含特殊字符.");
+            console.log(categroy);
+            return false;
+        }
         editor.sync();// 同步数据后可以直接取得textarea的value
         var content = document.getElementById('content').value;
-        console.log(content);
+        //console.log(content);
         $.ajax({
             ajax: false,
             type: "POST",//FromMetho
