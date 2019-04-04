@@ -58,13 +58,18 @@
                         <h3 class="catListTitle">分类查找</h3>
 
                         <ul>
-
-                            @for (int i = 0; i < @categroyList.Count; i++)
+                            @foreach (string item in categroyList)
                             {
-                                <li><a id="CatList_LinkList_0_Link_0" href="/home/CategroyBlog?categroyname=@categroyList[i]">@categroyList[i]</a> </li>
+                                if (@item =="")
+                                {
+                                    <li><a id="CatList_LinkList_0_Link_0" href="/home/CategroyBlog?categroyname=未分类">未分类</a> </li>
+                                }
+                                else
+                                {
+                                    <li><a id="CatList_LinkList_0_Link_0" href="/home/CategroyBlog?categroyname=@item">@item</a> </li>
+                                }
+
                             }
-
-
                         </ul>
 
                     </div>
