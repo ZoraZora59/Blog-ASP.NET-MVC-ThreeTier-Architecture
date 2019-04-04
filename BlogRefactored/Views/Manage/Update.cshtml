@@ -112,10 +112,10 @@
         var id = document.getElementById('TextID').firstElementChild.value;
         var title = document.getElementById('title').value;
         var categroy = document.getElementById('categroy').value;
-        var regEn = /[`~!@@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
-            regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+        var regEn = /[\s#`~!@@$%^&*()_+<>?:"{},.\/;'[\]]/im,
+            regCn = /[·！￥（——）：；“”‘、，|《。》？、【】[\]]/im;
         if (regEn.test(categroy) || regCn.test(categroy)) {
-            alert("分类不能包含特殊字符");
+            alert("分类不能包含特殊字符(空格也不行哦)");
             console.log(categroy);
             return false;
         }
