@@ -97,7 +97,31 @@ namespace BlogDAL
 			}
 		}
 
-		public void AddUser(BlogUser addThis)//添加用户（用户注册），参数为新用户的BlogUser实体
+        public List<BlogText> GetTextsByrow(int rows)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogTexts.Take(rows).ToList();
+            }
+        }
+
+        public IQueryable<BlogText> GetTexts()
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogTexts.AsQueryable();
+            };
+        }
+
+        public List<BlogText> GetTextsByPage(int page, int rows)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogTexts.Skip((page - 1) * rows).Take(rows).ToList();
+            }
+        }
+
+        public void AddUser(BlogUser addThis)//添加用户（用户注册），参数为新用户的BlogUser实体
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -181,8 +205,9 @@ namespace BlogDAL
 				return db.BlogTexts.ToList();
 			}
 		}
-		#endregion
-	}
+        
+        #endregion
+    }
 	#region 数据库上下文组件
 	//[DbConfigurationType(typeof(System.Data.Entity.SqlServer.SqlProviderServices))]//添加与MSSQL类型相关的组件(默认)
 	public class BlogContext : DbContext

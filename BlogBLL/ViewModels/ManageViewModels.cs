@@ -105,4 +105,20 @@ namespace BlogBLL.ViewModels
 		public int Hot { get; set; }//文章热度
 		public string ChangeTime { get; set; }//修改时间
 	}
+
+    public class GridPager
+    //datagrid获得分页的信息
+    {
+        public int rows { get; set; }//每页行数
+        public int page { get; set; }//当前页是第几页
+        public int totalRows { get; set; }//总的行数
+        public int totalPages {//总的页数
+            get {
+                return (int)Math.Ceiling((float)totalRows / (float)rows);
+            }
+
+        }
+        
+    }
+
 }

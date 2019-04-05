@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -12,6 +13,23 @@ using BlogRefactored.Models;
 
 namespace BlogRefactored.Controllers
 {
+    public class LoginActionFilter : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            Hashtable singleOnline = (Hashtable)filterContext.HttpContext.Application["Online"];
+            // 判断当前SessionID是否存在
+
+            if (singleOnline != null && singleOnline.ContainsKey(filterContext.HttpContext.User.Identity.Name))
+            {
+                if (!singleOnline[filterContext.HttpContext.User.Identity.Name].Equals(filterContext.HttpContext.Session.SessionID))
+                {
+                    filterContext.Result = new ContentResult() { Content = "<script>alert('您的帐号已在别处登录 ，将被迫下线（请保管好自己的账号密码）！');window.location.href='/Login/Login'</script>" };
+                }
+            }
+            base.OnActionExecuting(filterContext);
+        }
+    }
 	public class HomeController : Controller
 	{
         private BlogBLL.BlogGuests home;
@@ -31,14 +49,15 @@ namespace BlogRefactored.Controllers
         }
         //page分页Num
         #region 主界面
+        [LoginActionFilter]
         public ActionResult Index(int? page)
         {
             
             return View(home.GetIndex(page));
             
         }
-
-		public ActionResult MIndex(int? page)
+        [LoginActionFilter]
+        public ActionResult MIndex(int? page)
 		{
 			return View(home.GetIndex(page));
 		}
@@ -100,6 +119,7 @@ namespace BlogRefactored.Controllers
         }
 
         [HttpGet]
+        
         public ActionResult Login()//登录的页面显示
         {
             return View();
@@ -124,11 +144,34 @@ namespace BlogRefactored.Controllers
                 else
                 {
                     Session["loginuser"] = LoginModel;
+                    GetOnline(LoginModel.Account);//验证账号密码后，调用方法，用于存储用户ID和sessionID
                     return Redirect("/");
                 }
             }
             return View();
         }
+
+
+        private void GetOnline(string Name)
+        {
+            Hashtable SingleOnline = (Hashtable)System.Web.HttpContext.Current.Application["Online"];
+            if (SingleOnline == null)
+                SingleOnline = new Hashtable();
+            if (SingleOnline.ContainsKey(Name))
+            {
+                SingleOnline[Name] = Session.SessionID;
+            }
+            else
+            {
+                SingleOnline.Add(Name, Session.SessionID);
+            }
+               
+
+            System.Web.HttpContext.Current.Application.Lock();
+            System.Web.HttpContext.Current.Application["Online"] = SingleOnline;
+            System.Web.HttpContext.Current.Application.UnLock();
+        }
+        
 
         [HttpGet]
         public ActionResult ChangeInfo()
