@@ -78,9 +78,9 @@ namespace BlogRefactored.Controllers
 			return View();
 		}
 
-		public JsonResult LoadTextList(int page,int rows)//文章管理列表的JS实现
+		public JsonResult LoadTextList(int page,int rows,string sort, string order,string TextTitle)//文章管理列表的JS实现
 		{
-            var result = new { total = manager.GetTextNum(), rows = manager.GetManageTexts(page, rows) };
+            var result = new { total = manager.GetTextNum(), rows = manager.GetManageTexts(page, rows, sort,order, TextTitle) };
 			return Json(result);
 		}
 		[HttpPost]
