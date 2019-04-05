@@ -20,21 +20,31 @@ namespace BlogRefactored.Controllers
 		{
 			this.manager = blogManager;
 		}
-		#endregion
+        #endregion
 
-		#region 主界面
-		[HttpGet]
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            //防止为登录进入后台界面
+            base.OnActionExecuting(filterContext);
+            var currentLoginUser = Session["loginuser"] == null ? null : (BlogUser)Session["loginuser"];
+            if (currentLoginUser == null)//如果没有登录进后台跳转到登录界面
+            {
+                filterContext.Result = Redirect("/home/Login");
+            }
+            else//如果是普通用户，跳转到主界面
+            {
+                if (currentLoginUser.Account != "admin123")
+                {
+                    filterContext.Result = Redirect("/");
+                }
+            }
+            
+        }
+        #region 主界面
+        [HttpGet]
 		public ActionResult Index()//控制中心主界面
 		{
-            var currentLoginUser = Session["loginuser"] == null ? null : (BlogUser)Session["loginuser"];
-            if (currentLoginUser== null)
-            {
-                return Redirect("/home/Login");
-            }
-            if (currentLoginUser.Account != "admin123")
-            {
-                return Redirect("/");
-            }
+            
             return View(manager.GetManageIndex());
 		}
 		#endregion
@@ -68,9 +78,10 @@ namespace BlogRefactored.Controllers
 			return View();
 		}
 
-		public JsonResult LoadTextList()//文章管理列表的JS实现
+		public JsonResult LoadTextList(int page,int rows)//文章管理列表的JS实现
 		{
-			return Json(manager.GetManageTexts());
+            var result = new { total = manager.GetTextNum(), rows = manager.GetManageTexts(page, rows) };
+			return Json(result);
 		}
 		[HttpPost]
 		public JsonResult DeleteText()//删除文章
@@ -185,9 +196,10 @@ namespace BlogRefactored.Controllers
 			return View();
 		}
 		
-		public JsonResult LoadUsers()//加载用户列表
+		public JsonResult LoadUsers(int page, int rows)//加载用户列表
 		{
-			return Json(manager.GetManageUsers());
+            var result = new { total = manager.GetUserNum(), rows = manager.GetManageUsers(page, rows) };
+            return Json(result);
 		}
 		public JsonResult DelUsers(string Account)//删除用户
 		{
@@ -229,9 +241,10 @@ namespace BlogRefactored.Controllers
 				return Redirect("/manage/");
 			}
 		}
-		public JsonResult LoadCategoryList()//加载分类表
+		public JsonResult LoadCategoryList(int page,int rows)//加载分类表
 		{
-			return Json(manager.GetManageCategories());
+            var result = new { total = manager.GetCateNum(), rows = manager.GetManageCategoriesInPage(page, rows) };
+            return Json(result);
 		}
 		[HttpPost]
 		public JsonResult DeleteCategory()//删除指定分类
@@ -283,9 +296,10 @@ namespace BlogRefactored.Controllers
 		{
 			return View();
 		}
-		public JsonResult LoadComment()//加载评论管理界面的数据
+		public JsonResult LoadComment(int page,int rows)//加载评论管理界面的数据
 		{
-			return Json(manager.GetManageComments());
+            var result = new { total = manager.GetCommentNum(), rows = manager.GetManageComments(page, rows) };
+            return Json(result);
 		}
 		[HttpPost]
 		public JsonResult DeleteComment()//删除评论
