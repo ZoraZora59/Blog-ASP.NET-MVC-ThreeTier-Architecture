@@ -96,15 +96,7 @@ namespace BlogDAL
 				db.SaveChanges();
 			}
 		}
-
-        public List<BlogText> GetTextsByrow(int rows)
-        {
-            using (BlogContext db = new BlogContext())
-            {
-                return db.BlogTexts.Take(rows).ToList();
-            }
-        }
-
+        
         public IQueryable<BlogText> GetTexts()
         {
             using (BlogContext db = new BlogContext())
@@ -112,15 +104,7 @@ namespace BlogDAL
                 return db.BlogTexts.AsQueryable();
             };
         }
-
-        public List<BlogText> GetTextsByPage(int page, int rows)
-        {
-            using (BlogContext db = new BlogContext())
-            {
-                return db.BlogTexts.Skip((page - 1) * rows).Take(rows).ToList();
-            }
-        }
-
+        
         public void AddUser(BlogUser addThis)//添加用户（用户注册），参数为新用户的BlogUser实体
 		{
 			using (BlogContext db = new BlogContext())
@@ -205,7 +189,16 @@ namespace BlogDAL
 				return db.BlogTexts.ToList();
 			}
 		}
-        
+
+        public List<BlogText> searchblogByTitle(string textTitle)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogTexts.Where(m => m.TextTitle.Contains(textTitle)).ToList();
+            }
+            
+        }
+
         #endregion
     }
 	#region 数据库上下文组件

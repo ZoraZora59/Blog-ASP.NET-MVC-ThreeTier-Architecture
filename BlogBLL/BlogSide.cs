@@ -12,7 +12,7 @@ namespace BlogBLL
     {
         private BlogDAL.BlogDAL repository = new BlogDAL.BlogDAL();
 
-        public List<TextListsHot> GetsortByhots()
+        public List<TextListsHot> GetsortByhots()//博文根据热度排序
         {
             var hots = new List<TextListsHot>();
             var blog = repository.GetTextsAll();
@@ -30,7 +30,7 @@ namespace BlogBLL
             return hots;
         }
 
-        public List<TextListsHot> GetsortBytime()
+        public List<TextListsHot> GetsortBytime()//博文根据时间排序
         {
             var time_lists = new List<TextListsHot>();
             var blog = repository.GetTextsAll();
@@ -48,7 +48,7 @@ namespace BlogBLL
             return time_lists;
         }
 
-        public List<ShowComment> GetNewCommit()
+        public List<ShowComment> GetNewCommit()//获取最新评论，take(3)最新三个评论，
         {
             var blog = repository.GetTextsAll();
             var commit = repository.GetCommentsAll();
@@ -70,7 +70,7 @@ namespace BlogBLL
             return CommentList;
         }
 
-        public List<string> GetCateString()
+        public List<string> GetCateString()//获取所有分类的名字
         {
             var templist = new List<string>();
             var blog = repository.GetTextsAll();
@@ -89,8 +89,7 @@ namespace BlogBLL
             }
             return templist;
         }
-
-
+        
         public List<ShowComment> GetTopCmtLst(int n)//获取评论排行榜
         {
             var blog = repository.GetTextsAll();

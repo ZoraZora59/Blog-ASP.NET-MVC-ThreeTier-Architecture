@@ -122,15 +122,58 @@ namespace BlogBLL
             return repository.GetTextsAll().Count();
         }
 
-        public List<ManageText> GetManageTexts(int page,int rows)//获取文章列表数据
+        public List<ManageText> GetManageTexts(int page,int rows, string sort, string order,string TextTitle)//获取文章列表数据
 		{
 			List<ManageText> manageTexts = new List<ManageText>();
-            var totalpage = repository.GetTextsAll().Count();
-            var trans = repository.GetTextsAll();
-            for(int i = (page-1)*rows;i<page*rows;i++)
+            //var totalpage = repository.GetTextsAll().Count();
+            var trans = new List<BlogText>();
+            if (!string.IsNullOrEmpty(TextTitle))
+            {
+                trans = repository.searchblogByTitle(TextTitle);
+                switch (sort)//使用switch,考虑到可扩展成其他类型的排序
+                {
+                    case "Hot":
+                        if (order == "desc")//在一个case中判断是正序还是倒序
+                        {
+                            trans = repository.searchblogByTitle(TextTitle).OrderByDescending(m => m.Hot).ToList();
+                        }
+                        else
+                        {
+                            trans = repository.searchblogByTitle(TextTitle).OrderBy(m => m.Hot).ToList();
+                        }
+                        break;
+                    default://默认情况，当sort为空
+                        trans = repository.searchblogByTitle(TextTitle);
+                        break;
+                }
+            }
+            else
+            {
+                switch (sort)//使用switch,考虑到可扩展成其他类型的排序
+                {
+                    case "Hot":
+                        if (order == "desc")//在一个case中判断是正序还是倒序
+                        {
+                            trans = repository.GetTextsAll().OrderByDescending(m => m.Hot).ToList();
+                        }
+                        else
+                        {
+                            trans = repository.GetTextsAll().OrderBy(m => m.Hot).ToList();
+                        }
+                        break;
+                    default://默认情况，当sort为空
+                        trans = repository.GetTextsAll();
+                        break;
+                }
+            }
+           
+
+
+            //var trans = repository.GetTextsAll();
+            for (int i = (page-1)*rows;i<page*rows;i++)
 			//foreach (var item in trans)
 			{
-                if (i >= totalpage)
+                if (i >= trans.Count())
                 {
                     break;
                 }
