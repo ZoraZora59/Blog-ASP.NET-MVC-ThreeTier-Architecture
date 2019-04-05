@@ -5,55 +5,67 @@
 }
 <link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <div data-options="region:'center'" id="tt">
+    <div id="toolbar" style="padding:3px">
+        <span>文章标题:</span>
+        <input id="Title" style="line-height:22px;border:1px solid #ccc">
+        <a href="#" class="easyui-linkbutton" plain="false" id="btnQuery">搜索</a>
+        <button name="DelBtn">批量删除</button>
+    </div>
     <table id="dg" class="easyui-datagrid" style="width:100%;height:100%"
            url="/manage/LoadTextList"
            toolbar="#toolbar" pagination="true"
-           rownumbers="true" fitColumns="true" singleSelect="true">
+           rownumbers="true" fitColumns="true" singleSelect="fasle">
         <thead>
             <tr>
                 <th field="TextID" width="15" align="center">文章索引</th>
                 <th field="TextTitle" width="80">文章标题</th>
                 <th field="CategoryName" width="20" align="center">分类</th>
-                <th field="Hot" width="15" align="center">热度</th>
+                <th field="Hot" width="15" align="center" sortable="true">热度</th>
                 <th field="TextChangeDate" width="50" align="center">修改时间</th>
                 <th data-options="field:'_operate',width:60,align:'center',formatter:formatOper">操作</th>
             </tr>
         </thead>
     </table>
 </div>
-<script type="text/javascript">
-    function formatOper(val, row, index) {
-        return '<button class="btn btn-outline-primary" plain="true" onclick=\'editText(' + row.TextID + ')\'>编辑</button> <button class="btn btn-outline-primary" plain="true" onclick= \'showText(' + row.TextID + ')\'>详情</button> <button class="btn btn-outline-danger" plain="true" onclick= \'destroyText(' + row.TextID + ')\'>删除</button>';
-    }
+    <script type="text/javascript">
+        function formatOper(val, row, index) {
+            return '<button class="btn btn-outline-primary" plain="true" onclick=\'editText(' + row.TextID + ')\'>编辑</button> <button class="btn btn-outline-primary" plain="true" onclick= \'showText(' + row.TextID + ')\'>详情</button> <button class="btn btn-outline-danger" plain="true" onclick= \'destroyText(' + row.TextID + ')\'>删除</button>';
+        }
 
-    function editText(tid) {
-        window.location.href = "/Manage/Update?TextID=" + tid;
-    }
-    function showText(tid) {
-        window.location.href = "/Manage/Show?TextID=" + tid;
-    }
-    function destroyText(tid) {
-        //alert(tid);
-        $.messager.confirm('删除确认', '确定要删除这篇博文吗?', function (r) {
-            if (r) {
-                $.ajax({
-                    ajax: false,
-                    type: "POST",//FromMethod
-                    url: "/Manage/DeleteText",//"/Controller/Action"
-                    data: { TextID: tid },//参数 "参数名："参数值""
-                    datatype: 'html',
-                    success: function () {
-                        alert('删除成功');
-                       // document.getElementById(tid).parentElement.remove();//TODO:此行代码无效
-                        window.location.href = "/Manage/TextList";
-                    },
-                    error: function () {
-                        alert('删除失败');
-                        window.location.href = "/Manage/TextList";
-                    }
-                });
-            }
+        function editText(tid) {
+            window.location.href = "/Manage/Update?TextID=" + tid;
+        }
+        function showText(tid) {
+            window.location.href = "/Manage/Show?TextID=" + tid;
+        }
+        function destroyText(tid) {
+            //alert(tid);
+            $.messager.confirm('删除确认', '确定要删除这篇博文吗?', function (r) {
+                if (r) {
+                    $.ajax({
+                        ajax: false,
+                        type: "POST",//FromMethod
+                        url: "/Manage/DeleteText",//"/Controller/Action"
+                        data: { TextID: tid },//参数 "参数名："参数值""
+                        datatype: 'html',
+                        success: function () {
+                            alert('删除成功');
+                            // document.getElementById(tid).parentElement.remove();//TODO:此行代码无效
+                            window.location.href = "/Manage/TextList";
+                        },
+                        error: function () {
+                            alert('删除失败');
+                            window.location.href = "/Manage/TextList";
+                        }
+                    });
+                }
+            });
+        }
+
+        $("#btnQuery").click(function () {
+            $("#dg").datagrid("load", {
+                "TextTitle": $("#Title").val()
+            });
         });
-    }
-
-</script>
+       
+    </script>

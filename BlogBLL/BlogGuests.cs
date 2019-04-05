@@ -31,7 +31,7 @@ namespace BlogBLL
             }
             return isRegist;
             
-        }
+        }//注册
         public BlogModel.BlogUser Login (ViewModels.LoginUser LogOne)
         {
 
@@ -47,7 +47,7 @@ namespace BlogBLL
                 return temp;
             }
             return null;
-        }
+        }//登录
 
         public object GetIndex(int? page)
         {
@@ -74,7 +74,7 @@ namespace BlogBLL
             int pageSize = 10;//每页显示的文章数
             int pageNumber = (page ?? 1);
             return (models.ToPagedList(pageNumber, pageSize));
-        }
+        }//首页，page实现分页
 
         public List<ShowComment> GetBlogComment(int id)
         {
@@ -95,7 +95,7 @@ namespace BlogBLL
                 i++;
             }
             return cmt;
-        }
+        }//根据文章id,获取文章的评论
 
         public  BlogText GetBlog(int id)
         {
@@ -104,7 +104,7 @@ namespace BlogBLL
             return model;
         }
 
-        public List<TextIndex> SearchBlog(string searchthing)
+        public List<TextIndex> SearchBlog(string searchthing)//搜索博文
         {
             var blog = repository.GetTextsAll();
             var search_list = new List<TextIndex>();
