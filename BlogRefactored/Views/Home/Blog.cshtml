@@ -15,10 +15,19 @@
         padding-left: 80%;
     }
 </style>
+
+
 <div id="main">
     <div id="mainContent">
         <div class="forFlow">
             <div id="post_detail">
+                <!--
+        _   __             ____            ____  __
+       / | / /__ _      __/ __ )___  ___  / __ )/ /___  ____ _
+      /  |/ / _ \ | /| / / __  / _ \/ _ \/ __  / / __ \/ __ `/
+     / /|  /  __/ |/ |/ / /_/ /  __/  __/ /_/ / / /_/ / /_/ /
+    /_/ |_/\___/|__/|__/_____/\___/\___/_____/_/\____/\__, /
+                                                     /____/  -->
                 <!--done-->
                 <div id="topics">
                     <div class="post">
@@ -136,10 +145,10 @@
 
                             <div id="comment_form_container">
                                 <script type="text/javascript" src="%E5%8D%9A%E6%96%873_files/mention.js"></script>
-                                
+
                                 <div><img src="~/front/images/评论大.png" />发表评论</div>
                                 <span id="tip_comment" style="color:Red"></span>
-                                <input type="hidden" value="@currentLoginInfo.Account" name="Account"/>
+                                <input type="hidden" value="@currentLoginInfo.Account" name="Account" />
                                 <input type="hidden" value=@Model.TextID name="TextID" />
                                 <p>
                                     昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="30" value="@currentLoginInfo.Name" style="width:200px;font-size:18px;">
@@ -147,7 +156,7 @@
                                 <p></p>
                                 <div class="commentbox_main">
                                     <div>评论内容：</div>
-                                    <textarea id="txt" style="width:80%;height:100px;resize:vertical" placeholder="您有什么想法要说的吗？"class="form-control"></textarea>
+                                    <textarea id="txt" style="width:80%;height:100px;resize:vertical" placeholder="您有什么想法要说的吗？" class="form-control"></textarea>
                                 </div>
                                 <p id="commentbox_opt">
                                     <button name="button" class="btn btn-primary" onclick="submitComment('@Model.TextID','@currentLoginInfo.Account')">提交评论</button>
@@ -171,6 +180,8 @@
     </div><!--end: mainContent 主体内容容器-->
     <div class="clear"></div>
 </div><!--end: main -->
+
+
 <script>
     function submitComment(tid, act) {
         var txt = document.getElementById('txt').value;

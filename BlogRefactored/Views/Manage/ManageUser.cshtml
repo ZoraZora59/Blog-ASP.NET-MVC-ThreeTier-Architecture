@@ -5,6 +5,14 @@
 }
 <link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <div data-options="region:'center'" id="tt">
+    <div id="toolbar" style="padding:3px">
+        <span>用户账号:</span>
+        <input id="UserAccount" style="line-height:22px;border:1px solid #ccc">
+        <span>用户昵称:</span>
+        <input id="UserName" style="line-height:22px;border:1px solid #ccc">
+        <a href="#" class="easyui-linkbutton" plain="false" id="btnName">搜索</a>
+        <a href="/manage/ManageUser" class="easyui-linkbutton" plain="false" id="btnQuery">刷新</a>
+    </div>
     <table id="dg" class="easyui-datagrid" style="width:100%;height:100%"
            url="/Manage/LoadUsers"
            toolbar="#toolbar" pagination="true"
@@ -13,7 +21,7 @@
             <tr>
                 <th field="Account" width="50">用户账号</th>
                 <th field="Name" width="50">用户昵称</th>
-                <th field="CommmentCount" width="25" align="center">评论数量</th>
+                <th field="CommmentCount" width="25" align="center" sortable="true">评论数量</th>
                 <th data-options="field:'_operate',width:40,align:'center',formatter:formatOper">操作</th>
             </tr>
         </thead>
@@ -25,7 +33,7 @@
     }
     function deleteUser(u) {
         //alert(u);
-        $.messager.confirm('删除确认', '确定要删除此分类吗?', function (r) {
+        $.messager.confirm('删除确认', '确定要删除此用户吗?', function (r) {
             if (r) {
                 $.ajax({
                     ajax: false,
@@ -45,4 +53,11 @@
             }
         });
     }
+
+    $("#btnName").click(function () {
+        $("#dg").datagrid("load", {
+            "UserAccount": $("#UserAccount").val(),
+            "UserName": $("#UserName").val()
+        });
+    });
 </script>

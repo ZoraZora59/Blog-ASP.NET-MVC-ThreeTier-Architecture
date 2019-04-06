@@ -80,7 +80,8 @@ namespace BlogRefactored.Controllers
 
 		public JsonResult LoadTextList(int page,int rows,string sort, string order,string TextTitle)//文章管理列表的JS实现
 		{
-            var result = new { total = manager.GetTextNum(), rows = manager.GetManageTexts(page, rows, sort,order, TextTitle) };
+            GridPager gp = new GridPager { page = page, rows = rows, sort = sort, order = order };
+            var result = new { total = manager.GetTextNum(), rows = manager.GetManageTexts(gp, TextTitle) };
 			return Json(result);
 		}
 		[HttpPost]
@@ -196,9 +197,10 @@ namespace BlogRefactored.Controllers
 			return View();
 		}
 		
-		public JsonResult LoadUsers(int page, int rows)//加载用户列表
+		public JsonResult LoadUsers(int page, int rows,string sort, string order,string UserAccount,string UserName)//加载用户列表
 		{
-            var result = new { total = manager.GetUserNum(), rows = manager.GetManageUsers(page, rows) };
+            GridPager gp = new GridPager { page = page, rows = rows ,sort=sort,order=order};
+            var result = new { total = manager.GetUserNum(), rows = manager.GetManageUsers(gp,UserAccount,UserName) };
             return Json(result);
 		}
 		public JsonResult DelUsers(string Account)//删除用户
@@ -241,9 +243,10 @@ namespace BlogRefactored.Controllers
 				return Redirect("/manage/");
 			}
 		}
-		public JsonResult LoadCategoryList(int page,int rows)//加载分类表
+		public JsonResult LoadCategoryList(int page,int rows,string sort,string order)//加载分类表
 		{
-            var result = new { total = manager.GetCateNum(), rows = manager.GetManageCategoriesInPage(page, rows) };
+            GridPager pg = new GridPager { page = page, rows = rows, sort = sort, order = order };
+            var result = new { total = manager.GetCateNum(), rows = manager.GetManageCategoriesInPage(pg) };
             return Json(result);
 		}
 		[HttpPost]
