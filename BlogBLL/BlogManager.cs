@@ -58,7 +58,7 @@ namespace BlogBLL
 			}
 			return CommentsList;
 		}
-        public List<ManageCategory> GetManageCategories()//获取分类列表数据
+        public List<ManageCategory> GetManageCategories()//获取分类列表数据,用于主页显示分类
         {
             List<ManageCategory> Categories = new List<ManageCategory>();
             List<BlogModel.BlogText> blogTexts = repository.GetTextsAll();
@@ -84,12 +84,61 @@ namespace BlogBLL
             Categories = Categories.OrderByDescending(c => c.CategoryHot).ToList();
             return Categories;
         }
-        public List<ManageCategory> GetManageCategoriesInPage(int page,int rows)//分页获取分类列表数据
+        public List<ManageCategory> GetManageCategoriesInPage(GridPager gp)//分页获取分类列表数据
 		{
-			List<ManageCategory> Categories = new List<ManageCategory>();
-			List<BlogModel.BlogText> blogTexts = repository.GetTextsAll();
+            Console.WriteLine(gp.page);
+			List<ManageCategory> Categories = new List<ManageCategory>();//用于保存所有的分类
+            List<ManageCategory> TempCategories = new List<ManageCategory>();//用于保存显示出分页的分类内容
+
+            List<BlogModel.BlogText> blogTexts = repository.GetTextsAll();
             var totalCatenum = new BlogSide().GetCateString().Count();
-            for (int i = (page - 1) * rows; i < page * rows; i++)
+            foreach(var item in blogTexts)//1.首先获取所有不重复的分类列表
+            {
+                ManageCategory addOne = new ManageCategory
+                {
+                    CategoryName = item.CategoryName,
+                    CategoryHot = item.Hot,
+                    TextCount = 1
+                };
+                if (!Categories.Exists(c => c.CategoryName == addOne.CategoryName))
+                {
+                    Categories.Add(addOne);
+                }
+                else
+                {
+                    var temp = Categories.Find(c => c.CategoryName == addOne.CategoryName);
+                    temp.CategoryHot += addOne.CategoryHot;
+                    temp.TextCount += addOne.TextCount;
+                }
+            }
+            switch (gp.sort)//2.根据分类列表，进行排序
+            {
+                case "TextCount":
+                    if (gp.order == "desc")
+                    {
+      
+                        Categories = Categories.OrderByDescending(c => c.TextCount).ToList();
+                    }
+                    else
+                    {
+                        Categories = Categories.OrderBy(c => c.TextCount).ToList();
+                    }
+                    break;
+                case "CategoryHot":
+                    if (gp.order == "desc")
+                    {
+                        Categories = Categories.OrderByDescending(c => c.CategoryHot).ToList();
+                    }
+                    else
+                    {
+                        Categories = Categories.OrderBy(c => c.CategoryHot).ToList();
+                    }
+                    break;
+                default:
+                    Categories = Categories.OrderByDescending(c => c.CategoryHot).ToList();
+                    break;
+            }
+            for (int i = (gp.page - 1) * gp.rows; i < gp.page * gp.rows; i++)//3.通过分页显示内容
             {
                 if (i >= totalCatenum)
                 {
@@ -98,23 +147,14 @@ namespace BlogBLL
                 }
 				ManageCategory addOne = new ManageCategory
 				{
-					CategoryName = blogTexts[i].CategoryName,
-					CategoryHot = blogTexts[i].Hot,
-					TextCount = 1
-				};
-				if(!Categories.Exists(c=>c.CategoryName==addOne.CategoryName))
-				{
-					Categories.Add(addOne);
-				}
-				else
-				{
-					var temp = Categories.Find(c => c.CategoryName == addOne.CategoryName);
-					temp.CategoryHot += addOne.CategoryHot;
-					temp.TextCount += addOne.TextCount;
-				}
+					CategoryName = Categories[i].CategoryName,
+					CategoryHot = Categories[i].CategoryHot,
+					TextCount = Categories[i].TextCount
+                };
+                TempCategories.Add(addOne);
 			}
-			Categories = Categories.OrderByDescending(c => c.CategoryHot).ToList();
-			return Categories;
+            
+			return TempCategories;
 		}
 
         public int GetTextNum()
@@ -122,7 +162,7 @@ namespace BlogBLL
             return repository.GetTextsAll().Count();
         }
 
-        public List<ManageText> GetManageTexts(int page,int rows, string sort, string order,string TextTitle)//获取文章列表数据
+        public List<ManageText> GetManageTexts(GridPager gp, string TextTitle)//获取文章列表数据
 		{
 			List<ManageText> manageTexts = new List<ManageText>();
             //var totalpage = repository.GetTextsAll().Count();
@@ -130,10 +170,10 @@ namespace BlogBLL
             if (!string.IsNullOrEmpty(TextTitle))
             {
                 trans = repository.searchblogByTitle(TextTitle);
-                switch (sort)//使用switch,考虑到可扩展成其他类型的排序
+                switch (gp.sort)//使用switch,考虑到可扩展成其他类型的排序
                 {
                     case "Hot":
-                        if (order == "desc")//在一个case中判断是正序还是倒序
+                        if (gp.order == "desc")//在一个case中判断是正序还是倒序
                         {
                             trans = repository.searchblogByTitle(TextTitle).OrderByDescending(m => m.Hot).ToList();
                         }
@@ -149,10 +189,10 @@ namespace BlogBLL
             }
             else
             {
-                switch (sort)//使用switch,考虑到可扩展成其他类型的排序
+                switch (gp.sort)//使用switch,考虑到可扩展成其他类型的排序
                 {
                     case "Hot":
-                        if (order == "desc")//在一个case中判断是正序还是倒序
+                        if (gp.order == "desc")//在一个case中判断是正序还是倒序
                         {
                             trans = repository.GetTextsAll().OrderByDescending(m => m.Hot).ToList();
                         }
@@ -170,7 +210,7 @@ namespace BlogBLL
 
 
             //var trans = repository.GetTextsAll();
-            for (int i = (page-1)*rows;i<page*rows;i++)
+            for (int i = (gp.page -1)* gp.rows;i< gp.page * gp.rows;i++)
 			//foreach (var item in trans)
 			{
                 if (i >= trans.Count())
@@ -191,33 +231,84 @@ namespace BlogBLL
 			}
 			return manageTexts;
 		}
-		public List<ManageUser> GetManageUsers(int page,int rows)//获取用户列表数据
+		public List<ManageUser> GetManageUsers(GridPager gp,string UserAccount,string UserName)//获取用户列表数据
 		{
-			List<ManageUser> manageUsers = new List<ManageUser>();
-			var trans = repository.GetUsersAll();
+			List<ManageUser> manageUsers = new List<ManageUser>();//用于存放所有用户
+            List<ManageUser> TempmanageUsers = new List<ManageUser>();//用于显示用户
+            List<BlogUser> trans = new List<BlogUser>();
             var totaluser = repository.GetUsersAll().Count();
-            trans.Remove(trans.Find(c => c.Account == "admin123"));
-            for (int i = (page - 1) * rows; i < page * rows; i++)
+            if (!string.IsNullOrEmpty(UserAccount))//如果Account存在，就直接查询。注意：Account不是模糊搜索，必须输入所有的字符
             {
-                if (i >= totaluser-1)
+                trans.Add(repository.GetUserByAccount(UserAccount));
+                if (trans[0] == null||UserAccount=="admin123")//如果没有此用户，直接返回NULL，不能查找管理员用户
+                {
+                    return manageUsers;
+                }
+            }
+            if (!string.IsNullOrEmpty(UserName))//如果Name存在就搜索Name,昵称Name是模糊搜索
+            {
+                trans = repository.GetUserByName(UserName);
+                trans.Remove(trans.Find(c => c.Account == "admin123"));//不能查找管理员用户
+            }
+            if (string.IsNullOrEmpty(UserName) && string.IsNullOrEmpty(UserAccount))//如果都为空，则默认
+            {
+                trans = repository.GetUsersAll();
+                trans.Remove(trans.Find(c => c.Account == "admin123"));//不能查找管理员用户
+            }
+            foreach (var item in trans)
+            {
+                ManageUser temp = new ManageUser
+                {
+                    Account = item.Account,
+                    Name = item.Name,
+                    CommmentCount = 0
+                };
+                var cmtlist = repository.GetCommentsAll().Where(c => c.Account == temp.Account).ToList();
+                foreach (var cmt in cmtlist)
+                {
+                    temp.CommmentCount++;
+                }
+                manageUsers.Add(temp);
+            }
+
+            switch (gp.sort)//使用switch,考虑到可扩展成其他类型的排序
+            {
+                case "CommmentCount":
+                    if (gp.order == "desc")//在一个case中判断是正序还是倒序
+                    {
+                        manageUsers = manageUsers.OrderByDescending(m => m.CommmentCount).ToList();
+                    }
+                    else
+                    {
+                        manageUsers = manageUsers.OrderBy(m => m.CommmentCount).ToList();
+                    }
+                    break;
+                default://默认情况，当sort为空
+                    break;
+            }
+
+            for (int i = (gp.page - 1) * gp.rows; i < gp.page * gp.rows; i++)//根据分页显示用户
+            {
+                if (manageUsers.Count == 0)
                 {
                     break;
                 }
+                if (i >= trans.Count())
+                {
+                    break;
+                }
+                
                 ManageUser temp = new ManageUser
-				{
-					Account = trans[i].Account,
-					Name = trans[i].Name,
-					CommmentCount = 0
-				};
-				var cmtlist = repository.GetCommentsAll().Where(c=>c.Account==temp.Account).ToList();
-				foreach(var cmt in cmtlist)
-				{
-					temp.CommmentCount++;
-				}
-				manageUsers.Add(temp);
-			}
-			return manageUsers;
-		}
+                {
+                    Account = manageUsers[i].Account,
+                    Name = manageUsers[i].Name,
+                    CommmentCount = manageUsers[i].CommmentCount
+                };
+                TempmanageUsers.Add(temp);
+            }
+            return TempmanageUsers;
+
+        }
 		public UpdateText GetTextInUpdate(int tid)//获取待编辑博文的内容
 		{
 			try

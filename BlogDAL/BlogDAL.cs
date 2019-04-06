@@ -199,6 +199,14 @@ namespace BlogDAL
             
         }
 
+        public List<BlogUser> GetUserByName(string userName)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogUsers.Where(m => m.Name.Contains(userName)).ToList();
+            }
+        }
+
         #endregion
     }
 	#region 数据库上下文组件

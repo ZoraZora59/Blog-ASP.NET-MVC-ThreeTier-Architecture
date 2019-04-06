@@ -4,6 +4,7 @@
 <script src="~/front/EasyUi/locale/easyui-lang-zh_CN.js"></script>
 <link href="~/front/EasyUi/themes/gray/easyui.css" rel="stylesheet" />
 <link href="~/front/EasyUi/themes/icon.css" rel="stylesheet" />
+<link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript"></script>
 
 <div>
@@ -13,13 +14,20 @@
 </div>
 <hr />
 <div>
-    分类名：<span>@ViewBag.Name</span>
+    <label for="staticEmail" class="col-sm-2 col-form-label"> 分类名：</label>
+    <div class="col-sm-5">
+        <input class="form-control" type="text" placeholder="@ViewBag.Name" readonly>
+    </div>
 </div>
 <div>
-    新命名：<input type="text" id="Nnew" />
+    <label for="inputPassword" class="col-sm-2 col-form-label">新命名：</label>
+    <div class="col-sm-5">
+        <input type="text" class="form-control" id="Nnew" placeholder="请输入新的分类名">
+    </div>
 </div>
+<br/>
 <div>
-    <button class="button_blue" onclick="rename('@ViewBag.Name')">确认更名</button>
+    <button class="btn btn-primary" onclick="rename('@ViewBag.Name')">确认更名</button>
     @Html.ActionLink("返回列表", "CategoryList")
 </div>
 <script>
