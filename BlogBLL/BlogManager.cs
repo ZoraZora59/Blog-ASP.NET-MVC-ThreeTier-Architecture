@@ -16,7 +16,11 @@ namespace BlogBLL
 	public class BlogManager : IBLL
 	{
 		private BlogDAL.BlogDAL repository = new BlogDAL.BlogDAL();
-
+		private string ServerPath;
+		public void SetPath(string Path)
+		{
+			ServerPath = Path;
+		}
 		public ManageMain GetManageIndex()//获取管理主页数据
 		{
 			int hot = 0;
@@ -443,12 +447,28 @@ namespace BlogBLL
 			}
 			return isSuccess;
 		}
+		public bool RemoveFiles(List<string> urls)//删除附件
+		{
+			bool isSuccess = false;
+			try
+			{
+				foreach(var item in urls)
+				{
+					repository.DelFile(item);
+				}
+				isSuccess = true;
+			}
+			catch (Exception)
+			{
+			}
+			return isSuccess;
+		}
 		public bool UpdateText(UpdateText blogText)//更新文章
 		{
 			bool isSuccess = false;
 			try
 			{
-				BlogModel.BlogText blog = new BlogModel.BlogText
+				BlogText blog = new BlogText
 				{
 					Text = blogText.Text,
 					FirstView = getFirstView(blogText.Text),
@@ -466,6 +486,9 @@ namespace BlogBLL
 				else//修改文章
 				{
 					blog.TextID = blogText.Id;
+					BlogText oldText = repository.GetTextByID(blog.TextID);
+					List<string> diff = getRemovedAttachmentUrl(oldText.Text, blog.Text);
+					RemoveFiles(diff);
 					repository.UpdateText(blog.TextID, blog);
 				}
 				isSuccess = true;
@@ -474,6 +497,30 @@ namespace BlogBLL
 			{
 			}
 			return isSuccess;
+		}
+		private List<string> getRemovedAttachmentUrl(string oldContent,string newContent)
+		{
+			List<string> urls =new List<string>();
+			Regex reg = new Regex(@"(?is)<a[^>]*?href=(['""\s]?)(?<href>[^'""\s]*)\1[^>]*?>");
+			MatchCollection matchOld=reg.Matches(oldContent);
+			MatchCollection matchNew = reg.Matches(newContent);
+			foreach (Match o in matchOld)
+			{
+				bool isExist = false;
+				foreach(Match n in matchNew)
+				{
+					if (o.Groups["href"].Value == n.Groups["href"].Value)
+					{
+						isExist = true;
+						break;
+					}
+				}
+				if(isExist==false)
+				{
+					urls.Add(ServerPath+o.Groups["href"].Value);
+				}
+			}
+			return urls;
 		}
 		public bool RemoveComment(int cid)//删除评论
 		{
@@ -495,6 +542,10 @@ namespace BlogBLL
 			content = Regex.Replace(content, "&[^;]+;", "");
 			if (content.Length < 201)
 			{
+				if (string.IsNullOrEmpty(content))
+				{
+					content = "这篇文章只有附件...";
+				}
 				return content;
 			}
 			else

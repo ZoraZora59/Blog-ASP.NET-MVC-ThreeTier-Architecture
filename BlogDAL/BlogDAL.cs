@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using BlogModel;
 
@@ -206,9 +207,17 @@ namespace BlogDAL
                 return db.BlogUsers.Where(m => m.Name.Contains(userName)).ToList();
             }
         }
-
-        #endregion
-    }
+		#endregion
+		#region 服务器文件处理
+		public void DelFile(string url)
+		{
+			if(File.Exists(url))
+			{
+				File.Delete(url);
+			}
+		}
+		#endregion
+	}
 	#region 数据库上下文组件
 	//[DbConfigurationType(typeof(System.Data.Entity.SqlServer.SqlProviderServices))]//添加与MSSQL类型相关的组件(默认)
 	public class BlogContext : DbContext
