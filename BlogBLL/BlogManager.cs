@@ -421,8 +421,9 @@ namespace BlogBLL
 			bool isSuccess = false;
 			try
 			{
-				repository.DelText(tid);
 				repository.DelCommentByTextID(tid);
+				RemoveFiles(getRemovedAttachmentUrl(repository.GetTextByID(tid).Text, string.Empty));
+				repository.DelText(tid);
 				isSuccess = true;
 			}
 			catch
@@ -430,9 +431,6 @@ namespace BlogBLL
 			}
 			return isSuccess;
 		}
-
-
-
         public bool RemoveUser(string account)//删除用户
 		{
 			bool isSuccess = false;
@@ -498,7 +496,8 @@ namespace BlogBLL
 			}
 			return isSuccess;
 		}
-		private List<string> getRemovedAttachmentUrl(string oldContent,string newContent)//获取需要删除的附件的URL，返回所有需要删除的URL的字符串列表
+		private List<string> getRemovedAttachmentUrl(string oldContent,string newContent)
+			//获取需要删除的附件的URL，返回所有需要删除的URL的字符串列表
 		{
 			List<string> urls =new List<string>();
 			Regex reg = new Regex(@"(?is)<a[^>]*?href=(['""\s]?)(?<href>[^'""\s]*)\1[^>]*?>");
