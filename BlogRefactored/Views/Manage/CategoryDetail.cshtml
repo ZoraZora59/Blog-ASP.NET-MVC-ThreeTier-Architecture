@@ -36,7 +36,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">索引号</th>
             <th scope="col">文章标题</th>
             <th scope="col">文章热度</th>
             <th scope="col">修改时间</th>
@@ -46,7 +46,7 @@
         @for (int i = 0; i < Model.Texts.Count(); i++)
         {
             <tr>
-                <th scope="row">@(i + 1)</th>
+                <th scope="row">@Model.Texts[i].TextID</th>
                 <td>
                     @Model.Texts[i].TextTitle
                 </td>

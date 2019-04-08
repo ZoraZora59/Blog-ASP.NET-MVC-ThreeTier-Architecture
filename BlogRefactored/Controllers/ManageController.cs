@@ -136,28 +136,7 @@ namespace BlogRefactored.Controllers
 			}
 			return View(new UpdateText());
 		}
-
-		//[HttpPost]
-		//[ValidateInput(false)]
-		//public ActionResult Update([Bind(Include = "Id,Title,Category,Text")] UpdateText BlogText)//文章更新提交
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		try
-		//		{
-		//			var IsUpdate = manager.UpdateText(BlogText);
-		//			if (IsUpdate == true)//TODO:更新成功处理
-		//			{
-		//				return Redirect("/manage/textlist");
-		//			}
-		//		}
-		//		catch
-		//		{
-		//			throw;
-		//		}
-		//	}
-		//	return Redirect("/manage/textlist");//TODO:更新失败处理
-		//}
+		
 		[HttpPost]
 		[ValidateInput(false)]
 		public JsonResult UpdateText()
@@ -166,6 +145,8 @@ namespace BlogRefactored.Controllers
 			{
 				try
 				{
+					string path = Server.MapPath("/");
+					manager.SetPath(path);
 					int BlogID=int.Parse(Request["ID"].ToString());
                     string BlogTitle = Request["Title"].ToString();
                     string BlogCategory = Request["Categroy"].ToString();
@@ -335,7 +316,7 @@ namespace BlogRefactored.Controllers
 				{ "file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2" }
 			};
 			//最大文件大小
-			int maxSize = 1000000;
+			int maxSize = 409600000;
 			HttpPostedFileBase imgFile = Request.Files["imgFile"];
 			if (imgFile == null)
 			{

@@ -20,7 +20,7 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-group" style="display:none">
             @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10" id="TextID">
@@ -53,7 +53,7 @@
                 <tr>
                     <th><i class="require-red">*</i>内容：</th>
                     <td>
-                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%",@id = "content" }, @id = "content" })
+                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "common-textarea", @style = "width:100%", @id = "content" }, @id = "content" })
                         <textarea rows="30" cols="20" name="schtmlnr" id="schtmlnr" style="display:none;"></textarea>
 
                     </td>
@@ -69,12 +69,22 @@
 
     }
 </div>
+<link href="~/kindeditor/themes/simple/simple.css" rel="stylesheet" />
 <script>
     var editor;
     KindEditor.ready(function (K) {
         editor = K.create('textarea[id="content"]', {
+            themeType: 'simple',
             width: '100%',
             minHeight: '300px',
+            items:[
+                'undo', 'redo', '|', 'preview',  'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', '|', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat',  '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'link', 'unlink',
+            ],
             resizeType: 1,
             allowFileManager: true,
             uploadJson: '/manage/Upload',
@@ -126,7 +136,7 @@
             ajax: false,
             type: "POST",//FromMetho
             url: "/Manage/UpdateText",//"/Controller/Action"
-            data: { ID:id, Title: title, Categroy: categroy, Content: content },
+            data: { ID: id, Title: title, Categroy: categroy, Content: content },
             success: function (data) {
                 alert('更新成功');
                 window.location.href = "/Manage/Update";
@@ -139,5 +149,5 @@
     function backToList() {
         window.location.href = "/Manage/TextList";
     }
-   
+
 </script>
