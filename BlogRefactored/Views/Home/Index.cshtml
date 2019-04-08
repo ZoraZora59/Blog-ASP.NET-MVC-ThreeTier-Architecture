@@ -7,6 +7,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script type="text/javascript">
     //判断是否移动端访问
     browserRedirect();
@@ -29,41 +32,43 @@
     }
 </script>
 @Html.Hidden("msg", Request.QueryString["msg"], new { @id = "msg" })
+
+
 @foreach (var item in Model)
 {
-<div class="day">
-    <div class="dayTitle">
-        <a id="homepage1_HomePageDays_DaysList_ctl00_ImageLink">@item.TextChangeDate.ToString()</a>
-    </div>
-    <div class="postTitle">
-        <a id="homepage1_HomePageDays_DaysList_ctl00_DayList_TitleUrl_0" class="postTitle2" href="/home/blog/@item.TextID">@item.TextTitle</a>
-    </div>
-    <div class="postCon">
-        <div class="c_b_p_desc">
-            @if (item.FirstView.Length < 100)
-            {
-                @item.FirstView
-            }
-            else
-            {
-                @item.FirstView
-                <a href="/home/blog/@item.TextID">阅读全文</a>
-            }
+    <div class="day">
+        <div class="dayTitle">
+            <a id="homepage1_HomePageDays_DaysList_ctl00_ImageLink">@item.TextChangeDate.ToString()</a>
         </div>
+        <div class="postTitle">
+            <a id="homepage1_HomePageDays_DaysList_ctl00_DayList_TitleUrl_0" class="postTitle2" href="/home/blog/@item.TextID">@item.TextTitle</a>
+        </div>
+        <div class="postCon">
+            <div class="c_b_p_desc">
+                @if (item.FirstView.Length < 100)
+                {
+                    @item.FirstView
+                }
+                else
+                {
+                    @item.FirstView
+                    <a href="/home/blog/@item.TextID">阅读全文</a>
+                }
+            </div>
+        </div>
+
+        @if (@item.CategoryName.ToString() == "")
+        {
+            <div class="postDesc">发布于 @item.TextChangeDate.ToString() NewbeeBlog 阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(未分类)  </div>
+        }
+        else
+        {
+            <div class="postDesc">发布于 @item.TextChangeDate.ToString() NewbeeBlog 阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(@item.CategoryName.ToString())  </div>
+        }
+
+
+        <div class="clear"></div>
     </div>
-
-    @if (@item.CategoryName.ToString() == "")
-    {
-        <div class="postDesc">发布于 @item.TextChangeDate.ToString() NewbeeBlog 阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(未分类)  </div>
-    }
-    else
-    {
-        <div class="postDesc">发布于 @item.TextChangeDate.ToString() NewbeeBlog 阅读(@item.Hot.ToString()) 评论(@item.CommitCount.ToString()) 属于(@item.CategoryName.ToString())  </div>
-    }
-
-
-    <div class="clear"></div>
-</div>
 }
 <br />
 <script>
