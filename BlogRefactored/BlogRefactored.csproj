@@ -1987,6 +1987,9 @@
     <Content Include="front\EasyUi\themes\icons\undo.png" />
     <Content Include="front\images\1.jpg" />
     <Content Include="front\images\2.jpg" />
+    <Content Include="front\images\写文章.png" />
+    <Content Include="front\images\刷新.png" />
+    <Content Include="front\images\搜索2.png" />
     <Content Include="front\images\楼主.png" />
     <Content Include="front\images\用户.png" />
     <Content Include="front\images\管理配置.png" />
