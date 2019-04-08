@@ -16,7 +16,7 @@ namespace BlogBLL
 	public class BlogManager : IBLL
 	{
 		private BlogDAL.BlogDAL repository = new BlogDAL.BlogDAL();
-		private string ServerPath;
+		private string ServerPath;//服务器绝对地址
 		public void SetPath(string Path)
 		{
 			ServerPath = Path;
@@ -161,12 +161,26 @@ namespace BlogBLL
 			return TempCategories;
 		}
 
-        public int GetTextNum()
-        {
-            return repository.GetTextsAll().Count();
-        }
+		#region 分页用，获取全站信息统计
+		public int GetTextNum()
+		{
+			return repository.GetTextsAll().Count();
+		}
+		public int GetCateNum()
+		{
+			return new BlogSide().GetCateString().Count();
+		}
+		public int GetUserNum()
+		{
+			return repository.GetUsersAll().Count();
+		}
+		public int GetCommentNum()
+		{
+			return repository.GetCommentsAll().Count();
+		}
+		#endregion
 
-        public List<ManageText> GetManageTexts(GridPager gp, string TextTitle)//获取文章列表数据
+		public List<ManageText> GetManageTexts(GridPager gp, string TextTitle)//获取文章列表数据
 		{
 			List<ManageText> manageTexts = new List<ManageText>();
             //var totalpage = repository.GetTextsAll().Count();
@@ -351,17 +365,6 @@ namespace BlogBLL
 			}
 			return category;
 		}
-
-        public object GetCateNum()
-        {
-            return new BlogSide().GetCateString().Count();
-        }
-
-        public int GetUserNum()
-        {
-            return repository.GetUsersAll().Count();
-        }
-
         public BlogModel.BlogText GetTextInDetail(int tid)//获取文章详情
 		{
 			try
@@ -428,10 +431,7 @@ namespace BlogBLL
 			return isSuccess;
 		}
 
-        public int GetCommentNum()
-        {
-            return repository.GetCommentsAll().Count();
-        }
+
 
         public bool RemoveUser(string account)//删除用户
 		{
@@ -498,7 +498,7 @@ namespace BlogBLL
 			}
 			return isSuccess;
 		}
-		private List<string> getRemovedAttachmentUrl(string oldContent,string newContent)
+		private List<string> getRemovedAttachmentUrl(string oldContent,string newContent)//获取需要删除的附件的URL，返回所有需要删除的URL的字符串列表
 		{
 			List<string> urls =new List<string>();
 			Regex reg = new Regex(@"(?is)<a[^>]*?href=(['""\s]?)(?<href>[^'""\s]*)\1[^>]*?>");
