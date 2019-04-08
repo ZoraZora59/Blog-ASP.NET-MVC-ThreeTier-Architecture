@@ -211,10 +211,7 @@ namespace BlogDAL
 		#region 服务器文件处理
 		public void DelFile(string url)
 		{
-			if(File.Exists(url))
-			{
-				File.Delete(url);
-			}
+			File.Delete(url);
 		}
 		#endregion
 	}

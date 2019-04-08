@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Xml.Serialization;
 
 namespace BlogBLL.App_Code
 {
-    public class SerializeTool
+	public class SerializeTool
     {
         public void Serialize<T>(object o )//序列化
         {

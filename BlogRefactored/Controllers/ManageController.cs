@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BlogBLL.ViewModels;
 using BlogModel;
-using System.Web.Helpers;
 
 namespace BlogRefactored.Controllers
 {
-    public class ManageController : Controller
+	public class ManageController : Controller
     {
 		#region AutoFac依赖注入
 		private BlogBLL.BlogManager manager;
@@ -22,7 +19,7 @@ namespace BlogRefactored.Controllers
 		}
         #endregion
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)//用户限制
         {
             //防止为登录进入后台界面
             base.OnActionExecuting(filterContext);
@@ -40,6 +37,7 @@ namespace BlogRefactored.Controllers
             }
             
         }
+
         #region 主界面
         [HttpGet]
 		public ActionResult Index()//控制中心主界面
