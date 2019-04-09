@@ -147,6 +147,30 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
+				//先修改链表
+				var Removing=db.BlogTexts.First(c => c.TextID == textID);
+				if(Removing.NexID==0)
+				{
+					if(Removing.PreID==0)//独苗
+					{
+					}
+					else//最后一个
+					{
+						db.BlogTexts.Find(Removing.PreID).NexID = 0;
+					}
+				}
+				else
+				{
+					if(Removing.PreID==0)//第一个
+					{
+						db.BlogTexts.Find(Removing.NexID).PreID = 0;
+					}
+					else//中间的
+					{
+						db.BlogTexts.Find(Removing.NexID).PreID = Removing.PreID;
+						db.BlogTexts.Find(Removing.PreID).NexID = Removing.NexID;
+					}
+				}
 				db.BlogComments.RemoveRange(db.BlogComments.Where(c => c.TextID == textID));
 				db.BlogTexts.Remove(db.BlogTexts.Find(textID));
 				db.SaveChanges();
@@ -157,7 +181,12 @@ namespace BlogDAL
 		{
 			using (BlogContext db = new BlogContext())
 			{
-				db.BlogTexts.Add(new BlogText { TextTitle = addThis.TextTitle, CategoryName = addThis.CategoryName, Text = addThis.Text, FirstView = addThis.FirstView });
+				BlogText before=new BlogText();//连接前后文
+				before = db.BlogTexts.ToList().LastOrDefault();
+				var newBlog=db.BlogTexts.Add(new BlogText { TextTitle = addThis.TextTitle, CategoryName = addThis.CategoryName, Text = addThis.Text, FirstView = addThis.FirstView ,PreID=before.TextID});
+				db.SaveChanges();
+				if (before != null)
+					db.BlogTexts.Find(before.TextID).NexID = newBlog.TextID;
 				db.SaveChanges();
 			}
 		}

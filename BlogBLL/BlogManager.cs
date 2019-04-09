@@ -456,7 +456,7 @@ namespace BlogBLL
 		}
 		#endregion
 
-		#region 修改功能
+		#region 增加和修改功能
 		public bool SetBlogConfig(BlogConfig cfg)//设定博客配置文件
 		{
 			bool isSuccess = false;
@@ -511,10 +511,8 @@ namespace BlogBLL
 				else//修改文章
 				{
 					blog.TextID = blogText.Id;
-					BlogText oldText = repository.GetTextByID(blog.TextID);
-					List<string> diff = getRemovedAttachmentUrl(oldText.Text, blog.Text);
-					RemoveFiles(diff);
-					repository.UpdateText(blog.TextID, blog);
+					RemoveFiles(getRemovedAttachmentUrl(repository.GetTextByID(blog.TextID).Text, blog.Text));//删除失效的附件
+					repository.UpdateText(blog.TextID, blog);//实际上是替换掉分类名、文章内容、文章标题、文章摘要四项
 				}
 				isSuccess = true;
 			}

@@ -35,26 +35,19 @@
                         <HR width="100%" color=#169fe6 9 SIZE=1>
 
                         <div class="clear"></div>
-
                         @Html.Raw(Model.Text)
                         <br />
                         <div class="postDesc">
                             分类：
-                            @if (Model.CategoryName == "")
-                            {
-                                <a href="/home/CategroyBlog?categroyname=未分类">未分类</a>
-                            }
-                            else
-                            {
                                 <a href="/home/CategroyBlog?categroyname=@Model.CategoryName">@Model.CategoryName</a>
-                            }
-
                             <br />
                             posted @@ <span id="post-date">@Model.TextChangeDate</span> <a href="/home">NewBeeBlog</a>
                         </div>
                     </div>
                     @*<script type="text/javascript">var allowComments = true, cb_blogId = 373006, cb_entryId = 7732035, cb_blogApp = currentBlogApp, cb_blogUserGuid = '3ff15543-f10c-4db9-6b2d-08d49c352df3', cb_entryCreatedDate = '2017/10/25 20:05:00'; loadViewCount(cb_entryId); var cb_postType = 1; var isMarkdown = false;</script>*@
-
+                    <!--TODO:修改下方前后文样式，并添加为空的判断(PreID/NexID==0)-->
+                    <a href="/home/blog/@Model.PreID">前一篇</a>
+                    <a href="/home/blog/@Model.NexID">后一篇</a>
                 </div><!--end: topics 文章、评论容器-->
             </div>
             <a name="!comments"></a><div id="blog-comments-placeholder">
