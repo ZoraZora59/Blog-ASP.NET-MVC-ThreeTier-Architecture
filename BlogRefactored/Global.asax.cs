@@ -35,19 +35,7 @@ namespace BlogRefactored
 			ViewEngines.Engines.Add(new RazorViewEngine());
 
 		}
-
-        protected void Session_End()
-        {
-            Hashtable SingleOnline = (Hashtable)System.Web.HttpContext.Current.Application["Online"];
-            if (SingleOnline != null && SingleOnline[User.Identity.Name] != null)
-            {
-                SingleOnline.Remove(Session.SessionID);
-                System.Web.HttpContext.Current.Application.Lock();
-                System.Web.HttpContext.Current.Application["Online"] = SingleOnline;
-                System.Web.HttpContext.Current.Application.UnLock();
-            }
-            Session.Abandon();
-        }
+		
     }
 	public static class BlogContainer
 	{
