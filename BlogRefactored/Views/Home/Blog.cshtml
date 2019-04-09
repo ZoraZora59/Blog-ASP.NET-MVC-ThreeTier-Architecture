@@ -21,13 +21,7 @@
     <div id="mainContent">
         <div class="forFlow">
             <div id="post_detail">
-                <!--
-        _   __             ____            ____  __
-       / | / /__ _      __/ __ )___  ___  / __ )/ /___  ____ _
-      /  |/ / _ \ | /| / / __  / _ \/ _ \/ __  / / __ \/ __ `/
-     / /|  /  __/ |/ |/ / /_/ /  __/  __/ /_/ / / /_/ / /_/ /
-    /_/ |_/\___/|__/|__/_____/\___/\___/_____/_/\____/\__, /
-                                                     /____/  -->
+                
                 <!--done-->
                 <div id="topics">
                     <div class="post">
@@ -64,73 +58,75 @@
                 </div><!--end: topics 文章、评论容器-->
             </div>
             <a name="!comments"></a><div id="blog-comments-placeholder">
-                <div id="comments_pager_top"></div>
-                <br>
-                <div class="feedback_area_title">
-                    <img src="~/front/images/评论4.png" /><font size="5">评论列表</font>
+    <div id="comments_pager_top"></div>
+    <br>
+    <div class="feedback_area_title">
+        <img src="~/front/images/评论4.png" /><font size="5">评论列表</font>
+    </div>
+    <a name="btm"></a>
+    <div class="feedbackNoItems"></div>
+    @if (ViewBag.CmtList.Count == 0)
+    {
+        <div class="feedbackItem">
+            <div class="feedbackListSubtitle">
+                <div class="feedbackManage">
+                    &nbsp;&nbsp;<span class="comment_actions"></span>
                 </div>
-                <div class="feedbackNoItems"></div>
-                @if (ViewBag.CmtList.Count == 0)
-                {
-                    <div class="feedbackItem">
-                        <div class="feedbackListSubtitle">
-                            <div class="feedbackManage">
-                                &nbsp;&nbsp;<span class="comment_actions"></span>
-                            </div>
-                            <div>此文章目前暂无评论</div>
-                        </div>
+                <div>此文章目前暂无评论</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var item in ViewBag.CmtList)
+        {
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        <span class="comment_actions">
+                            @if (@currentLoginInfo != null)
+                            {
+                                if (@item.Account == @currentLoginInfo.Account)
+                                {
+                                    <span style="display:none">@item.Account</span>
+                                    <button class="btn btn-secondary" onclick="deleteCommit('@Model.TextID','@item.Id')">删除此评论</button>
+                                }
+                            }
+                        </span>
                     </div>
-                }
-                else
-                {
-                    foreach (var item in ViewBag.CmtList)
+                    @if (@item.Account == "admin123")
                     {
-                        <div class="feedbackItem">
-                            <div class="feedbackListSubtitle">
-                                <div class="feedbackManage">
-                                    <span class="comment_actions">
-                                        @if (@currentLoginInfo != null)
-                                        {
-                                            if (@item.Account == @currentLoginInfo.Account)
-                                            {
-                                                <span style="display:none">@item.Account</span>
-                                                <button class="btn btn-secondary" onclick="deleteCommit('@Model.TextID','@item.Id')">删除此评论</button>
-                                            }
-                                        }
-                                    </span>
-                                </div>
-                                @if (@item.Account == "admin123")
-                                {
-                                    <div>#@item.Num 楼 [楼主]<img src="~/front/images/楼主.png" /></div>
-                                    <div>
-                                        <span class="comment_date">@item.Date.ToString()</span>
+                        <div>#@item.Num 楼 [楼主]<img src="~/front/images/楼主.png" /></div>
+                        <div>
+                            <span class="comment_date">@item.Date.ToString()</span>
 
-                                        <img src="~/front/images/用户.png" />  <span target="_blank">@item.Name</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div>#@item.Num 楼</div>
-                                    <div>
-                                        <span class="comment_date">@item.Date.ToString()</span>
-
-                                        <img src="~/front/images/用户.png" /> <span target="_blank">@item.Name</span>
-                                    </div>
-                                }
-                            </div>
-                            <div class="feedbackCon">
-                                <div id="comment_body_3822567" class="blog_comment_body">@item.Content</div>
-                            </div>
+                            <img src="~/front/images/用户.png" />  <span target="_blank">@item.Name</span>
                         </div>
                     }
-                }
-                <div id="comments_pager_bottom"></div>
+                    else
+                    {
+                        <div>#@item.Num 楼</div>
+                        <div>
+                            <span class="comment_date">@item.Date.ToString()</span>
+
+                            <img src="~/front/images/用户.png" /> <span target="_blank">@item.Name</span>
+                        </div>
+                    }
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3822567" class="blog_comment_body">@item.Content</div>
+                </div>
             </div>
+        }
+    }
+    <div id="comments_pager_bottom"></div>
+</div>
             <div id="comment_form" class="commentform">
                 <a name="commentform"></a>
                 <div id="divCommentShow"></div>
                 <div id="comment_nav"><a href="#top">返回顶部</a></div>
                 <div id="comment_form_container">
+                    
                     @if (currentLoginInfo == null)
                     {
 
@@ -141,6 +137,7 @@
                     }
                     else
                     {
+
                         <form>
 
                             <div id="comment_form_container">
@@ -158,6 +155,7 @@
                                     <div>评论内容：</div>
                                     <textarea id="txt" style="width:80%;height:100px;resize:vertical" placeholder="您有什么想法要说的吗？" class="form-control"></textarea>
                                 </div>
+                                <br/>
                                 <p id="commentbox_opt">
                                     <button name="button" class="btn btn-primary" onclick="submitComment('@Model.TextID','@currentLoginInfo.Account')">提交评论</button>
                                 </p>
@@ -194,12 +192,14 @@
             datatype: 'html',
             success: function () {
                 alert("评论成功");
+                window.location.href = "/home/Blog/" + tid + "#btm";
             },
             error: function () {
-                alert('评论失败')
+                alert('评论失败,过会儿再试试吧');
+                window.location.href = "/home/Blog/" + tid + "#btm";
             }
         });
-        window.location.href = "/home/Blog/" + tid;
+        
     }
     function deleteCommit(tid, cid) {
         //alert("成功进入");
@@ -211,9 +211,11 @@
             datatype: 'html',
             success: function () {
                 alert('删除成功');
+                window.location.href = "/home/Blog/" + tid + "#btm";
             },
             error: function () {
                 alert('删除失败，过会儿再试试吧');
+                window.location.href = "/home/Blog/" + tid + "#btm";
             }
         });
         window.location.href = "/home/blog/" + tid;
