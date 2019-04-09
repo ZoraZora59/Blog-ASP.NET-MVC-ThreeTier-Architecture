@@ -5,6 +5,19 @@
 }
 <link href="~/front/css/bootstrap.min.css" rel="stylesheet" />
 <div data-options="region:'center'" id="tt">
+    <div id="toolbar" style="padding:3px">
+        <span>用户账号:</span>
+        <input id="UserAccount" style="line-height:22px;border:1px solid #ccc">
+        <span>用户昵称:</span>
+        <input id="UserName" style="line-height:22px;border:1px solid #ccc">
+        
+        <a href="#" class="easyui-linkbutton" plain="false" id="btnName"><img src="~/front/images/搜索2.png" height="20" width="20" />搜索</a>
+        &nbsp
+        |
+        &nbsp
+        
+        <a href="/manage/ManageComment" class="easyui-linkbutton" plain="false" id="btnQuery"><img src="~/front/images/刷新.png" height="20" width="20" />刷新</a>
+    </div>
     <table id="dg" class="easyui-datagrid" style="width:100%;height:100%"
            url="/manage/LoadComment"
            toolbar="#toolbar" pagination="true"
@@ -43,4 +56,10 @@
         window.location.href = "/Manage/ManageComment";
     }
 
+    $("#btnName").click(function () {
+        $("#dg").datagrid("load", {
+            "UserAccount": $("#UserAccount").val(),
+            "UserName": $("#UserName").val()
+        });
+    });
 </script>

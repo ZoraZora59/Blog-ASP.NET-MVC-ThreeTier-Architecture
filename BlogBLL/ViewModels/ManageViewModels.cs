@@ -76,7 +76,28 @@ namespace BlogBLL.ViewModels
 		[StringLength(maximumLength: 500)]
 		public string Note { set; get; }
 	}
-	public class UpdateText//更新博文\编辑博文时获取数据
+
+    public class ManageUsersList//用户列表、用于搜索显示
+    {
+        public int UsersNumber;
+        public List<ManageUser> TempmanageUsers;
+    }
+
+    public class ManageTextsList//博文列表、用于搜索显示
+    {
+        public int TextNumber;
+        public List<ManageText> TempTextsLists;
+    }
+
+    public class ManageCommentsList//评论列表、用于搜索显示
+    {
+        public int CommentNumber;
+        public List<ManageComment> TempCommentsLists;
+    }
+
+  
+
+    public class UpdateText//更新博文\编辑博文时获取数据
 	{
 		[DisplayName("文章索引号")]
 		public int Id { get; set; }
