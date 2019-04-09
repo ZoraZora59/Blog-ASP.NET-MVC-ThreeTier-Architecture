@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using BlogBLL;
 using BlogBLL.App_Code;
 using BlogBLL.ViewModels;
 using BlogModel;
-using BlogRefactored.Models;
 
 namespace BlogRefactored.Controllers
 {
-    public class LoginActionFilter : ActionFilterAttribute
+	public class LoginActionFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
