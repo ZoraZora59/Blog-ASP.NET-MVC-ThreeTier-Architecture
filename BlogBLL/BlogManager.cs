@@ -38,15 +38,35 @@ namespace BlogBLL
 			};
 			return Mmain;
 		}
-		public List<ManageComment> GetManageComments(int page, int rows)//评论列表数据
+		public ManageCommentsList GetManageComments(int page, int rows,string UserAccount, string UserName)//评论列表数据
 		{
 			List<ManageComment> CommentsList = new List<ManageComment>();
-			List<BlogModel.BlogComment> trans = repository.GetCommentsAll();
+			List<BlogModel.BlogComment> trans = new List<BlogComment>();
 			List<BlogModel.BlogUser> tempUsersList = repository.GetUsersAll();
 			var totalComment = repository.GetCommentsAll().Count();
-			for (int i = (page - 1) * rows; i < page * rows; i++)
+            if(!string.IsNullOrEmpty(UserName)&& !string.IsNullOrEmpty(UserAccount))//如果过Account和Name都存在
+            {
+                trans = repository.GetCommentByAccountAndName(UserAccount, UserName);
+            }
+            if (!string.IsNullOrEmpty(UserAccount) && string.IsNullOrEmpty(UserName))//如果Account存在，就直接查询
+            {
+                trans=repository.GetCommentByAccount(UserAccount);
+            }
+            if (!string.IsNullOrEmpty(UserName) && string.IsNullOrEmpty(UserAccount))//如果Name存在就搜索Name,昵称Name是模糊搜索
+            {
+                trans = repository.GetCommentByName(UserName);
+            }
+            if (string.IsNullOrEmpty(UserName) && string.IsNullOrEmpty(UserAccount))//如果都为空，则默认
+            {
+                trans = repository.GetCommentsAll();
+            }
+            if (trans[0] == null)
+            {
+                return null;
+            }
+            for (int i = (page - 1) * rows; i < page * rows; i++)
 			{
-				if (i >= totalComment)
+				if (i >= trans.Count())
 				{
 					break;
 				}
@@ -61,7 +81,8 @@ namespace BlogBLL
 				};
 				CommentsList.Add(temp);
 			}
-			return CommentsList;
+            ManageCommentsList templist = new ManageCommentsList { CommentNumber = trans.Count(), TempCommentsLists = CommentsList };
+			return templist;
 		}
 		public List<ManageCategory> GetManageCategories()//获取分类列表数据,用于主页显示分类
 		{
@@ -161,7 +182,7 @@ namespace BlogBLL
 
 			return TempCategories;
 		}
-		public List<ManageText> GetManageTexts(GridPager gp, string TextTitle)//获取文章列表数据
+		public ManageTextsList GetManageTexts(GridPager gp, string TextTitle)//获取文章列表数据
 		{
 			List<ManageText> manageTexts = new List<ManageText>();
 			//var totalpage = repository.GetTextsAll().Count();
@@ -228,33 +249,37 @@ namespace BlogBLL
 				};
 				manageTexts.Add(temp);
 			}
-			return manageTexts;
+            ManageTextsList tempList = new ManageTextsList { TextNumber = trans.Count() , TempTextsLists = manageTexts };
+
+            return tempList;
 		}
-		public List<ManageUser> GetManageUsers(GridPager gp, string UserAccount, string UserName)//获取用户列表数据
+		public ManageUsersList GetManageUsers(GridPager gp, string UserAccount, string UserName)//获取用户列表数据
 		{
 			List<ManageUser> manageUsers = new List<ManageUser>();//用于存放所有用户
 			List<ManageUser> TempmanageUsers = new List<ManageUser>();//用于显示用户
 			List<BlogUser> trans = new List<BlogUser>();
-			var totaluser = repository.GetUsersAll().Count();
-			if (!string.IsNullOrEmpty(UserAccount))//如果Account存在，就直接查询。注意：Account不是模糊搜索，必须输入所有的字符
+            if(!string.IsNullOrEmpty(UserAccount) && !string.IsNullOrEmpty(UserName))//如果Account和Name都存在
+            {
+                trans = repository.GetUserByAccountAndName(UserAccount, UserName);
+            }
+			if (!string.IsNullOrEmpty(UserAccount) && string.IsNullOrEmpty(UserName))//如果Account存在
 			{
-				trans.Add(repository.GetUserByAccount(UserAccount));
-				if (trans[0] == null || UserAccount == "admin123")//如果没有此用户，直接返回NULL，不能查找管理员用户
-				{
-					return manageUsers;
-				}
-			}
-			if (!string.IsNullOrEmpty(UserName))//如果Name存在就搜索Name,昵称Name是模糊搜索
+                trans = repository.GetUserByAccountBlur(UserAccount);
+            }
+			if (!string.IsNullOrEmpty(UserName) && string.IsNullOrEmpty(UserAccount))//如果Name存在就搜索Name,昵称Name是模糊搜索
 			{
 				trans = repository.GetUserByName(UserName);
-				trans.Remove(trans.Find(c => c.Account == "admin123"));//不能查找管理员用户
 			}
 			if (string.IsNullOrEmpty(UserName) && string.IsNullOrEmpty(UserAccount))//如果都为空，则默认
 			{
 				trans = repository.GetUsersAll();
-				trans.Remove(trans.Find(c => c.Account == "admin123"));//不能查找管理员用户
 			}
-			foreach (var item in trans)
+            if (trans[0] == null)
+            {
+                return null;
+            }
+            trans.Remove(trans.Find(c => c.Account == "admin123"));//不能查找管理员用户
+            foreach (var item in trans)
 			{
 				ManageUser temp = new ManageUser
 				{
@@ -305,7 +330,13 @@ namespace BlogBLL
 				};
 				TempmanageUsers.Add(temp);
 			}
-			return TempmanageUsers;
+            ManageUsersList tempList = new ManageUsersList
+            {
+                UsersNumber = manageUsers.Count,
+                TempmanageUsers = TempmanageUsers
+            };
+
+            return tempList;
 
 		}
 		#endregion

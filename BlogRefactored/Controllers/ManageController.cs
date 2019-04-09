@@ -79,9 +79,14 @@ namespace BlogRefactored.Controllers
 		public JsonResult LoadTextList(int page,int rows,string sort, string order,string TextTitle)//文章管理列表的JS实现
 		{
             GridPager gp = new GridPager { page = page, rows = rows, sort = sort, order = order };
-            var result = new { total = manager.GetTextNum(), rows = manager.GetManageTexts(gp, TextTitle) };
-			return Json(result);
-		}
+            var loadingText = manager.GetManageTexts(gp, TextTitle);
+            if (loadingText != null)
+            {
+                var result = new { total = loadingText.TextNumber, rows = loadingText.TempTextsLists };
+                return Json(result);
+            }
+            return Json(new { total = 0, rows = new ManageText() });
+        }
 		[HttpPost]
 		public JsonResult DeleteText()//删除文章
 		{
@@ -179,8 +184,14 @@ namespace BlogRefactored.Controllers
 		public JsonResult LoadUsers(int page, int rows,string sort, string order,string UserAccount,string UserName)//加载用户列表
 		{
             GridPager gp = new GridPager { page = page, rows = rows ,sort=sort,order=order};
-            var result = new { total = manager.GetUserNum(), rows = manager.GetManageUsers(gp,UserAccount,UserName) };
-            return Json(result);
+            var loadingUsers = manager.GetManageUsers(gp, UserAccount, UserName);
+            if(loadingUsers != null)
+            {
+                var result = new { total = loadingUsers.UsersNumber, rows = loadingUsers.TempmanageUsers };
+                return Json(result);
+            }
+            return Json(new { total = 0 ,rows = new ManageUser()});
+            
 		}
 		public JsonResult DelUsers(string Account)//删除用户
 		{
@@ -225,7 +236,8 @@ namespace BlogRefactored.Controllers
 		public JsonResult LoadCategoryList(int page,int rows,string sort,string order)//加载分类表
 		{
             GridPager pg = new GridPager { page = page, rows = rows, sort = sort, order = order };
-            var result = new { total = manager.GetCateNum(), rows = manager.GetManageCategoriesInPage(pg) };
+            var loadingCategorys = manager.GetManageCategoriesInPage(pg);
+            var result = new { total = loadingCategorys.Count, rows = loadingCategorys };
             return Json(result);
 		}
 		[HttpPost]
@@ -278,10 +290,16 @@ namespace BlogRefactored.Controllers
 		{
 			return View();
 		}
-		public JsonResult LoadComment(int page,int rows)//加载评论管理界面的数据
+		public JsonResult LoadComment(int page,int rows, string UserAccount, string UserName)//加载评论管理界面的数据
 		{
-            var result = new { total = manager.GetCommentNum(), rows = manager.GetManageComments(page, rows) };
-            return Json(result);
+            var loadingComment = manager.GetManageComments(page, rows, UserAccount, UserName);
+            if (loadingComment != null)
+            {
+                var result = new { total = loadingComment.CommentNumber, rows = loadingComment.TempCommentsLists };
+                return Json(result);
+            }
+            return Json(new { total = 0, rows = loadingComment.TempCommentsLists });
+           
 		}
 		[HttpPost]
 		public JsonResult DeleteComment()//删除评论

@@ -49,17 +49,44 @@ namespace BlogDAL
 			}
 		}
 
-		//public BlogComment GetCommitNew()//获取最新评论
-		//{
-		//	using (BlogContext db = new BlogContext())
-		//	{
-                
-  //              return db.BlogCommits.Last();
-                
-		//	}
-		//}
+        public List<BlogComment> GetCommentByAccount(string userAccount)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogComments.Where(c => c.Account.Contains(userAccount)).ToList();
+               
+            }
+        }
 
-		public List<BlogComment> GetCommitsByTextID(int tid)//获取某文章下的所有评论，参数为文章ID号，返回一个BlogComment格式的列表
+        public List<BlogComment> GetCommentByAccountAndName(string userAccount, string userName)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogComments.Where(c => c.Account.Contains(userAccount)).Where(c=>c.User.Name.Contains(userName)).ToList();
+
+            }
+        }
+
+        public List<BlogComment> GetCommentByName(string userName)
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogComments.Where(c => c.User.Name.Contains(userName)).ToList();
+            }
+        }
+
+
+        //public BlogComment GetCommitNew()//获取最新评论
+        //{
+        //	using (BlogContext db = new BlogContext())
+        //	{
+
+        //              return db.BlogCommits.Last();
+
+        //	}
+        //}
+
+        public List<BlogComment> GetCommitsByTextID(int tid)//获取某文章下的所有评论，参数为文章ID号，返回一个BlogComment格式的列表
 		{
 			using (BlogContext db = new BlogContext())
 			{
@@ -130,6 +157,30 @@ namespace BlogDAL
                 return db.BlogUsers.FirstOrDefault(c => c.Account==Account);
 			}
 		}
+
+        public List<BlogUser> GetUserByName(string userName)//根据名字获取用户（模糊），返回BlogUser列表
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogUsers.Where(m => m.Name.Contains(userName)).ToList();
+            }
+        }
+
+        public List<BlogUser> GetUserByAccountBlur(string userAccount)//根据用户名获取用户（模糊），返回BlogUser列表
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogUsers.Where(m => m.Account.Contains(userAccount)).ToList();
+            }
+        }
+
+        public List<BlogUser> GetUserByAccountAndName(string userAccount,string userName)//根据用户名和名字获取用户（模糊），返回Bloguser列表
+        {
+            using (BlogContext db = new BlogContext())
+            {
+                return db.BlogUsers.Where(m => m.Name.Contains(userName)).Where(m => m.Account.Contains(userAccount)).ToList();
+            }
+        }
         #endregion
         #region 文章表相关
 
@@ -191,7 +242,7 @@ namespace BlogDAL
 			}
 		}
 
-        public List<BlogText> searchblogByTitle(string textTitle)
+        public List<BlogText> searchblogByTitle(string textTitle)//搜索文章，通过题目搜索
         {
             using (BlogContext db = new BlogContext())
             {
@@ -200,21 +251,17 @@ namespace BlogDAL
             
         }
 
-        public List<BlogUser> GetUserByName(string userName)
-        {
-            using (BlogContext db = new BlogContext())
-            {
-                return db.BlogUsers.Where(m => m.Name.Contains(userName)).ToList();
-            }
-        }
-		#endregion
-		#region 服务器文件处理
-		public void DelFile(string url)
+        
+        #endregion
+        #region 服务器文件处理
+        public void DelFile(string url)
 		{
 			File.Delete(url);
 		}
-		#endregion
-	}
+
+        
+        #endregion
+    }
 	#region 数据库上下文组件
 	//[DbConfigurationType(typeof(System.Data.Entity.SqlServer.SqlProviderServices))]//添加与MSSQL类型相关的组件(默认)
 	public class BlogContext : DbContext
