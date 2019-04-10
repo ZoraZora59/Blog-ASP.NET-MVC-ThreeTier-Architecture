@@ -35,6 +35,9 @@ namespace BlogModel
 		[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
 		public DateTime TextChangeDate { get; set; }//更新时间
 
+		public int PreID { get; set; }//前一篇
+		public int NexID { get; set; }//后一篇
+		
 		public virtual ICollection<BlogComment> Commits { get; set; }
 	}
 }

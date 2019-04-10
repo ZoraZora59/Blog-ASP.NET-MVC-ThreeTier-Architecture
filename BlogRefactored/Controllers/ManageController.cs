@@ -139,7 +139,7 @@ namespace BlogRefactored.Controllers
 			}
 			return View(new UpdateText());
 		}
-		
+
 		[HttpPost]
 		[ValidateInput(false)]
 		public JsonResult UpdateText()
@@ -150,11 +150,11 @@ namespace BlogRefactored.Controllers
 				{
 					string path = Server.MapPath("/");
 					manager.SetPath(path);
-					int BlogID=int.Parse(Request["ID"].ToString());
-                    string BlogTitle = Request["Title"].ToString();
-                    string BlogCategory = Request["Categroy"].ToString();
-                    string BlogContent = Request.Unvalidated["Content"].ToString();
-                    var model = new UpdateText { Id=BlogID, Category = BlogCategory, Title = BlogTitle, Text = BlogContent };
+					int BlogID = int.Parse(Request["ID"].ToString());
+					string BlogTitle = Request["Title"].ToString();
+					string BlogCategory = Request["Categroy"].ToString();
+					string BlogContent = Request.Unvalidated["Content"].ToString();
+					var model = new UpdateText { Id = BlogID, Category = BlogCategory, Title = BlogTitle, Text = BlogContent };
 					var IsUpdate = manager.UpdateText(model);
 					if (IsUpdate == true)
 					{

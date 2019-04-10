@@ -206,8 +206,23 @@ namespace BlogRefactored.Controllers
 			{
 				var model = home.GetBlog(tid);
 				var cmt = home.GetBlogComment(tid);
+				var viewmodel = new ViewBlog
+				{
+					TextID = model.TextID,
+					TextTitle = model.TextTitle,
+					TextChangeDate = model.TextChangeDate,
+					Text = model.Text,
+					PreID = model.PreID,
+					NexID = model.NexID,
+					FirstView = model.FirstView,
+					CategoryName = model.CategoryName
+				};
+				if (viewmodel.PreID!=0)
+					viewmodel.PreTitle = home.GetBlog(model.PreID).TextTitle;
+				if (viewmodel.NexID != 0)
+					viewmodel.NexTitle = home.GetBlog(model.NexID).TextTitle;
 				ViewBag.CmtList = cmt;
-				return View(model);
+				return View(viewmodel);
 			}
 			catch (Exception)
 			{
