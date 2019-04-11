@@ -48,11 +48,11 @@
                     <!--TODO:修改下方前后文样式，并添加为空的判断(PreID/NexID==0)-->
                     @if (Model.NexID != 0)
                     {
-                    <a class="float-right" href="/home/blog/@Model.NexID">后一篇：@Model.NexTitle</a>
+                <a class="float-right" href="/home/blog/@Model.NexID">&gt&gt后一篇：@Model.NexTitle</a>
                     }
                     @if (Model.PreID != 0)
                     {
-                    <a class="float-left" href="/home/blog/@Model.PreID">前一篇：@Model.PreTitle</a>
+                <a class="float-left" href="/home/blog/@Model.PreID">&lt&lt前一篇：@Model.PreTitle</a>
                     }
                 </div><!--end: topics 文章、评论容器-->
             </div>

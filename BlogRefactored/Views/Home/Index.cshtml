@@ -31,7 +31,7 @@
 </script>
 @Html.Hidden("msg", Request.QueryString["msg"], new { @id = "msg" })
 
-
+@Html.Hidden("Cmsg", Request.QueryString["Cmsg"], new { @id = "Cmsg" })
 @foreach (var item in Model)
 {
     <div class="day">
@@ -75,6 +75,17 @@
         if (val != "") {
             if (confirm(val)) {
                 window.location.href = '/Home/Login';
+            } else {
+                window.location.href = '/';
+            }
+
+        }
+    })
+    $(function () {
+        var val = $("#Cmsg").val();
+        if (val != "") {
+            if (confirm(val)) {
+                window.location.href = '/';
             } else {
                 window.location.href = '/';
             }
