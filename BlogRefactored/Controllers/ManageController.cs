@@ -271,8 +271,6 @@ namespace BlogRefactored.Controllers
 		{
 			var NameString = Request["NameChanging"].ToString();
 			string[] name = NameString.Split(new char[] { ',' });
-			if (name[0] == "未分类")
-				name[0] = string.Empty;
 			if (manager.RenameCategory(name[0], name[1]))
 				return Json(0);
 			return Json(null);

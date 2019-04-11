@@ -234,7 +234,15 @@ namespace BlogDAL
 			{
 				BlogText before=new BlogText();//连接前后文
 				before = db.BlogTexts.ToList().LastOrDefault();
-				var newBlog=db.BlogTexts.Add(new BlogText { TextTitle = addThis.TextTitle, CategoryName = addThis.CategoryName, Text = addThis.Text, FirstView = addThis.FirstView ,PreID=before.TextID});
+				BlogText newBlog;
+				if(before==null)
+				{
+					newBlog = db.BlogTexts.Add(new BlogText { TextTitle = addThis.TextTitle, CategoryName = addThis.CategoryName, Text = addThis.Text, FirstView = addThis.FirstView });
+				}
+				else
+				{
+					newBlog = db.BlogTexts.Add(new BlogText { TextTitle = addThis.TextTitle, CategoryName = addThis.CategoryName, Text = addThis.Text, FirstView = addThis.FirstView, PreID = before.TextID });
+				}
 				db.SaveChanges();
 				if (before != null)
 					db.BlogTexts.Find(before.TextID).NexID = newBlog.TextID;

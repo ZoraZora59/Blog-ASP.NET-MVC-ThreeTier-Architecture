@@ -60,7 +60,7 @@ namespace BlogBLL
             {
                 trans = repository.GetCommentsAll();
             }
-            if (trans[0] == null)
+            if (trans == null)
             {
                 return null;
             }
@@ -274,7 +274,7 @@ namespace BlogBLL
 			{
 				trans = repository.GetUsersAll();
 			}
-            if (trans[0] == null)
+            if (trans == null)
             {
                 return null;
             }
