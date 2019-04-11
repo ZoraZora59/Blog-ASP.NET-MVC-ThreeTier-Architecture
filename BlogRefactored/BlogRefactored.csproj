@@ -2863,7 +2863,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="attached\" />
     <Folder Include="Views\Side\" />
   </ItemGroup>
   <PropertyGroup>

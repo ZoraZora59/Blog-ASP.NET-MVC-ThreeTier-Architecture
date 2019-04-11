@@ -94,8 +94,8 @@
     <div data-options="region:'center'">
         <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
             <div title="管理中心" style="padding:20px;display:none;">
-
-                <h2>欢迎，管理员</h2>
+                <a href="/manage/index" plain="false" id="btnQuery" style="float:right">  <img src="~/front/images/刷新.png" height="20" width="20" />刷新主界面</a>
+                <h1>欢迎，管理员</h1>
 
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -178,6 +178,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
