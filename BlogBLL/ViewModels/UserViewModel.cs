@@ -46,6 +46,7 @@ namespace BlogBLL.ViewModels
         [Required]
         [StringLength(maximumLength: 16, MinimumLength = 6)]
         [Compare("Password", ErrorMessage = "两次输入的密码不一致")]
+		[Display(Name ="确认密码")]
         public string Cpassword { set; get; }
 
         [Required]
