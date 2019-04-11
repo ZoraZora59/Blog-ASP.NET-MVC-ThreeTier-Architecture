@@ -323,13 +323,13 @@ namespace BlogRefactored.Controllers
 			String savePath = "/attached/";
 			//文件保存目录URL
 			String saveUrl = "/attached/";
-			//定义允许上传的文件扩展名
-			Hashtable extTable = new Hashtable
+            //定义允许上传的文件扩展名
+            Hashtable extTable = new Hashtable
 			{
 				{ "image", "gif,jpg,jpeg,png,bmp" },
 				{ "flash", "swf,flv" },
 				{ "media", "swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb" },
-				{ "file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2" }
+				{ "file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2,pdf,7z" }
 			};
 			//最大文件大小
 			int maxSize = 409600000;
