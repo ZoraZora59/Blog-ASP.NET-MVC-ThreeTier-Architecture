@@ -80,9 +80,7 @@
                     <li>
                         <label for="user" class="input-tips2">验证码：</label>
                         <div class="inputOuter3">
-
                             @Html.TextBoxFor(m => m.Code, new { @class = "inputstyle3" })
-                            @Html.ValidationMessageFor(m => m.Code)
                         </div>
                         <img src="/home/ValidateCode/" style="position:relative;left:150px;">
                     </li>
