@@ -42,7 +42,6 @@ namespace BlogRefactored.Controllers
         [HttpGet]
 		public ActionResult Index()//控制中心主界面
 		{
-            
             return View(manager.GetManageIndex());
 		}
 		#endregion
