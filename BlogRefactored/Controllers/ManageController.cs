@@ -92,6 +92,8 @@ namespace BlogRefactored.Controllers
 		{
 			try
 			{
+				string path = Server.MapPath("/");
+				manager.SetPath(path);
 				manager.RemoveText(int.Parse(Request["TextID"].ToString()));
 			}
 			catch
