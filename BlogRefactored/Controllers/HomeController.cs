@@ -213,6 +213,7 @@ namespace BlogRefactored.Controllers
 					TextID = model.TextID,
 					TextTitle = model.TextTitle,
 					TextChangeDate = model.TextChangeDate,
+					Hot=model.Hot,
 					Text = model.Text,
 					PreID = model.PreID,
 					NexID = model.NexID,
