@@ -323,6 +323,10 @@ namespace BlogRefactored.Controllers
 			String savePath = "/attached/";
 			//文件保存目录URL
 			String saveUrl = "/attached/";
+			if(!Directory.Exists(Server.MapPath(savePath)))
+			{
+				Directory.CreateDirectory(Server.MapPath(savePath));
+			}
             //定义允许上传的文件扩展名
             Hashtable extTable = new Hashtable
 			{
