@@ -90,7 +90,7 @@ namespace BlogRefactored.Controllers
                     return RedirectToAction("Register", "Home", new { msg = "注册失败!您输入的格式有误" });
                 }
             }
-            return RedirectToAction("index", "home", new { msg = "注册成功！请登录！" });
+            return RedirectToAction("Login", "home", new { msg = "注册成功！请登录！" });
         }
 
         [HttpGet]
@@ -154,10 +154,12 @@ namespace BlogRefactored.Controllers
                 {
                     return RedirectToAction("ChangeInfo", "Home", new { msg = "验证码错误！请重新输入" });
                 }
-				model.Account = currentLoginUser.Account;
-				home.ChangeInfo(model);
+                model.Account = currentLoginUser.Account;
+                home.ChangeInfo(model);//完成数据修改
+                BlogUser LoginModel = home.Login(new LoginUser { Account = model.Account,Password=model.Password});
+                Session["loginuser"] = LoginModel;
             }
-            return Redirect("/");
+            return RedirectToAction("index", "Home", new { Cmsg = "修改成功！" });
         }
 
 

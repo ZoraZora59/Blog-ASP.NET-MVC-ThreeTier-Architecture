@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    @Html.Hidden("msg", Request.QueryString["msg"], new { @id = "msg" })
+    @Html.Hidden("Cmsg", Request.QueryString["Cmsg"], new { @id = "Cmsg" })
     <h1><font color="#0081c1">个人信息修改</font></h1>
 
     <div class="login" style="margin-top:30px;">
@@ -101,10 +101,10 @@
     <canvas id="c_n1"></canvas>
     <script>
         $(function () {
-            var val = $("#msg").val();
+            var val = $("#Cmsg").val();
             if (val != "") {
                 if (confirm(val)) {
-                    window.history.go(-1);
+                    window.location.href = '/';
                 }
 
             }
