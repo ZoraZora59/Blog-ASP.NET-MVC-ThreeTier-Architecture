@@ -431,7 +431,7 @@ namespace BlogBLL
 			}
 			return isSuccess;
 		}
-		public bool RemoveFiles(List<string> urls)//删除附件
+		public bool RemoveFiles(List<string> urls)//删除附件   是否完成不应当影响文章更新和删除的成功
 		{
 			bool isSuccess = false;
 			try
