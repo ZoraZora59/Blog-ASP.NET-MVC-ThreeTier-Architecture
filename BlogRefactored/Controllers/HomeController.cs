@@ -224,13 +224,13 @@ namespace BlogRefactored.Controllers
 				int length = 18;
 				if (viewmodel.PreID != 0)
 				{
-					viewmodel.PreTitle = home.GetBlog(model.PreID).TextTitle;
+					viewmodel.PreTitle = home.GetBlogFree(model.PreID).TextTitle;
 					if (viewmodel.PreTitle.Length > length)
 						viewmodel.PreTitle = viewmodel.PreTitle.Substring(0, length) + "...";
 				}
 				if (viewmodel.NexID != 0)
 				{
-					viewmodel.NexTitle = home.GetBlog(model.NexID).TextTitle;
+					viewmodel.NexTitle = home.GetBlogFree(model.NexID).TextTitle;
 					if (viewmodel.NexTitle.Length > length)
 						viewmodel.NexTitle = viewmodel.NexTitle.Substring(0, length) + "...";
 				}

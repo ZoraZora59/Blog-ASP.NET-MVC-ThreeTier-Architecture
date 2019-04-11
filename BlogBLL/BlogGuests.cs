@@ -103,6 +103,10 @@ namespace BlogBLL
             var model = repository.GetTextByID(id);
             return model;
         }
+		public BlogText GetBlogFree(int id)
+		{
+			return repository.GetTextByID(id);
+		}
 
         public List<TextIndex> SearchBlog(string searchthing)//搜索博文
         {
