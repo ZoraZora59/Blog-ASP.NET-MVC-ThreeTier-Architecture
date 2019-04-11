@@ -60,7 +60,7 @@
                         <ul>
                             @foreach (string item in categroyList)
                             {
-                                if (@item =="")
+                                if (@item == "")
                                 {
                                     <li><a id="CatList_LinkList_0_Link_0" href="/home/CategroyBlog?categroyname=未分类">未分类</a> </li>
                                 }
@@ -104,9 +104,6 @@
                                         }
                                     }
                                 </ul>
-
-
-
                                 </div>
                         </div>
                     </div>
@@ -117,9 +114,12 @@
                             <h3 class="catListTitle">阅读排行榜</h3>
                             <div id="TopViewPostsBlock">
                                 <ul>
-                                    @foreach (var item in Model)
-                                    {
-                                        <li><a href="/home/blog/@item.TextID">@item.TextTitle (@item.Hot)</a></li>
+                                    @{
+                                        var MList = Model.ToList();
+                                        for (int i = 0; i <MList.Count; i++)
+                                        {
+                                            <li>@(i + 1).<a href="/home/blog/@MList[i].TextID">@MList[i].TextTitle (@MList[i].Hot)</a></li>
+                                        }
                                     }
                                 </ul>
                             </div>
