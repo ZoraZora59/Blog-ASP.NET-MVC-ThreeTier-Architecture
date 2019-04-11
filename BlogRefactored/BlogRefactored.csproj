@@ -155,6 +155,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\NewBeeBlog.mdf" />
+    <Content Include="App_Data\NewBeeBlog_log.ldf">
+      <DependentUpon>NewBeeBlog.mdf</DependentUpon>
+    </Content>
     <Content Include="config\blogconfig.xml" />
     <Content Include="Content\.gitignore" />
     <Content Include="Content\about.html" />
@@ -2859,7 +2863,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="attached\" />
     <Folder Include="Views\Side\" />
   </ItemGroup>
