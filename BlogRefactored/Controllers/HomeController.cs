@@ -220,10 +220,14 @@ namespace BlogRefactored.Controllers
 					FirstView = model.FirstView,
 					CategoryName = model.CategoryName
 				};
-				if (viewmodel.PreID!=0)
-					viewmodel.PreTitle = home.GetBlog(model.PreID).TextTitle;
+				//此处参数length用于修改博文显示时前后文标题的长度限制
+				int length = 12;
+				if (viewmodel.PreID != 0)
+					if (viewmodel.PreTitle.Length > length)
+						viewmodel.PreTitle = home.GetBlog(model.PreID).TextTitle.Substring(0, length) + "...";
 				if (viewmodel.NexID != 0)
-					viewmodel.NexTitle = home.GetBlog(model.NexID).TextTitle;
+					if (viewmodel.NexTitle.Length > length)
+						viewmodel.NexTitle = home.GetBlog(model.NexID).TextTitle.Substring(0, length) + "...";
 				ViewBag.CmtList = cmt;
 				return View(viewmodel);
 			}
