@@ -42,7 +42,6 @@ namespace BlogRefactored.Controllers
         [HttpGet]
 		public ActionResult Index()//控制中心主界面
 		{
-            
             return View(manager.GetManageIndex());
 		}
 		#endregion
@@ -92,6 +91,8 @@ namespace BlogRefactored.Controllers
 		{
 			try
 			{
+				string path = Server.MapPath("/");
+				manager.SetPath(path);
 				manager.RemoveText(int.Parse(Request["TextID"].ToString()));
 			}
 			catch
@@ -321,6 +322,10 @@ namespace BlogRefactored.Controllers
 			String savePath = "/attached/";
 			//文件保存目录URL
 			String saveUrl = "/attached/";
+			if(!Directory.Exists(Server.MapPath(savePath)))
+			{
+				Directory.CreateDirectory(Server.MapPath(savePath));
+			}
             //定义允许上传的文件扩展名
             Hashtable extTable = new Hashtable
 			{
