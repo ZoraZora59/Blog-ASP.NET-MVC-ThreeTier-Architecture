@@ -27,7 +27,7 @@ namespace BlogRefactored
 
 			//AutoFac依赖注入
 			var container = BlogContainer.GetContainer();
-			ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container));
+			//ControllerBuilder.Current.SetControllerFactory(new BlogControllerFactory(container));
 			DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 			//DependencyResolver.SetResolver(new BlogDependencyResolver(container));
 
@@ -53,24 +53,24 @@ namespace BlogRefactored
 			return containner;
 		}
 	}
-	public class BlogControllerFactory : DefaultControllerFactory//Controller创建工厂
-	{
-		private readonly ILifetimeScope _container;
-		public BlogControllerFactory(ILifetimeScope container)
-		{
-			_container = container;
-		}
-		protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
-		{
-			try
-			{
-				return (IController)_container.Resolve(controllerType);
-			}
-			catch
-			{ }
-			return base.GetControllerInstance(requestContext, controllerType);
-		}
-	}
+	//public class BlogControllerFactory : DefaultControllerFactory//Controller创建工厂
+	//{
+	//	private readonly ILifetimeScope _container;
+	//	public BlogControllerFactory(ILifetimeScope container)
+	//	{
+	//		_container = container;
+	//	}
+	//	protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
+	//	{
+	//		try
+	//		{
+	//			return (IController)_container.Resolve(controllerType);
+	//		}
+	//		catch
+	//		{ }
+	//		return base.GetControllerInstance(requestContext, controllerType);
+	//	}
+	//}
 
    
 	/*public class BlogDependencyResolver : IDependencyResolver//弃用的DependencyResolver
